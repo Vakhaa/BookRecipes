@@ -34,6 +34,15 @@ namespace BookRecipes.WebApi.Controllers
             _logger = logger;
         }
 
+        // GET: api/<BookController>/test
+        [HttpGet("Test")]
+        [Produces("application/json")]
+        public ActionResult<object> GetTest()
+        {
+            var test = "[{},{'name':'mema'}]";
+            return JsonConvert.DeserializeObject(test);//new ObjectResult("[{'name':'mema'}]"); //JsonConvert.DeserializeObject()
+        }
+
         // GET: api/<BookController>/CategoriesParent
         [HttpGet("CategoriesParent")]
         [Produces("application/json")]
@@ -58,7 +67,7 @@ namespace BookRecipes.WebApi.Controllers
             return new ObjectResult(await _recipeController.GetRecipesAsync());
         }
 
-        // GET api/<BookController>/Recipe/5
+        // GET api/Book/Recipe/5
         [HttpGet("Recipe/{id}")]
         [Produces("application/json")]
         public async Task<ActionResult<Recipe>> GetRecipeAsync(int id)

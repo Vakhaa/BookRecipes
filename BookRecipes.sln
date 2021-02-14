@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30330.147
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookRecipes.Web", "HomeTask4.Web\BookRecipes.Web.csproj", "{BC856631-A1CA-4B1F-9DC9-28E6CC91AAF3}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookRecipes.Core", "BookRecipes.Core\BookRecipes.Core.csproj", "{226D256E-B282-4E5D-AA0D-4AC02517B14C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookRecipes.Infrastructure", "BookRecipes.Infrastructure\BookRecipes.Infrastructure.csproj", "{8BC14128-BA85-432B-82E7-71C1AA9A9387}"
@@ -12,8 +10,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookRecipes.SharedKernel", "BookRecipes.SharedKernel\BookRecipes.SharedKernel.csproj", "{788E08DA-ACDF-4DE0-BD2C-0CE1DD31AC67}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookRecipes.Tests", "BookRecipes.Tests\BookRecipes.Tests.csproj", "{031C90BF-D1A5-4B3F-A676-CA35D8E9A451}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookRecipes.ReactClientApp", "BookRecipes.ReactClientApp\BookRecipes.ReactClientApp.csproj", "{2AE4B0DE-5D4F-4CD5-8AC7-F4AD728AABD3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookRecipes.WebApi", "BookRecipes.WebApi\BookRecipes.WebApi.csproj", "{8C7B1938-94DD-4232-BEFB-8B37480E5560}"
 EndProject
@@ -27,18 +23,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BC856631-A1CA-4B1F-9DC9-28E6CC91AAF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BC856631-A1CA-4B1F-9DC9-28E6CC91AAF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BC856631-A1CA-4B1F-9DC9-28E6CC91AAF3}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{BC856631-A1CA-4B1F-9DC9-28E6CC91AAF3}.Debug|x64.Build.0 = Debug|Any CPU
-		{BC856631-A1CA-4B1F-9DC9-28E6CC91AAF3}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{BC856631-A1CA-4B1F-9DC9-28E6CC91AAF3}.Debug|x86.Build.0 = Debug|Any CPU
-		{BC856631-A1CA-4B1F-9DC9-28E6CC91AAF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BC856631-A1CA-4B1F-9DC9-28E6CC91AAF3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BC856631-A1CA-4B1F-9DC9-28E6CC91AAF3}.Release|x64.ActiveCfg = Release|Any CPU
-		{BC856631-A1CA-4B1F-9DC9-28E6CC91AAF3}.Release|x64.Build.0 = Release|Any CPU
-		{BC856631-A1CA-4B1F-9DC9-28E6CC91AAF3}.Release|x86.ActiveCfg = Release|Any CPU
-		{BC856631-A1CA-4B1F-9DC9-28E6CC91AAF3}.Release|x86.Build.0 = Release|Any CPU
 		{226D256E-B282-4E5D-AA0D-4AC02517B14C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{226D256E-B282-4E5D-AA0D-4AC02517B14C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{226D256E-B282-4E5D-AA0D-4AC02517B14C}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -87,18 +71,6 @@ Global
 		{031C90BF-D1A5-4B3F-A676-CA35D8E9A451}.Release|x64.Build.0 = Release|Any CPU
 		{031C90BF-D1A5-4B3F-A676-CA35D8E9A451}.Release|x86.ActiveCfg = Release|Any CPU
 		{031C90BF-D1A5-4B3F-A676-CA35D8E9A451}.Release|x86.Build.0 = Release|Any CPU
-		{2AE4B0DE-5D4F-4CD5-8AC7-F4AD728AABD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2AE4B0DE-5D4F-4CD5-8AC7-F4AD728AABD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2AE4B0DE-5D4F-4CD5-8AC7-F4AD728AABD3}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{2AE4B0DE-5D4F-4CD5-8AC7-F4AD728AABD3}.Debug|x64.Build.0 = Debug|Any CPU
-		{2AE4B0DE-5D4F-4CD5-8AC7-F4AD728AABD3}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{2AE4B0DE-5D4F-4CD5-8AC7-F4AD728AABD3}.Debug|x86.Build.0 = Debug|Any CPU
-		{2AE4B0DE-5D4F-4CD5-8AC7-F4AD728AABD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2AE4B0DE-5D4F-4CD5-8AC7-F4AD728AABD3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2AE4B0DE-5D4F-4CD5-8AC7-F4AD728AABD3}.Release|x64.ActiveCfg = Release|Any CPU
-		{2AE4B0DE-5D4F-4CD5-8AC7-F4AD728AABD3}.Release|x64.Build.0 = Release|Any CPU
-		{2AE4B0DE-5D4F-4CD5-8AC7-F4AD728AABD3}.Release|x86.ActiveCfg = Release|Any CPU
-		{2AE4B0DE-5D4F-4CD5-8AC7-F4AD728AABD3}.Release|x86.Build.0 = Release|Any CPU
 		{8C7B1938-94DD-4232-BEFB-8B37480E5560}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8C7B1938-94DD-4232-BEFB-8B37480E5560}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C7B1938-94DD-4232-BEFB-8B37480E5560}.Debug|x64.ActiveCfg = Debug|Any CPU

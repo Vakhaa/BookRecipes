@@ -1,5 +1,4 @@
 ﻿using BookRecipes.Core.Controllers;
-using BookRecipes.Core.Entities;
 using BookRecipes.Infrastructure.Data;
 using BookRecipes.SharedKernel.Interfaces;
 using Microsoft.EntityFrameworkCore;

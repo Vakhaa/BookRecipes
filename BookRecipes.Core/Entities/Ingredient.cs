@@ -8,6 +8,7 @@ namespace BookRecipes.Core.Entities
     {
         public string Name { get; set; }
         public IEnumerable<IngredientsInRecipe> IngredientsInRecipe { get; set; }
+
         public Ingredient() { }
         public Ingredient(string name)
         {

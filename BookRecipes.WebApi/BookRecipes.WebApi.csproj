@@ -14,6 +14,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.10" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="3.1.10" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.10" />
+    <PackageReference Include="Numind.AspNetCore.SpaServices.Extensions" Version="1.0.1" />
     <PackageReference Include="React.AspNet" Version="5.2.11" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
@@ -22,6 +23,11 @@
     <ProjectReference Include="..\BookRecipes.Core\BookRecipes.Core.csproj" />
     <ProjectReference Include="..\BookRecipes.Infrastructure\BookRecipes.Infrastructure.csproj" />
     <ProjectReference Include="..\BookRecipes.SharedKernel\BookRecipes.SharedKernel.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="client\src\containers\" />
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 

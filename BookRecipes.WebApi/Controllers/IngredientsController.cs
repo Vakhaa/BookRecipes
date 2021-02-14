@@ -23,30 +23,38 @@ namespace BookRecipes.WebApi.Controllers
             _ingredientController = ingredientController;
             _logger = logger;
         }
-        // GET: api/<IngredientsController>
-        [HttpGet]
+        // GET: api/<IngredientsController>/Ingredients
+        [HttpGet("Ingredients")]
         [Produces("application/json")]
-        public async Task<ActionResult<List<Ingredient>>> Get()
+        public async Task<ActionResult<List<Ingredient>>> GetIngredientAsync()
         {
             return new ObjectResult(await _ingredientController.GetIngredientsAsync());
         }
-/*
-        // POST api/<IngredientsController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
 
-        // PUT api/<IngredientsController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // GET: api/<IngredientsController>/Ingredient/id
+        [HttpGet("Ingredient/{id}")]
+        [Produces("application/json")]
+        public async Task<ActionResult<List<Ingredient>>> GetIngredientByIdAsync(int id)
         {
+            return new ObjectResult(await _ingredientController.GetIngredientByIdAsync(id));
         }
+        /*
+                // POST api/<IngredientsController>
+                [HttpPost]
+                public void Post([FromBody] string value)
+                {
+                }
 
-        // DELETE api/<IngredientsController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }*/
+                // PUT api/<IngredientsController>/5
+                [HttpPut("{id}")]
+                public void Put(int id, [FromBody] string value)
+                {
+                }
+
+                // DELETE api/<IngredientsController>/5
+                [HttpDelete("{id}")]
+                public void Delete(int id)
+                {
+                }*/
     }
 }

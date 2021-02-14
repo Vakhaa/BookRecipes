@@ -12,6 +12,7 @@ namespace BookRecipes.Infrastructure.Data
     public class EFRepository : IRepository
     {
         private AppDbContext _context;
+
         public EFRepository(AppDbContext context)
         {
             _context = context;
@@ -43,6 +44,7 @@ namespace BookRecipes.Infrastructure.Data
         {
             _context.Set<T>().Update(entity);
         }
+
         public async Task<IEnumerable<T>> GetWithIncludeListAsync<T>(
             params Expression<Func<T, object>>[] includeProperties) where T : BaseEntity
         {

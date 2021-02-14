@@ -9,7 +9,7 @@ namespace BookRecipes.Core.Entities
         public string Name { get; set; }
         public int? ParentId { get; set; }
         public Category Parent { get; set; }
-        public IEnumerable<Category> Children { get; set; }
+        public IEnumerable<Category> Children { get;set; }
         public Category() { }
         public Category( string name, int parentId=0)
         {
