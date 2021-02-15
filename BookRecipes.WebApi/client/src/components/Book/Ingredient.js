@@ -1,21 +1,14 @@
-import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import { Typography } from '@material-ui/core';
 
-export default class Ingredient extends Component {
-    constructor(props) {
-        super(props);
-
-        this.id = this.props.id
-        this.name = this.props.name
-        this.ingredientsInRecipe = this.props.ingredientsInRecipe
-    }
-    render() {
-        return (<li>
-            <Typography>{this.id}. {this.name}. You have {this.ingredientsInRecipe.length} recipes with this ingredients.</Typography>
-        </li>)
-    }
+const Ingredient = (props) =>{
+    
+    return (
+        <li>
+            <Typography>{props.id}. {props.name}. You have {props.ingredientsInRecipe.length} recipes with this ingredients.</Typography>
+        </li>
+    )
 }
 
 Ingredient.propTypes = {
@@ -30,3 +23,5 @@ Ingredient.propTypes = {
     //id: PropTypes.number.isRequired,
     //getIngredient: PropTypes.func.isRequired
 }
+
+export default Ingredient;

@@ -13,9 +13,7 @@ render(
     <Provider store={store}>
         <CssBaseline/>
         <BrowserRouter>
-            <div className='app'>
-                <App />
-            </div>
+            <App />
         </BrowserRouter>
     </Provider>,
     document.getElementById('root')

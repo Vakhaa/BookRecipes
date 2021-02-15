@@ -1,8 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
-import Ingredients from './Book/Ingredients';
-import { getIngredients } from '../actions/ingredientsAction'
+import IngredientsContainer from '../containers/IngredientsContainer'
 import Header from './Header/Header.js'
 import Footer from './Footer/Footer.js'
 
@@ -21,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function App (props){ 
+export default function App (props){ 
 
     const classes = useStyles();
 
@@ -32,34 +30,14 @@ function App (props){
                 <main>
                     <Grid container spacing={1} className={classes.mainGrid}>
                         <Grid container item spacing={1} justify="center">
-                            <Ingredients
-                                ingredients={props.ingredientsReducer.ingredients}
-                                fetching={props.ingredientsReducer.fetching}
-                                getIngredients={props.ingredientsActions}
-                            />
+                            <Route path="/">
+                                <IngredientsContainer />
+                            </Route>
                         </Grid>
                     </Grid>
                 </main>
             </Container>
             <Footer title="Footer" description="Something here to give the footer a purpose!" />
-
         </>
-
         )
 } 
-
-const mapStateToProps = state => {
-    console.log(state)
-    return {
-        ingredientsReducer: state.ingredients
-    }
-}
-
-const mapDispatchToProps = dispatch => ({
-    ingredientsActions: () => dispatch(getIngredients())
-})
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(App);

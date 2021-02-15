@@ -18,7 +18,7 @@ export default function StickyFooter(props) {
     return (
         <header className={classes.footer}>
             <Container maxWidth="md">
-                <Typography variant="h2" textAlign="center">{props.title}</Typography>
+                <Typography variant="h2">{props.title}</Typography>
             </Container>
         </header>
     );
