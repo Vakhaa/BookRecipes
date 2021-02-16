@@ -17,6 +17,9 @@ const initialState = {
 }
 
 export default function ingredientsReducer(state = initialState, action) {
+    let stateCopy = {
+        ...state, ingredients: [...state.ingredients]}
+
     switch (action.type) {
         case GET_INGREDIENTS_REQUEST:
             return {

@@ -6,17 +6,17 @@ import { Button, Input } from '@material-ui/core'
 
 const Ingredients = (props) => {
 
-    const componentDidMount = () =>{
+    /*const componentDidMount = () =>{
         this.timer = setInterval(() => this.getIngredients(), 5000);
         this.timer1 = setInterval(() => this.setState({ ingredients: this.props.ingredients }), 1000);
-    }
+    }*/
 
     /*componentWillUnmount() {
         clearInterval(this.timer);
         clearInterval(this.timer1);
     }*/
 
-    const handleChange = (event) => {
+    /*const handleChange = (event) => {
         this.setState({ value: event.target.value });
         event.preventDefault();
     }
@@ -26,11 +26,16 @@ const Ingredients = (props) => {
         console.log(this.state.value)
         props.getIngredient(this.state.value)
         event.preventDefault();
+
+    }*/
+    /*let timer = setInterval(() => props.getIngredients(), 10000);*/
+    if (props.ingredients.length === 1) {
+        props.getIngredients();
     }
+
 
     return (
         <div className="ingredients">
-            {props.getIngredients()}
             {/*<form onSubmit={this.handleSubmit}>
                 <Input type="text" value={this.state.value} onChange={this.handleChange} />
                 <Button variant="outlined" type="submit" value="Send" > Send </Button>
@@ -41,8 +46,11 @@ const Ingredients = (props) => {
                     {
                         props.fetching ? (<li>Loading</li>)
                         : Array.from(props.ingredients).map((ingredient) => (
-                            <Ingredient key={ingredient.id.toString()} name={ingredient.name} id={ingredient.id} ingredientsInRecipe={ingredient.ingredientsInRecipe} />
-                        ))}
+                            <Ingredient
+                                key={ingredient.id.toString()} name={ingredient.name}
+                                id={ingredient.id} ingredientsInRecipe={ingredient.ingredientsInRecipe} />
+                        ))
+                    }
                 </ul>
             </div>
         </div>

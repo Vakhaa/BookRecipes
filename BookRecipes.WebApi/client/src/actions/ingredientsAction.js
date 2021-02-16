@@ -5,6 +5,7 @@ import {
 }
     from './actionTypes'
 
+import * as axios from 'axios'
 
 export function requestIngredients() {
     return {
@@ -31,13 +32,18 @@ export function getIngredients() {
     return (dispatch) => {
         dispatch(requestIngredients())
 
-        fetch(`api/Ingredients/Ingredients`)
+        axios.get("api/Ingredients/Ingredients").then(response => {
+            dispatch(receiveIngredients(response.data))
+        }).catch(error => {
+            dispatch(errorIngredients(error))
+        })
+        /*fetch(`api/Ingredients/Ingredients`)
             .then((response) => {
                 return response.json()
             }).then(json => {
                 dispatch(receiveIngredients(json))
             }).catch((e) => {
                 dispatch(errorIngredients(e))
-            });
+            });*/
     }
 }

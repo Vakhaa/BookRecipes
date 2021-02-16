@@ -8,7 +8,7 @@ export default function configureStore(initialState) {
     const store = createStore(
         rootReducer,
         applyMiddleware(
-            thunkMiddleware, // позволяет нам отправлять функции
+            thunkMiddleware, // позволяет нам отправлять функции async
             loggerMiddleware // аккуратно логируем экшены
         )
     )

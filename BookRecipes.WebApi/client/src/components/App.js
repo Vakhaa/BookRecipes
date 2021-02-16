@@ -1,5 +1,3 @@
-import React from 'react';
-
 import IngredientsContainer from '../containers/IngredientsContainer'
 import Header from './Header/Header.js'
 import Footer from './Footer/Footer.js'
