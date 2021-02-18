@@ -19,21 +19,18 @@ export default function ingredientReducer(state = initialState, action) {
                 id: action.ingredient,
                 fetching: true
             }
-            break;
         case GET_INGREDIENT_SUCCESS:
             return {
                 ...state,
                 ingredient: action.ingredient,
                 fetching: false
             }
-            break;
         case GET_INGREDIENT_ERROR:
             return {
                 ...state,
                 error: action.error,
                 fetching: false
             }
-            break;
         default:
             return state
     }

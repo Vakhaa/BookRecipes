@@ -1,7 +1,6 @@
 import React from 'react'  
-import PropTypes from 'prop-types'
 
-import { Button, Input, Typography } from '@material-ui/core'
+import { Typography } from '@material-ui/core'
 import { NavLink } from 'react-router-dom'
 
 

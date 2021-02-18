@@ -6,14 +6,10 @@ import SideBarContainer from '../containers/SideBarContainer';
 import Header from './Header/Header.js'
 import Footer from './Footer/Footer.js'
 
-import { Container, Grid, Paper } from '@material-ui/core'
+import { Grid, Paper } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 
-import {
-    Switch,
-    Route,
-    Link
-} from "react-router-dom";
+import {Route} from "react-router-dom";
 import ProfileContainer from '../containers/ProfileContainer';
 
 const useStyles = makeStyles((theme) => ({
@@ -28,7 +24,7 @@ export default function App (props){
 
     return (
         <Paper>
-            <Header title="This is book of ingredients" />
+            <Header title="This is book of recipes" />
             <main>
                 <Grid container spacing={2} className={classes.mainGrid}>
                     <Grid container item md={2}>

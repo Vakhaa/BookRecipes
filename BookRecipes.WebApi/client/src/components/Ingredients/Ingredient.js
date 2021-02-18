@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 
-import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { Typography, Button, Tooltip } from '@material-ui/core';
@@ -27,7 +26,7 @@ const Ingredient = (props) => {
     const CurrentInform = () => (
         <div>
             <span><Typography>{props.id}. {props.name}. You have {props.ingredientsInRecipe.length} recipes with this ingredients.</Typography></span>
-            <span><img className={classes.ingredientPhoto} src="https://source.unsplash.com/random" /></span>
+            <span><img alt={props.name} className={classes.ingredientPhoto} src="https://source.unsplash.com/random" /></span>
             <span>
                 <ul>
                     {

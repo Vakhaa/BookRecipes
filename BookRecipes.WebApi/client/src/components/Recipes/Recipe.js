@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types'
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -29,7 +28,7 @@ const Recipe = (props) => {
                         <Typography variant="h2">{props.name} - id: {props.id}</Typography>
                     </Grid>
                     <Grid container item>
-                        <img className={classes.recipePhoto} src="https://source.unsplash.com/random" />
+                        <img alt={props.name} className={classes.recipePhoto} src="https://source.unsplash.com/random" />
                     </Grid>
                     <Grid container item>
                         <Typography paragraph>{props.description}</Typography>

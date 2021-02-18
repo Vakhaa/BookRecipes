@@ -2,9 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Ingredient from './Ingredient'
 
-import { Button, Input } from '@material-ui/core'
-
-
 const Ingredients = (props)=>{
     return(
             <div className = "ingredients" >

@@ -9,6 +9,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 const store = configureStore();
 
+window.store = store;
+
 render(
     <Provider store={store}>
         <CssBaseline/>

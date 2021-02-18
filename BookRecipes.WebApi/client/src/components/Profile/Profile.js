@@ -1,10 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types'
 
 import { makeStyles } from '@material-ui/core/styles';
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { Grid, Typography, Avatar, Chip, Accordion, AccordionSummary, AccordionDetails, Button } from '@material-ui/core';
+import { Grid, Typography, Avatar, Chip, Accordion, AccordionSummary, AccordionDetails, Button, Input } from '@material-ui/core';
 
 import Posts from './Posts/Posts'
 
@@ -24,13 +23,23 @@ const useStyles = makeStyles({
 const Profile = (props) => {
     const classes = useStyles();
 
+    const onPostTitle = (e) => {
+        let text = e.target.value
+        props.updatePostTitle(text)
+    }
+
+    const onPostBody = (e) => {
+        let text = e.target.value
+        props.updatePostBody(text)
+    }
+
         return (
             <>
                 <Grid container>
                     <Grid container item>
                         <Grid container item md={4}>
                             <Avatar variant="rounded" className={classes.rounded}>
-                                <img src={props.photo} />
+                                <img alt="avatar" src={props.photo} />
                                 N
                             </Avatar>
                         </Grid>
@@ -82,8 +91,9 @@ const Profile = (props) => {
                         <Grid container item md={6}>
                             <Grid container item>
                                 <form>
-                                    <textarea></textarea>
-                                    <Button variant="outlined">Create post</Button>
+                                    <Input placeholder="Is it title message" value={props.newPostTitle} onChange={(e) => (onPostTitle(e))} />
+                                    <textarea placeholder="Is it body message" value={props.newPostBody} onChange={(e) => (onPostBody(e))} ></textarea>
+                                    <Button variant="outlined" onClick={props.addPost}>Create post</Button>
                                 </form>
                             </Grid>
                             <Grid container item>
