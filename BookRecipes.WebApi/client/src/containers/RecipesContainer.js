@@ -1,17 +1,29 @@
 import React, {Component} from 'react'  
 import { connect } from 'react-redux'
-import { getIngredient } from '../actions/ingredientAction'
-import { getIngredients } from '../actions/ingredientsAction'
-import Ingredients from '../components/Ingredients/Ingredients'
+import Recipes from '../components/Recipes/Recipes'
 
-class IngredientsContainer  extends Component {
+const recipesMoq = {
+    recipes: [
+        {
+            id: 1,
+            name: "Barszcz"
+        },
+        {
+            id: 2,
+            name: "Zupa"
+        },
+    ],
+    fetching: false
+}
+
+class RecipesContainer  extends Component {
     constructor(props) {
         super(props);
 
     }
 
     componentDidMount() {
-        this.props.getIngredients();
+        /*this.props.Recipes();*/
         /*   this.timer = setInterval(() => this.getIngredients(), 5000);
            this.timer1 = setInterval(() => this.setState({ ingredients: this.props.ingredients }), 1000);*/
     }
@@ -38,9 +50,9 @@ class IngredientsContainer  extends Component {
 
     render() {
         return (
-            <Ingredients
+            <Recipes
+                recipes={this.props.recipes}
                 fetching={this.props.fetching}
-                ingredients={this.props.ingredients}
             />
         )
     }
@@ -48,16 +60,14 @@ class IngredientsContainer  extends Component {
 
 const mapStateToProps = state => {
     return {
-        ingredients: state.ingredients.ingredients,
-        fetching: state.ingredients.fetching
+        recipes: recipesMoq.recipes,
+        fetching: recipesMoq.fetching
     }
 }
 
 const mapDispatchToProps = dispatch => {
      return {
-        getIngredient: id => dispatch(getIngredient(id)),
-        getIngredients: ()=> dispatch(getIngredients())
 }}
 
-export default connect(mapStateToProps, mapDispatchToProps)(IngredientsContainer )
+export default connect(mapStateToProps, null)(RecipesContainer)
  
