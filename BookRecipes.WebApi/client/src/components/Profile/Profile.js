@@ -91,8 +91,8 @@ const Profile = (props) => {
                         <Grid container item md={6}>
                             <Grid container item>
                                 <form>
-                                    <Input placeholder="Is it title message" value={props.newPostTitle} onChange={(e) => (onPostTitle(e))} />
-                                    <textarea placeholder="Is it body message" value={props.newPostBody} onChange={(e) => (onPostBody(e))} ></textarea>
+                                    <Input placeholder="It is title message" value={props.newPostTitle} onChange={(e) => (onPostTitle(e))} />
+                                    <textarea placeholder="It is body message" value={props.newPostBody} onChange={(e) => (onPostBody(e))} ></textarea>
                                     <Button variant="outlined" onClick={props.addPost}>Create post</Button>
                                 </form>
                             </Grid>

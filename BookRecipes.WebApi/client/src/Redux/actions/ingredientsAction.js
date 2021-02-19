@@ -5,7 +5,7 @@ import {
 }
     from './actionTypes'
 
-import * as axios from 'axios'
+import { ingredientsAPI } from '../../DAL/api'
 
 export function requestIngredients() {
     return {
@@ -27,23 +27,14 @@ export function errorIngredients(error) {
     }
 }
 
-//генератор экшена
-export function getIngredients() {
+export const getIngredients =() =>{
     return (dispatch) => {
-        dispatch(requestIngredients())
+        dispatch(requestIngredients());
 
-        axios.get("api/Ingredients/Ingredients").then(response => {
-            dispatch(receiveIngredients(response.data))
+        ingredientsAPI.getIngredients().then(data => {
+            dispatch(receiveIngredients(data))
         }).catch(error => {
             dispatch(errorIngredients(error))
         })
-        /*fetch(`api/Ingredients/Ingredients`)
-            .then((response) => {
-                return response.json()
-            }).then(json => {
-                dispatch(receiveIngredients(json))
-            }).catch((e) => {
-                dispatch(errorIngredients(e))
-            });*/
     }
 }

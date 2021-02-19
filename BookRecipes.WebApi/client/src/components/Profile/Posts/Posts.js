@@ -11,7 +11,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 
 const useStyles = makeStyles({
     posts: {
-        maxWidth:345,
+        maxWidth:545,
     }
 });
 
@@ -26,7 +26,7 @@ const Profile = (props) => {
                         <CardActionArea>
                             <CardMedia
                                 component="img"
-                                height="140"
+                                height="340"
                                 image={post.photo}
                                 title="Contemplative Reptile"
                             />

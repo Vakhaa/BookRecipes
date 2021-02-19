@@ -30,7 +30,7 @@ export default function App (props){
                     <Grid container item md={2}>
                         <SideBarContainer />
                     </Grid>
-                    <Grid container item md={8} justify="center">
+                    <Grid container item md={10} justify="center">
                         <Route path="/profile">
                             <ProfileContainer />
                         </Route>
@@ -43,9 +43,6 @@ export default function App (props){
                         <Route path="/recipe/:recipeId">
                             <RecipeContainer />
                         </Route>
-                    </Grid>
-                    <Grid container item md={2}>
-                        
                     </Grid>
                 </Grid>
             </main>

@@ -1,7 +1,7 @@
 import React, {Component} from 'react'  
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { addPost, updatePostBody, updatePostTitle } from '../actions/profileAction'
+import { addPost, updatePostBody, updatePostTitle } from '../Redux/actions/profileAction'
 import Profile from '../components/Profile/Profile'
 
 class ProfileContainer  extends Component {

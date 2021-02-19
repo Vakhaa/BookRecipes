@@ -2,7 +2,7 @@
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import App from './components/App'
-import configureStore from './store'
+import configureStore from './Redux/store'
 import { BrowserRouter} from "react-router-dom";
 
 import CssBaseline from '@material-ui/core/CssBaseline';

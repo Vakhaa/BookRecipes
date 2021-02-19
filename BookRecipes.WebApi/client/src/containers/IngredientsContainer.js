@@ -1,7 +1,7 @@
 import React, {Component} from 'react'  
 import { connect } from 'react-redux'
-import { getIngredient } from '../actions/ingredientAction'
-import { getIngredients } from '../actions/ingredientsAction'
+import { getIngredient } from '../Redux/actions/ingredientAction'
+import { getIngredients } from '../Redux/actions/ingredientsAction'
 import Ingredients from '../components/Ingredients/Ingredients'
 
 class IngredientsContainer  extends Component {
@@ -56,8 +56,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
      return {
         getIngredient: id => dispatch(getIngredient(id)),
-        getIngredients: ()=> dispatch(getIngredients())
+         getIngredients: () => dispatch(getIngredients())
 }}
 
-export default connect(mapStateToProps, mapDispatchToProps)(IngredientsContainer )
+export default connect(mapStateToProps, mapDispatchToProps)(IngredientsContainer)
  
