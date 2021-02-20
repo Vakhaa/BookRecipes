@@ -1,10 +1,14 @@
 import React, {Component} from 'react'  
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { addPost, updatePostBody, updatePostTitle } from '../Redux/actions/profileAction'
+import { addPost, getProfile, updatePostBody, updatePostTitle } from '../Redux/actions/profileAction'
 import Profile from '../components/Profile/Profile'
 
 class ProfileContainer  extends Component {
+
+    componentDidMount() {
+        /*this.props.getProfile(this.props.id);*/
+    }
 
     render() {
         return (
@@ -40,7 +44,8 @@ const mapDispatchToProps = dispatch => {
     return {
         updatePostBody: (text) => (dispatch(updatePostBody(text))),
         updatePostTitle: (text) => (dispatch(updatePostTitle(text))),
-        addPost: () => (dispatch(addPost()))
+        addPost: () => (dispatch(addPost())),
+        getProfile: (id) => (dispatch(getProfile(id)))
 }}
 
 let WithRouterComponent = withRouter(ProfileContainer);

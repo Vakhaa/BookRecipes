@@ -17,6 +17,12 @@ const useStyles = makeStyles({
     rounded: {
         width: 300,
         height:300
+    },
+    createPost: {
+        border: "outset"
+    },
+    inputPost: {
+        width: "100%"
     }
 });
 
@@ -89,12 +95,16 @@ const Profile = (props) => {
                             </Grid>
                         </Grid>
                         <Grid container item md={6}>
-                            <Grid container item>
-                                <form>
-                                    <Input placeholder="It is title message" value={props.newPostTitle} onChange={(e) => (onPostTitle(e))} />
-                                    <textarea placeholder="It is body message" value={props.newPostBody} onChange={(e) => (onPostBody(e))} ></textarea>
+                            <Grid className={classes.createPost} container item>
+                                <Grid container item>
+                                    <Input className={classes.inputPost} placeholder="It is title message" value={props.newPostTitle} onChange={(e) => (onPostTitle(e))} />
+                                </Grid>
+                                <Grid container item>
+                                    <Input className={classes.inputPost} placeholder="It is body message" value={props.newPostBody} onChange={(e) => (onPostBody(e))} multiline></Input>
+                                </Grid>
+                                <Grid container item justify="flex-end">
                                     <Button variant="outlined" onClick={props.addPost}>Create post</Button>
-                                </form>
+                                </Grid>
                             </Grid>
                             <Grid container item>
                                 <Posts posts={props.posts}/>

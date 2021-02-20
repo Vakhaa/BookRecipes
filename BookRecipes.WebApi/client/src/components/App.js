@@ -11,6 +11,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import {Route} from "react-router-dom";
 import ProfileContainer from '../containers/ProfileContainer';
+import MessagesContainer from '../containers/MessagesContainer';
 
 const useStyles = makeStyles((theme) => ({
     mainGrid: {
@@ -33,6 +34,9 @@ export default function App (props){
                     <Grid container item md={10} justify="center">
                         <Route path="/profile">
                             <ProfileContainer />
+                        </Route>
+                        <Route path="/messages">
+                            <MessagesContainer />
                         </Route>
                         <Route path="/ingredients">
                             <IngredientsContainer />

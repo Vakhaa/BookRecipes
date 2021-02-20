@@ -1,59 +1,48 @@
 import {
-    GET_PROFILE_REQUEST,
-    GET_PROFILE_SUCCESS,
-    GET_PROFILE_ERROR,
-    ADD_POST_TO_PROFILE,
-    UPDATE_POST_TITLE_INTO_PROFILE,
-    UPDATE_POST_BODY_INTO_PROFILE
+    ADD_MESSAGE_TO_FRIEND,
+    UPDATE_MESSAGE_TO_FRIEND
 }
     from './actionTypes'
 
 import {profilesAPI} from '../../DAL/api'
 
-export function requestProfile(id) {
+/*export function requestProfileFriend(id) {
     return {
         type: GET_PROFILE_REQUEST,
         profile: id
     }
-}
+}*/
 
-export function receiveProfile(item) {
+/*export function receiveProfileFriend(item) {
     return {
         type: GET_PROFILE_SUCCESS,
         profile: item
     }
-}
+}*/
 
-export function addPost() {
+export function addMessage() {
     return {
-        type: ADD_POST_TO_PROFILE
+        type: ADD_MESSAGE_TO_FRIEND
     }
 }
 
-export function updatePostBody(text) {
+export function updateMessageBody(text) {
     return {
-        type: UPDATE_POST_BODY_INTO_PROFILE,
+        type: UPDATE_MESSAGE_TO_FRIEND,
         text: text
     }
 }
 
-export function updatePostTitle(text) {
-    return {
-        type: UPDATE_POST_TITLE_INTO_PROFILE,
-        text: text
-    }
-}
-
-export function errorProfile(error) {
+/*export function errorProfileFriend(error) {
     return {
         type: GET_PROFILE_ERROR,
         error: error
     }
-}
+}*/
 
 //генератор экшена
 
-export function getProfile(id) {
+/*export function getProfile(id) {
     return (dispatch) => {
         dispatch(requestProfile(id))
 
@@ -63,4 +52,4 @@ export function getProfile(id) {
             dispatch(errorProfile(error))
         })
     }
-}
+}*/

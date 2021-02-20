@@ -55,8 +55,7 @@ export default function profileReducer(state = initialState, action) {
             }
         case GET_PROFILE_SUCCESS:
             return {
-                ...state,
-                ingredient: action.profile,
+                profile: action.profile,
                 fetching: false
             }
         case GET_PROFILE_ERROR:
