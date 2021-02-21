@@ -30,7 +30,7 @@ const Friends = (props) => {
             <>
                 <Grid direction="column" container>
                     {props.friends.map((friend) => (
-                        <NavLink to="/messages/chat" className={classes.linkText}>
+                        <NavLink to={"/profile/" + friend.id} className={classes.linkText}>
                             <MenuItem>
                                 <Badge>
                                     <Avatar alt={friend.name} src={friend.photo} />

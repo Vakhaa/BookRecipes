@@ -1,8 +1,6 @@
 import React, {Component} from 'react'  
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
 import { getProfile} from '../Redux/actions/profileAction'
-import { addPost,  getUserPosts,  updatePostBody, updatePostTitle } from '../Redux/actions/postsAction'
 import { getLittleInfromationAboutFriend, getUserFriends } from '../Redux/actions/friendsAction'
 
 import Friends from '../components/Friends/Friends'
@@ -54,7 +52,5 @@ const mapDispatchToProps = dispatch => {
         getLittleInfoAboutFriends: (userId) => (dispatch(getLittleInfromationAboutFriend(userId)))
 }}
 
-let WithRouterComponent = withRouter(FriendsContainer);
-
-export default connect(mapStateToProps, mapDispatchToProps)(WithRouterComponent)
+export default connect(mapStateToProps, mapDispatchToProps)(FriendsContainer)
  

@@ -1,6 +1,7 @@
 ﻿import React, {Component} from 'react'  
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+import { compose } from 'redux'
 import Messages from '../components/Messages/Messages'
 import { addMessage, updateMessageBody } from '../Redux/actions/messagesAction'
 
@@ -66,7 +67,8 @@ const mapDispatchToProps = dispatch => {
         addMessage: () => (dispatch(addMessage()))
 }}
 
-let WithRouterComponent = withRouter(MessagesContainer);
-
-export default connect(mapStateToProps, mapDispatchToProps)(WithRouterComponent)
+export default compose(
+    withRouter,
+    connect(mapStateToProps, mapDispatchToProps)
+)(MessagesContainer)
  

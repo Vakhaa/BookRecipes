@@ -33,7 +33,7 @@ export default function App (props){
                         <SideBarContainer />
                     </Grid>
                     <Grid container item md={10} justify="center">
-                        <Route path="/profile">
+                        <Route path="/profile/:userId">
                             <ProfileContainer />
                         </Route>
                         <Route path="/messages">

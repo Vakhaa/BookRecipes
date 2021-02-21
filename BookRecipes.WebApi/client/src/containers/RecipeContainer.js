@@ -1,6 +1,7 @@
 import React, {Component} from 'react'  
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+import { compose } from 'redux'
 import Recipe from '../components/Recipes/Recipe'
 
 const recipeMoq = {
@@ -54,11 +55,8 @@ const mapStateToProps = state => {
     }
 }
 
-const mapDispatchToProps = dispatch => {
-     return {
-}}
 
-let WithRouterComponent = withRouter(RecipeContainer);
-
-export default connect(mapStateToProps, null)(WithRouterComponent)
- 
+export default compose(
+    withRouter,
+    connect(mapStateToProps)
+)(RecipeContainer);

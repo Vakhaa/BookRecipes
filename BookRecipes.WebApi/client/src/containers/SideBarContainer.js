@@ -39,9 +39,7 @@ class SideBarContainer  extends Component {
 
     render() {
         return (
-            <SideBar
-                navi={this.props.navi}
-            />
+            <SideBar navi={this.props.navi} />
         )
     }
 }
@@ -52,5 +50,5 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, null)(SideBarContainer)
+export default connect(mapStateToProps)(SideBarContainer)
  
