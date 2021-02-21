@@ -3,7 +3,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { Grid, Typography, Avatar, Chip, Accordion, AccordionSummary, AccordionDetails, Button, Input } from '@material-ui/core';
+import { Grid, Typography, Avatar, Chip, Accordion, AccordionSummary, AccordionDetails, Button, Input, Badge } from '@material-ui/core';
 
 import Posts from './Posts/Posts'
 
@@ -45,21 +45,21 @@ const Profile = (props) => {
                     <Grid container item>
                         <Grid container item md={4}>
                             <Avatar variant="rounded" className={classes.rounded}>
-                                <img alt="avatar" src={props.photo} />
+                                <img alt="avatar" src={props.profile.photo} />
                                 N
                             </Avatar>
                         </Grid>
                         <Grid container item md={8}>
                             <Grid container item md={6}>
                                 <Typography variant="h4">Name:</Typography>
-                                <Typography variant="h4">{props.name}</Typography>
+                                <Typography variant="h4">{props.profile.name}</Typography>
                             </Grid>
                             <Grid container item md={6}>
                                 <Chip label="Online" color="secondary" />
                             </Grid>
                             <Grid container item>
                                 <Typography variant="h6">Status:</Typography>
-                                <Typography variant="h6">{props.status}</Typography>
+                                <Typography variant="h6">{props.profile.status}</Typography>
                             </Grid>
                             <Grid container item md={8}>
                                 soical network
@@ -77,7 +77,7 @@ const Profile = (props) => {
                             </AccordionSummary>
                             <AccordionDetails>
                                 <Typography>
-                                    {props.description}
+                                    {props.profile.description}
                                 </Typography>
                             </AccordionDetails>
                         </Accordion>
@@ -91,16 +91,24 @@ const Profile = (props) => {
                                 My recipes
                             </Grid>
                             <Grid container item>
-                                My friends
+                                <Typography>Friends:</Typography>
+                                {
+                                    props.friends.map((friend) => (
+                                        <Badge>
+                                            { friend.name}
+                                            <Avatar src={friend.photo} alt={friend.name} />
+                                        </Badge>
+                                    ))
+                                }
                             </Grid>
                         </Grid>
                         <Grid container item md={6}>
                             <Grid className={classes.createPost} container item>
                                 <Grid container item>
-                                    <Input className={classes.inputPost} placeholder="It is title message" value={props.newPostTitle} onChange={(e) => (onPostTitle(e))} />
+                                    <Input className={classes.inputPost} placeholder="It is title message" value={props.profile.newPostTitle} onChange={(e) => (onPostTitle(e))} />
                                 </Grid>
                                 <Grid container item>
-                                    <Input className={classes.inputPost} placeholder="It is body message" value={props.newPostBody} onChange={(e) => (onPostBody(e))} multiline></Input>
+                                    <Input className={classes.inputPost} placeholder="It is body message" value={props.profile.newPostBody} onChange={(e) => (onPostBody(e))} multiline></Input>
                                 </Grid>
                                 <Grid container item justify="flex-end">
                                     <Button variant="outlined" onClick={props.addPost}>Create post</Button>

@@ -2,7 +2,7 @@
 
 import { makeStyles } from '@material-ui/core/styles';
 
-import { Grid} from '@material-ui/core';
+import { Grid, Paper} from '@material-ui/core';
 
 import SideBar from './SideBar/SideBar';
 import Chat from './Chat/Chat';
@@ -12,7 +12,7 @@ import Notes from './Notes/Notes';
 
 const useStyles = makeStyles((theme) => ({
     friendsBar: {
-        backgroundColor: theme.palette.grey[500],
+        backgroundColor: "#e57373",
     },
     fullList: {
         width: 'auto',
@@ -32,19 +32,19 @@ const Messages = (props) => {
                 <Grid container >
                     <Grid container item md={8} >
                         <Route path="/messages" exact>
-                        <Notes/>
-                    </Route>
+                            <Notes/>
+                        </Route>
                         <Route path="/messages/chat/"> {/*:userId*/ }
-                        <Chat
-                            messages={props.messages}
-                            updateMessageBody={props.updateMessageBody}
-                            addMessage={props.addMessage}
-                            newMessageBody={props.newMessageBody}
-                        />
+                            <Chat
+                                messages={props.messages}
+                                updateMessageBody={props.updateMessageBody}
+                                addMessage={props.addMessage}
+                                newMessageBody={props.newMessageBody}
+                            />
                         </Route>
                     </Grid>
                     <Grid className={classes.friendsBar} container item md={4}>
-                        <SideBar />
+                        <SideBar friends={props.friends} /> 
                     </Grid>
                 </Grid>
             </>

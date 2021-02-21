@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-import { Grid, Button,  InputBase, Icon} from '@material-ui/core';
+import { Grid, Button,  InputBase, Icon, MenuList, MenuItem} from '@material-ui/core';
 
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import Friends from './Friends/Friends';
@@ -32,41 +32,12 @@ const useStyles = makeStyles((theme) => ({
             vertical: 'bottom',
             horizontal: 'left',
         }
+    },
+    searchInput: {
+        width: "100%",
+        height: "auto"
     }
 }));
-
-const friendsMock = [
-    {
-        id: 0,
-        name: "Kun Lao",
-        newMessages: 5,
-        photo: "https://source.unsplash.com/random"
-    },
-    {
-        id: 1,
-        name: "Subzero",
-        newMessages: 0,
-        photo: "https://source.unsplash.com/random"
-    },
-    {
-        id: 2,
-        name: "Mortal Kombar Team",
-        newMessages: 127,
-        photo: "https://source.unsplash.com/random"
-    },
-    {
-        id: 3,
-        name: "Scorpion",
-        newMessages: 1,
-        photo: "https://source.unsplash.com/random"
-    },
-    {
-        id: 4,
-        name: "Raiden",
-        newMessages: 0,
-        photo: "https://source.unsplash.com/random"
-    }
-]
 
 const SideBar= (props) => {
     const classes = useStyles();
@@ -83,25 +54,33 @@ const SideBar= (props) => {
 
         return (
             <>
-                <Grid container item justify="center">
-                    <InputBase
-                        className={'SearchInput-root'}
-                        placeholder={'Search...'}
-                        startAdornment={<Icon>search</Icon>}
-                        {...props}
-                    />
-                </Grid>
+                <Grid direction="column" container item>
+                    <MenuList>
+                        <MenuItem>
+                            <Grid direction="column" container item alignItems="stretch">
+                                <InputBase
+                                    className={'searchInput'}
+                                    placeholder={'Search...'}
+                                    startAdornment={<Icon>search</Icon>}
+                                />
+                            </Grid>
+                        </MenuItem>
 
-                <Grid container item justify="flex-end">
-                    <NavLink to="/messages" className={classes.linkText}>
-                        <span   >NOTES</span>
-                        <Button className={classes.notesButton}>
-                            <BookmarkBorderIcon className={classes.notesIcon} />
-                        </Button>
-                    </NavLink>
-                </Grid>
+                        <MenuItem className={classes.buttonNavigation}>
+                            <Grid container item>
+                                <NavLink to="/messages" className={classes.linkText}>
+                                    <span>NOTES</span>
+                                    <Button className={classes.notesButton}>
+                                        <BookmarkBorderIcon className={classes.notesIcon} />
+                                    </Button>
+                                </NavLink>
+                            </Grid>
+                        </MenuItem>
 
-                <Friends friends={friendsMock} />
+                        <Friends friends={props.friends} />
+
+                    </MenuList>
+                </Grid>
             </>
         )
 }

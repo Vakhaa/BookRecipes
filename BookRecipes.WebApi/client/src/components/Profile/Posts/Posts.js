@@ -16,10 +16,10 @@ const useStyles = makeStyles({
 });
 
 
-const Profile = (props) => {
+const Posts = (props) => {
     const classes = useStyles();
 
-        return (
+    return (
             <>
                 {props.posts.map((post) => (
                     <Card className={classes.posts} key={post.id}>
@@ -66,4 +66,4 @@ const Profile = (props) => {
     //getIngredient: PropTypes.func.isRequired
 }*/
 
-export default Profile;
+export default Posts;

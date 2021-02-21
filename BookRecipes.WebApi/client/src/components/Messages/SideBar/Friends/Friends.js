@@ -3,14 +3,15 @@ import { NavLink } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-import { Grid, Typography, Avatar, Badge } from '@material-ui/core';
+import { Grid, Typography, Avatar, Badge, MenuItem, Paper, MenuList } from '@material-ui/core';
 
 import MailIcon from '@material-ui/icons/Mail';
 
 
 const useStyles = makeStyles((theme) => ({
-    friendsBar: {
-        backgroundColor: theme.palette.grey[500],
+    paper: {
+        /*marginRight: theme.spacing(2),*/
+        /*width: "auto"*/
     },
     linkText: {
         textDecoration: "none",
@@ -31,6 +32,9 @@ const useStyles = makeStyles((theme) => ({
             vertical: 'bottom',
             horizontal: 'left',
         }
+    },
+    buttonNavigation: {
+        borderRadius: "5px 0 0 5px",
     }
 }));
 
@@ -40,8 +44,8 @@ const Friends = (props) => {
         return (
             <>
                 {props.friends.map((friend) => (
-                    <Grid container item justify="flex-end">
-                        <NavLink to="/messages/chat" className={classes.linkText}>
+                    <NavLink to="/messages/chat" className={classes.linkText}>
+                        <MenuItem className={classes.buttonNavigation}>
                             <Badge color="secondary" badgeContent={friend.newMessages}>
                                 <MailIcon />
                             </Badge>
@@ -51,24 +55,28 @@ const Friends = (props) => {
                             <Badge>
                                 <Avatar alt={friend.name} src={friend.photo} />
                             </Badge>
-                        </NavLink>
-                    </Grid>
+                        </MenuItem>
+                    </NavLink>
                 ))}
             </>
         )
 }
 
-/*Ingredient.propTypes = {
-    name: PropTypes.string.isRequired,
-    ingredientsInRecipe: PropTypes.arrayOf(
-        PropTypes.shape({
-            countIngredient: PropTypes.string.isRequired,
-            recipeId: PropTypes.number.isRequired,
-            ingredientId: PropTypes.number.isRequired
-        }).isRequired
-    ).isRequired
-    //id: PropTypes.number.isRequired,
-    //getIngredient: PropTypes.func.isRequired
+/*{
+    props.friends.map((friend) => (
+        <Grid container item justify="flex-end">
+            <NavLink to="/messages/chat" className={classes.linkText}>
+                <Badge color="secondary" badgeContent={friend.newMessages}>
+                    <MailIcon />
+                </Badge>
+                <Badge>
+                    <Typography>{friend.name}</Typography>
+                </Badge>
+                <Badge>
+                    <Avatar alt={friend.name} src={friend.photo} />
+                </Badge>
+            </NavLink>
+        </Grid>
+    ))
 }*/
-
 export default Friends;

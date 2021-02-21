@@ -12,6 +12,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import {Route} from "react-router-dom";
 import ProfileContainer from '../containers/ProfileContainer';
 import MessagesContainer from '../containers/MessagesContainer';
+import FriendsContainer from '../containers/FriendsContainer';
 
 const useStyles = makeStyles((theme) => ({
     mainGrid: {
@@ -38,14 +39,17 @@ export default function App (props){
                         <Route path="/messages">
                             <MessagesContainer />
                         </Route>
-                        <Route path="/ingredients">
-                            <IngredientsContainer />
+                        <Route path="/friends">
+                            <FriendsContainer />
                         </Route>
                         <Route path="/recipes">
                             <RecipesContainer />
                         </Route>
                         <Route path="/recipe/:recipeId">
                             <RecipeContainer />
+                        </Route>
+                        <Route path="/ingredients">
+                            <IngredientsContainer />
                         </Route>
                     </Grid>
                 </Grid>

@@ -2,60 +2,36 @@ import {
     GET_PROFILE_REQUEST,
     GET_PROFILE_SUCCESS,
     GET_PROFILE_ERROR,
-    ADD_POST_TO_PROFILE,
-    UPDATE_POST_TITLE_INTO_PROFILE,
-    UPDATE_POST_BODY_INTO_PROFILE
+    GET_PROFILES_REQUEST,
+    GET_PROFILES_SUCCESS,
+    GET_PROFILES_ERROR,
+    
 } from '../actions/actionTypes'
 
+import profiles from './profilesMock'
+
 const initialState = {
-    id: 0,
-    name: "Johny Cage",
-    photo: "https://source.unsplash.com/random",
-    status: "So so",
-    description: "To jest najliepsze co zrobily ludzi. Aromatny zapazch, a jaki kolor, smack wymbitny.",
-    socailNetworkings: [
-        {
-            id: 1,
-            name: "Git Hub"
-        },
-        {
-            id: 2,
-            name: "Facebook"
-        },
-        {
-            id: 3,
-            name: "Telegram"
-        },
-    ],
-    posts: [
-        {
-            id: 0,
-            title: "Tonight I'm cooked some fine cake!",
-            main: "Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica",
-            photo: "https://source.unsplash.com/random"
-        },
-        {
-            id: 1,
-            title: "Some photo for you! Duddde",
-            main: "Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica",
-            photo: "https://source.unsplash.com/random"
-        }
-    ],
-    newPostTitle: "",
-    newPostBody: ""
+    currentProfileId: 0,
+    profile: null,
+    profiles: null,
+    fetching: false
 }
 
-export default function profileReducer(state = initialState, action) {
+
+export default function profilesReducer(state = initialState, action) {
     switch (action.type) {
         case GET_PROFILE_REQUEST:
             return {
                 ...state,
-                id: action.profile,
+                profile: {
+                    id: profiles.find((profile) => profile.id == action.id).id,
+                },
                 fetching: true
             }
         case GET_PROFILE_SUCCESS:
             return {
-                profile: action.profile,
+                ...state,
+                profile: profiles.find((profile) => profile.id == state.profile.id),
                 fetching: false
             }
         case GET_PROFILE_ERROR:
@@ -64,25 +40,23 @@ export default function profileReducer(state = initialState, action) {
                 error: action.error,
                 fetching: false
             }
-        case UPDATE_POST_TITLE_INTO_PROFILE:
+
+        case GET_PROFILES_REQUEST:
             return {
                 ...state,
-                newPostTitle : action.text
+                fetching: true
             }
-        case UPDATE_POST_BODY_INTO_PROFILE:
+        case GET_PROFILES_SUCCESS:
             return {
                 ...state,
-                newPostBody : action.text
+                profiles: profiles,
+                fetching: false
             }
-        case ADD_POST_TO_PROFILE:
+        case GET_PROFILES_ERROR:
             return {
                 ...state,
-                posts: [...state.posts, {
-                    id: 3,
-                    title: state.newPostTitle,
-                    main: state.newPostBody,
-                    photo: "https://source.unsplash.com/random"
-                }]
+                error: action.error,
+                fetching: false
             }
         default:
             return state

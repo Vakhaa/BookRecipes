@@ -2,9 +2,6 @@ import {
     GET_PROFILE_REQUEST,
     GET_PROFILE_SUCCESS,
     GET_PROFILE_ERROR,
-    ADD_POST_TO_PROFILE,
-    UPDATE_POST_TITLE_INTO_PROFILE,
-    UPDATE_POST_BODY_INTO_PROFILE
 }
     from './actionTypes'
 
@@ -13,36 +10,23 @@ import {profilesAPI} from '../../DAL/api'
 export function requestProfile(id) {
     return {
         type: GET_PROFILE_REQUEST,
-        profile: id
+        id: id
     }
 }
 
-export function receiveProfile(item) {
+/*export function receiveProfile(item) {
     return {
         type: GET_PROFILE_SUCCESS,
         profile: item
     }
-}
+}*/
 
-export function addPost() {
+export function receiveProfile() {
     return {
-        type: ADD_POST_TO_PROFILE
+        type: GET_PROFILE_SUCCESS
     }
 }
 
-export function updatePostBody(text) {
-    return {
-        type: UPDATE_POST_BODY_INTO_PROFILE,
-        text: text
-    }
-}
-
-export function updatePostTitle(text) {
-    return {
-        type: UPDATE_POST_TITLE_INTO_PROFILE,
-        text: text
-    }
-}
 
 export function errorProfile(error) {
     return {
@@ -51,9 +35,16 @@ export function errorProfile(error) {
     }
 }
 
-//генератор экшена
 
+//генератор экшена
 export function getProfile(id) {
+    return (dispatch) => {
+        dispatch(requestProfile(id))
+        dispatch(receiveProfile())
+    }
+}
+
+/*export function getProfile(id) {
     return (dispatch) => {
         dispatch(requestProfile(id))
 
@@ -63,4 +54,4 @@ export function getProfile(id) {
             dispatch(errorProfile(error))
         })
     }
-}
+}*/
