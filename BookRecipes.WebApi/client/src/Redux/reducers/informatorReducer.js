@@ -1,8 +1,8 @@
 import {
     GET_FRIEND_LITTLE_INFROMATIONS_REQUEST,
     GET_FRIEND_LITTLE_INFROMATIONS_SUCCESS,
-    GET_FRIEND_LITTLE_INFROMATIONS_ERROR
-    
+    GET_FRIEND_LITTLE_INFROMATIONS_ERROR,
+    CLEAR_FRIEND_LITTLE_INFROMATIONS
 } from '../actions/actionTypes'
 
 import profilesMock from './profilesMock'
@@ -40,6 +40,11 @@ export default function informatorReducer(state = initialState, action) {
                 ...state,
                 error: action.error,
                 fetching: false
+            }
+        case CLEAR_FRIEND_LITTLE_INFROMATIONS:
+            return {
+                ...state,
+                friends: []
             }
         default:
             return state

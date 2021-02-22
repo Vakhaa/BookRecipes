@@ -4,7 +4,8 @@ import {
     GET_FRIENDS_ERROR,
     GET_FRIEND_LITTLE_INFROMATIONS_REQUEST,
     GET_FRIEND_LITTLE_INFROMATIONS_SUCCESS,
-    GET_FRIEND_LITTLE_INFROMATIONS_ERROR
+    GET_FRIEND_LITTLE_INFROMATIONS_ERROR,
+    CLEAR_FRIEND_LITTLE_INFROMATIONS
 }
     from './actionTypes'
 
@@ -64,7 +65,11 @@ export function getLittleInfromationAboutFriend(userId) {
     }
 }
 
-
+export function clearFriends() {
+    return {
+        type: CLEAR_FRIEND_LITTLE_INFROMATIONS
+    }
+}
 //генератор экшена
 
 /*export function getProfile(id) {

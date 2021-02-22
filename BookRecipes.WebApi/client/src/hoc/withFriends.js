@@ -1,6 +1,6 @@
 import React from 'react'  
 import { connect } from 'react-redux'
-import { getLittleInfromationAboutFriend, getUserFriends } from '../Redux/actions/friendsAction'
+import { getLittleInfromationAboutFriend, getUserFriends, clearFriends} from '../Redux/actions/friendsAction'
 
 const mapStateToProps = state => {
     return {
@@ -13,7 +13,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         getUserFriends: (userId) => (dispatch(getUserFriends(userId))),
-        getLittleInfoAboutFriends: (userId) => (dispatch(getLittleInfromationAboutFriend(userId)))
+        getLittleInfoAboutFriends: (userId) => (dispatch(getLittleInfromationAboutFriend(userId))),
+        clearFriends: () => (dispatch(clearFriends()))
     }
 }
 
@@ -22,14 +23,17 @@ export const withFriends = (Component) => {
 
     class Friends extends React.Component {
 
-        render() {
-            this.props.getUserFriends(this.props.profile.id)
+        componentDidUpdate(prevProps, prevState) {
 
-            if (this.props.friendsId.length > 0) {
-                if (this.props.friends.length === 0) {
-                    this.props.friendsId.forEach((friend) => this.props.getLittleInfoAboutFriends(friend.userId))
-                }
-            }        
+            this.props.getUserFriends(this.props.profile.id)        
+
+            if (prevProps.friendsId !== this.props.friendsId) {
+                this.props.clearFriends();
+                this.props.friendsId.forEach((friend) => this.props.getLittleInfoAboutFriends(friend.userId))
+            }
+        }
+
+        render() {
 
             return <Component {...this.props} />
         }

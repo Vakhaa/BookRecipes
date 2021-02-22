@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Input, Button } from '@material-ui/core';
+import { Grid, Input, Button, Checkbox } from '@material-ui/core';
+import { Field, reduxForm } from 'redux-form';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -16,17 +17,53 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function StickyFooter() {
+let LoginForm = (props) => {
     const classes = useStyles();
-
+    
     return (
         <>
-            <Grid container item>Login</Grid>
-            <Grid container item><Input /></Grid>
-            <Grid container item>Password</Grid>
-            <Grid container item><Input /></Grid>
-            <Grid container item md={3}></Grid>
-            <Grid container item md={7}><Button>Log In</Button></Grid>
+            <form onSubmit={props.handleSubmit}>
+                <Grid direction="row" container>
+                    <Grid container item >Login</Grid>
+                    <Grid container item >
+                        <Field name={"login"} placeholder={"login"} component={"input"} />
+                    </Grid>
+
+                    <Grid container item >Password</Grid>
+                    <Grid container item >
+                        <Field name={"password"} placeholder={"password"} component={"input"} />
+                    </Grid>
+
+                    <Grid container item md={5}>
+                        <Field name={"remember me"} type="checkbox" component={"input"} />
+                    </Grid>
+                    <Grid container item md={3}>
+                        <button /*variant="outlined"*/>Log In</button>
+                    </Grid>
+                    <Grid container item>Remember me</Grid>
+
+                </Grid>
+            </form>
         </>
     );
 }
+
+let LoginReduxForm = reduxForm({
+    form: 'login'
+})(LoginForm)
+
+let Login = (props) => {
+    const classes = useStyles();
+    const onSubmit = (formData) => {
+        console.log(formData);
+    }
+
+    return (
+        <>
+            <h1>Login</h1>
+            <LoginReduxForm onSubmit={onSubmit} />
+        </>
+    );
+}
+
+export default Login;
