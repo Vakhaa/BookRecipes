@@ -5,51 +5,52 @@ import { makeStyles } from '@material-ui/core/styles';
 import MessageCreator from './MessageCreator/MessageCreator';
 import ChatDisplayer from './ChatDisplayer/ChatDisplayer';
 import Header from './Header/Header';
-
-
+import { Divider, Grid} from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
-    friendsBar: {
-        backgroundColor: theme.palette.grey[500],
+    root: {
+        /*flexGrow: 1,*/
     },
-    fullList: {
-        width: 'auto',
-    },
-    notes: {
-        height: 60,
-        borderRadius: '100%',
-        border: 'inset'
+    paper: {
+        width: "100%",
+        height: "100%"
     }
 }));
 
 const Chat = (props) => {
     const classes = useStyles();
+    const onSubmit = (formData) => {
+        props.addMessage(formData.messageBody)
+    }
 
-
-        return (
-            <>
+    return (
+        <Grid className={classes.root} container >
+            <Grid container item>
                 <Header />
+                <Divider />
+            </Grid>
+            <Grid container item>
                 <ChatDisplayer messages={props.messages} />
-                <MessageCreator
-                    updateMessageBody={props.updateMessageBody}
-                    addMessage={props.addMessage}
-                    newMessageBody={props.newMessageBody}
-                />
-            </>
+            </Grid>
+            <Grid container item>
+                <Divider />
+                <MessageCreator onSubmit={onSubmit} />
+            </Grid>
+        </Grid>
         )
 }
 
-/*Ingredient.propTypes = {
-    name: PropTypes.string.isRequired,
-    ingredientsInRecipe: PropTypes.arrayOf(
-        PropTypes.shape({
-            countIngredient: PropTypes.string.isRequired,
-            recipeId: PropTypes.number.isRequired,
-            ingredientId: PropTypes.number.isRequired
-        }).isRequired
-    ).isRequired
-    //id: PropTypes.number.isRequired,
-    //getIngredient: PropTypes.func.isRequired
-}*/
+/*<Grid container>
+    <Grid container item>
+        <Header />
+    </Grid>
+    <Grid container item>
+        <ChatDisplayer messages={props.messages} />
+    </Grid>
+    <Grid container item alignItems="flex-end">
+        <MessageCreator onSubmit={onSubmit} />
+    </Grid>
+</Grid>
+*/
 
 export default Chat;

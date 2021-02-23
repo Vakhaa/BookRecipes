@@ -7,6 +7,7 @@ import postsReducer from './postsReducer'
 import profileReducer from './profileReducer'
 import informatorReducer from './informatorReducer'
 import { reducer as formReducer } from 'redux-form' 
+import loginReducer from './loginReducer'
 
 const rootReducer = combineReducers({
     form: formReducer,
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
     messages: messagesReducer,
     posts: postsReducer,
     friends: friendsReducer,
-    informator: informatorReducer
+    informator: informatorReducer,
+    login: loginReducer
 })
 
 export default rootReducer;

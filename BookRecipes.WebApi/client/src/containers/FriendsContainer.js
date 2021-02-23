@@ -4,12 +4,10 @@ import { getProfile} from '../Redux/actions/profileAction'
 import { getLittleInfromationAboutFriend, getUserFriends } from '../Redux/actions/friendsAction'
 
 import Friends from '../components/Friends/Friends'
+import { compose } from 'redux'
+import { withAuthUser } from '../hoc/withAuthUser'
 
 class FriendsContainer  extends Component {
-
-    componentDidMount() {
-        this.props.getProfile(2);        
-    }
 
     profile = () => {
 
@@ -47,10 +45,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        getProfile: (id) => (dispatch(getProfile(id))),
         getUserFriends: (userId) => (dispatch(getUserFriends(userId))),
         getLittleInfoAboutFriends: (userId) => (dispatch(getLittleInfromationAboutFriend(userId)))
 }}
 
-export default connect(mapStateToProps, mapDispatchToProps)(FriendsContainer)
+export default compose(
+    withAuthUser,
+    connect(mapStateToProps, mapDispatchToProps),
+)(FriendsContainer)
  

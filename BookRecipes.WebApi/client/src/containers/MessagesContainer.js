@@ -1,9 +1,8 @@
 ﻿import React, {Component} from 'react'  
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
 import { compose } from 'redux'
 import Messages from '../components/Messages/Messages'
-import { addMessage, updateMessageBody } from '../Redux/actions/messagesAction'
+import { withAuthUser } from '../hoc/withAuthUser'
 
 const friendsMock = [
     {
@@ -41,10 +40,6 @@ const friendsMock = [
 
 class MessagesContainer  extends Component {
 
-    componentDidMount() {
-        /*this.props.getProfile(this.props.id);*/
-    }
-
     render() {
         return (
             <Messages {...this.props} />
@@ -54,21 +49,17 @@ class MessagesContainer  extends Component {
 
 const mapStateToProps = state => {
     return {
-        friends: friendsMock,
-        messages: state.messages.messages,
-        newMessageBody: state.messages.newMessageBody,
-        newSearchBody: ""
+        friends: state.informator.friends,
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        updateMessageBody: (text) => (dispatch(updateMessageBody(text))),
-        addMessage: () => (dispatch(addMessage()))
-}}
+    }
+}
 
 export default compose(
-    withRouter,
-    connect(mapStateToProps, mapDispatchToProps)
+    connect(mapStateToProps, mapDispatchToProps),
+    withAuthUser
 )(MessagesContainer)
  

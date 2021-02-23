@@ -21,12 +21,4 @@ const Recipes = (props) => {
         )
 }
 
-/*Recipes.propTypes = [
-    PropTypes.shape(
-        {
-            recipes: PropTypes.object.isRequired
-        }
-    )
-]*/
-
 export default Recipes;

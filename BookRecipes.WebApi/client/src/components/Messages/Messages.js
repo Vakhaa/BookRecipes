@@ -2,12 +2,12 @@
 
 import { makeStyles } from '@material-ui/core/styles';
 
-import { Grid, Paper} from '@material-ui/core';
+import { Grid} from '@material-ui/core';
 
 import SideBar from './SideBar/SideBar';
-import Chat from './Chat/Chat';
 import { Route } from 'react-router-dom';
 import Notes from './Notes/Notes';
+import ChatContainer from '../../containers/ChatContainer';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -34,13 +34,8 @@ const Messages = (props) => {
                         <Route path="/messages" exact>
                             <Notes/>
                         </Route>
-                        <Route path="/messages/chat/"> {/*:userId*/ }
-                            <Chat
-                                messages={props.messages}
-                                updateMessageBody={props.updateMessageBody}
-                                addMessage={props.addMessage}
-                                newMessageBody={props.newMessageBody}
-                            />
+                        <Route path="/messages/chat/:userId" exact>
+                            <ChatContainer addMessage={props.addMessage} />
                         </Route>
                     </Grid>
                     <Grid className={classes.friendsBar} container item md={4}>
@@ -50,18 +45,5 @@ const Messages = (props) => {
             </>
         )
 }
-
-/*Ingredient.propTypes = {
-    name: PropTypes.string.isRequired,
-    ingredientsInRecipe: PropTypes.arrayOf(
-        PropTypes.shape({
-            countIngredient: PropTypes.string.isRequired,
-            recipeId: PropTypes.number.isRequired,
-            ingredientId: PropTypes.number.isRequired
-        }).isRequired
-    ).isRequired
-    //id: PropTypes.number.isRequired,
-    //getIngredient: PropTypes.func.isRequired
-}*/
 
 export default Messages;

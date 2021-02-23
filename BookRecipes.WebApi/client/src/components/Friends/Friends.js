@@ -16,21 +16,11 @@ const useStyles = makeStyles({
 const Friends = (props) => {
     const classes = useStyles();
 
-    const onPostTitle = (e) => {
-        let text = e.target.value
-        props.updatePostTitle(text)
-    }
-
-    const onPostBody = (e) => {
-        let text = e.target.value
-        props.updatePostBody(text)
-    }
-
         return (
             <>
                 <Grid direction="column" container>
                     {props.friends.map((friend) => (
-                        <NavLink to={"/profile/" + friend.id} className={classes.linkText}>
+                        <NavLink ley={friend.id} to={"/profile/" + friend.id} className={classes.linkText}>
                             <MenuItem>
                                 <Badge>
                                     <Avatar alt={friend.name} src={friend.photo} />

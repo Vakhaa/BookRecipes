@@ -1,7 +1,5 @@
 import {
     ADD_POST_TO_PROFILE,
-    UPDATE_POST_TITLE_INTO_PROFILE,
-    UPDATE_POST_BODY_INTO_PROFILE,
     GET_USER_POSTS_REQUEST,
     GET_USER_POSTS_SUCCESS,
     GET_USER_POSTS_ERROR
@@ -19,8 +17,6 @@ const initialState = {
             photo: "https://source.unsplash.com/random"
         }
     ],
-    newPostTitle: "",
-    newPostBody: ""
 }
 
 let postsMock = [
@@ -41,8 +37,6 @@ let postsMock = [
                 photo: "https://source.unsplash.com/random"
             }
         ],
-        newPostTitle: "",
-        newPostBody: ""
     },
     {
         id: 1,
@@ -61,8 +55,6 @@ let postsMock = [
                 photo: "https://source.unsplash.com/random"
             }
         ],
-        newPostTitle: "",
-        newPostBody: ""
     },
     {
         id: 2,
@@ -87,8 +79,6 @@ let postsMock = [
                 photo: "https://source.unsplash.com/random"
             }
         ],
-        newPostTitle: "",
-        newPostBody: ""
     },
     {
         id: 3,
@@ -101,32 +91,28 @@ let postsMock = [
                 photo: "https://source.unsplash.com/random"
             }
         ],
-        newPostTitle: "",
-        newPostBody: ""
     }
 ]
 
 export default function postsReducer(state = initialState, action) {
     switch (action.type) {
-        case UPDATE_POST_TITLE_INTO_PROFILE:
-            return {
-                ...state,
-                newPostTitle: action.text
-            }
-        case UPDATE_POST_BODY_INTO_PROFILE:
-            return {
-                ...state,
-                newPostBody: action.text
-            }
         case ADD_POST_TO_PROFILE:
+            const newPost = {
+                id: 3,
+                title: action.post.postTitle,
+                main: action.post.postBody,
+                photo: "https://source.unsplash.com/random"
+            }
+            postsMock = postsMock.map((user) => (
+                (state.userId === user.userId) ?
+                    user = {
+                        ...user,
+                        posts : [...state.posts, newPost]
+                    } : user
+                ))
             return {
                 ...state,
-                posts: [...state.posts, {
-                    id: 3,
-                    title: state.newPostTitle,
-                    main: state.newPostBody,
-                    photo: "https://source.unsplash.com/random"
-                }]
+                posts: [...state.posts, newPost]
             }
         case GET_USER_POSTS_REQUEST:
             return {

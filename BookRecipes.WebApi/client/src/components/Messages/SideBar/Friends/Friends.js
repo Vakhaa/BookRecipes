@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-import { Grid, Typography, Avatar, Badge, MenuItem, Paper, MenuList } from '@material-ui/core';
+import {Typography, Avatar, Badge, MenuItem } from '@material-ui/core';
 
 import MailIcon from '@material-ui/icons/Mail';
 
@@ -44,7 +44,7 @@ const Friends = (props) => {
         return (
             <>
                 {props.friends.map((friend) => (
-                    <NavLink to="/messages/chat" className={classes.linkText}>
+                    <NavLink key={friend.id} to={"/messages/chat/" + friend.id} className={classes.linkText}>
                         <MenuItem className={classes.buttonNavigation}>
                             <Badge color="secondary" badgeContent={friend.newMessages}>
                                 <MailIcon />

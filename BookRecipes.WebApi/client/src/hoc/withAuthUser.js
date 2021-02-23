@@ -1,7 +1,14 @@
 import React from 'react'  
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
+import { Redirect, withRouter } from 'react-router-dom'
 import { getProfile } from '../Redux/actions/profileAction'
+
+const mapStateToProps = state => {
+    return {
+        isLogin: state.login.isLogin,
+        loginUserId: state.login.userId
+    }
+}
 
 const mapDispatchToProps = dispatch => {
     return {
@@ -11,15 +18,26 @@ const mapDispatchToProps = dispatch => {
 
 
 export const withAuthUser = (Component) => {
-
     class AuthUser extends React.Component {
-        
-        render() {
-            this.props.getProfile(this.props.match.params.userId);        
 
-            return <Component {...this.props} />
+        componentDidUpdate(prevProps, prevState) {
+
+            /*if (prevProps.loginUserId !== this.props.loginUserId) {
+                this.props.getProfile(
+                    this.props.loginUserId
+                );
+            }*/
         }
-    }
-    return withRouter(connect(null, mapDispatchToProps)(AuthUser));
+
+        render() {
+            if (!this.props.isLogin) return <Redirect to='/recipes' />
+
+            const userId = this.props.match.params.userId ? this.props.match.params.userId : this.props.loginUserId
+            if (userId) this.props.getProfile(userId);
+
+            return < Component {...this.props} />
+        }
+}
+return withRouter(connect(mapStateToProps, mapDispatchToProps)(AuthUser));
 }
  

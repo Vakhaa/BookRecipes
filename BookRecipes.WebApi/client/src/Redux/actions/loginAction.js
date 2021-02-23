@@ -1,46 +1,43 @@
 import {
-    ADD_POST_TO_PROFILE,
-    GET_USER_POSTS_REQUEST,
-    GET_USER_POSTS_SUCCESS,
-    GET_USER_POSTS_ERROR
+    LOGIN_SUCCESS,
+    LOGIN_FAILED,
+    LOGIN_CHECK,
+    LOGUT
 }
     from './actionTypes'
 
-import {profilesAPI} from '../../DAL/api'
-
-export function addPost(post) {
+export function checkLogin(data) {
     return {
-        type: ADD_POST_TO_PROFILE,
-        post: post
+        type: LOGIN_CHECK,
+        data: data
     }
 }
 
-export function requestUserPosts(userId) {
+export function successLogin() {
     return {
-        type: GET_USER_POSTS_REQUEST,
-        userId: userId
+        type: LOGIN_SUCCESS
     }
 }
 
-export function receiveUserPosts() {
+export function logut() {
     return {
-        type: GET_USER_POSTS_SUCCESS,
+        type: LOGUT
     }
 }
 
-export function errorUserPosts() {
+export function failedLogin() {
     return {
-        type: GET_USER_POSTS_ERROR,
+        type: LOGIN_FAILED
     }
 }
 
-export function getUserPosts(userId) {
+/*export function logIn(userId) {
     return (dispatch) => {
         dispatch(requestUserPosts(userId))
 
         dispatch(receiveUserPosts())
     }
-}
+}*/
 
 
 //генератор экшена

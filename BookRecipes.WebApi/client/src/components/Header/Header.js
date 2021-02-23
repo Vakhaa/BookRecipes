@@ -3,8 +3,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Grid, Paper} from '@material-ui/core';
+import LoginContainer from '../../containers/LoginContainer';
 
-import Login from '../common/Login'
 
 const useStyles = makeStyles((theme) => ({
     footer: {
@@ -30,7 +30,7 @@ export default function StickyFooter(props) {
                         </Container>
                     </Grid>
                     <Grid container item md={2}>
-                        <Login />
+                        <LoginContainer />
                     </Grid>
                 </Grid>
             </header>

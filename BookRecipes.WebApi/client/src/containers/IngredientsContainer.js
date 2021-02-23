@@ -5,10 +5,6 @@ import { getIngredients } from '../Redux/actions/ingredientsAction'
 import Ingredients from '../components/Ingredients/Ingredients'
 
 class IngredientsContainer  extends Component {
-    constructor(props) {
-        super(props);
-
-    }
 
     componentDidMount() {
         this.props.getIngredients();

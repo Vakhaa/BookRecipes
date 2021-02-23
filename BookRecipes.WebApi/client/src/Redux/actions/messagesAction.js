@@ -1,45 +1,47 @@
 import {
     ADD_MESSAGE_TO_FRIEND,
-    UPDATE_MESSAGE_TO_FRIEND
+    GET_FRIEND_MESSAGES_REQUEST,
+    GET_FRIEND_MESSAGES_SUCCESS,
+    GET_FRIEND_MESSAGES_ERROR
 }
     from './actionTypes'
 
 import {profilesAPI} from '../../DAL/api'
 
-/*export function requestProfileFriend(id) {
+export function addMessage(text) {
     return {
-        type: GET_PROFILE_REQUEST,
-        profile: id
-    }
-}*/
-
-/*export function receiveProfileFriend(item) {
-    return {
-        type: GET_PROFILE_SUCCESS,
-        profile: item
-    }
-}*/
-
-export function addMessage() {
-    return {
-        type: ADD_MESSAGE_TO_FRIEND
-    }
-}
-
-export function updateMessageBody(text) {
-    return {
-        type: UPDATE_MESSAGE_TO_FRIEND,
+        type: ADD_MESSAGE_TO_FRIEND,
         text: text
     }
 }
 
-/*export function errorProfileFriend(error) {
+export function requestFriendMessages(userId) {
     return {
-        type: GET_PROFILE_ERROR,
+        type: GET_FRIEND_MESSAGES_REQUEST,
+        userId: userId
+    }
+}
+
+export function receiveFriendMessages() {
+    return {
+        type: GET_FRIEND_MESSAGES_SUCCESS,
+    }
+}
+
+export function errorFriendMessages(error) {
+    return {
+        type: GET_FRIEND_MESSAGES_ERROR,
         error: error
     }
-}*/
+}
 
+export function getFriendMessages(userId) {
+    return (dispatch) => {
+        dispatch(requestFriendMessages(userId))
+
+        dispatch(receiveFriendMessages())
+    }
+}
 //генератор экшена
 
 /*export function getProfile(id) {

@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
-import { Grid, Button, makeStyles, MenuItem, Paper, MenuList } from '@material-ui/core'
+import { makeStyles, MenuItem, Paper, MenuList } from '@material-ui/core'
 
 let useStyles = makeStyles((theme) => ({
     paper: {
@@ -25,7 +25,7 @@ const SideBar = (props) => {
             <Paper className={classes.paper}>
                 <MenuList>
                     {props.navi.map((item) => (
-                        <Paper>
+                        <Paper key={item.id}>
                             <NavLink to={item.pathTo} className={classes.textNavigation}>
                                 <MenuItem className={classes.buttonNavigation} key={item.id}>
                                     {item.name}

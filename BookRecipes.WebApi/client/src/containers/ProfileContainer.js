@@ -1,6 +1,6 @@
 import React, {Component} from 'react'  
 import { connect } from 'react-redux'
-import { addPost,  getUserPosts,  updatePostBody, updatePostTitle } from '../Redux/actions/postsAction'
+import { addPost,  getUserPosts } from '../Redux/actions/postsAction'
 import Profile from '../components/Profile/Profile'
 import { compose } from 'redux'
 import { withAuthUser } from '../hoc/withAuthUser'
@@ -47,16 +47,14 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        updatePostBody: (text) => (dispatch(updatePostBody(text))),
-        updatePostTitle: (text) => (dispatch(updatePostTitle(text))),
-        addPost: () => (dispatch(addPost())),
+        addPost: (post) => (dispatch(addPost(post))),
         getUserPosts: (userId) => (dispatch(getUserPosts(userId))),
 }}
 
 
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),
+    withFriends,
     withAuthUser,
-    withFriends
 )(ProfileContainer)
  

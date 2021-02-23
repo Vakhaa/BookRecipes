@@ -3,9 +3,10 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { Grid, Typography, Avatar, Chip, Accordion, AccordionSummary, AccordionDetails, Button, Input, Badge } from '@material-ui/core';
+import { Grid, Typography, Avatar, Chip, Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core';
 
-import Posts from './Posts/Posts'
+import PostsWall from './PostsWall/PostsWall'
+import Friends from './Friends/Friends'
 
 const useStyles = makeStyles({
     list: {
@@ -18,25 +19,13 @@ const useStyles = makeStyles({
         width: 300,
         height:300
     },
-    createPost: {
-        border: "outset"
-    },
-    inputPost: {
-        width: "100%"
-    }
 });
 
 const Profile = (props) => {
     const classes = useStyles();
 
-    const onPostTitle = (e) => {
-        let text = e.target.value
-        props.updatePostTitle(text)
-    }
-
-    const onPostBody = (e) => {
-        let text = e.target.value
-        props.updatePostBody(text)
+    const onSubmit = (formData) => {
+        props.addPost(formData)
     }
 
         return (
@@ -61,62 +50,39 @@ const Profile = (props) => {
                                 <Typography variant="h6">Status:</Typography>
                                 <Typography variant="h6">{props.profile.status}</Typography>
                             </Grid>
-                            <Grid container item md={8}>
+                            <Grid container item>
                                 soical network
+                            </Grid>
+                            <Grid container item>
+                                <Accordion>
+                                    <AccordionSummary
+                                        expandIcon={<ExpandMoreIcon />}
+                                        aria-controls="panel1a-content"
+                                        id="panel1a-header"
+                                    >
+                                        <Typography >Description</Typography>
+                                    </AccordionSummary>
+                                    <AccordionDetails>
+                                        <Typography>
+                                            {props.profile.description}
+                                        </Typography>
+                                    </AccordionDetails>
+                                </Accordion>
                             </Grid>                            
                         </Grid>
                     </Grid>
-                    <Grid container item justify="center">
-                        <Accordion>
-                            <AccordionSummary
-                                expandIcon={<ExpandMoreIcon />}
-                                aria-controls="panel1a-content"
-                                id="panel1a-header"
-                            >
-                                <Typography >Description</Typography>
-                            </AccordionSummary>
-                            <AccordionDetails>
-                                <Typography>
-                                    {props.profile.description}
-                                </Typography>
-                            </AccordionDetails>
-                        </Accordion>
-                    </Grid>
                     <Grid container item>
                         <Grid container item md={6}>
+                            <Friends friends={props.friends}/>
                             <Grid container item>
                                 gallery
                             </Grid>
                             <Grid container item>
                                 My recipes
                             </Grid>
-                            <Grid container item>
-                                <Typography>Friends:</Typography>
-                                {
-                                    props.friends.map((friend) => (
-                                        <Badge>
-                                            { friend.name}
-                                            <Avatar src={friend.photo} alt={friend.name} />
-                                        </Badge>
-                                    ))
-                                }
-                            </Grid>
                         </Grid>
                         <Grid container item md={6}>
-                            <Grid className={classes.createPost} container item>
-                                <Grid container item>
-                                    <Input className={classes.inputPost} placeholder="It is title message" value={props.profile.newPostTitle} onChange={(e) => (onPostTitle(e))} />
-                                </Grid>
-                                <Grid container item>
-                                    <Input className={classes.inputPost} placeholder="It is body message" value={props.profile.newPostBody} onChange={(e) => (onPostBody(e))} multiline></Input>
-                                </Grid>
-                                <Grid container item justify="flex-end">
-                                    <Button variant="outlined" onClick={props.addPost}>Create post</Button>
-                                </Grid>
-                            </Grid>
-                            <Grid container item>
-                                <Posts posts={props.posts}/>
-                            </Grid>
+                            <PostsWall onSubmit={onSubmit} posts={props.posts} />
                         </Grid>
                     </Grid>
                 </Grid>

@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Notes = (props) => {
-    const classes = useStyles();
+    /*const classes = useStyles();*/
 
         return (
             <>

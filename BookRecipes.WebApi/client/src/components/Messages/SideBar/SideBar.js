@@ -42,16 +42,6 @@ const useStyles = makeStyles((theme) => ({
 const SideBar= (props) => {
     const classes = useStyles();
 
-    const onPostTitle = (e) => {
-        let text = e.target.value
-        props.updatePostTitle(text)
-    }
-
-    const onPostBody = (e) => {
-        let text = e.target.value
-        props.updatePostBody(text)
-    }
-
         return (
             <>
                 <Grid direction="column" container item>

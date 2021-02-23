@@ -28,12 +28,12 @@ export default function App (props){
         <Paper>
             <Header title="This is book of recipes" />
             <main>
-                <Grid container spacing={2} className={classes.mainGrid}>
+                <Grid direction="row" container spacing={2} className={classes.mainGrid}>
                     <Grid container item md={2}>
                         <SideBarContainer />
                     </Grid>
-                    <Grid container item md={10} justify="center">
-                        <Route path="/profile/:userId">
+                    <Grid container item md={10}>
+                        <Route path="/profile/:userId?">
                             <ProfileContainer />
                         </Route>
                         <Route path="/messages">

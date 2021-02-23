@@ -17,10 +17,6 @@ const recipesMoq = {
 }
 
 class RecipesContainer  extends Component {
-    constructor(props) {
-        super(props);
-
-    }
 
     componentDidMount() {
         /*this.props.Recipes();*/
@@ -69,5 +65,5 @@ const mapDispatchToProps = dispatch => {
      return {
 }}
 
-export default connect(mapStateToProps, null)(RecipesContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(RecipesContainer)
  

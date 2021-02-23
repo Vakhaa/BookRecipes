@@ -1,7 +1,9 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Input, Button, Checkbox } from '@material-ui/core';
+import { Grid, Button } from '@material-ui/core';
 import { Field, reduxForm } from 'redux-form';
+import InputReduxMUI from '../../utiles/ReduxMUIForms/InputReduxMUI';
+import CheckboxReduxMUI from '../../utiles/ReduxMUIForms/CheckboxReduxMUI';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -17,28 +19,31 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+
 let LoginForm = (props) => {
     const classes = useStyles();
-    
+
     return (
         <>
             <form onSubmit={props.handleSubmit}>
                 <Grid direction="row" container>
                     <Grid container item >Login</Grid>
                     <Grid container item >
-                        <Field name={"login"} placeholder={"login"} component={"input"} />
+                        <Field name={"login"} type="input" component={InputReduxMUI} label="Login" />
                     </Grid>
 
                     <Grid container item >Password</Grid>
                     <Grid container item >
-                        <Field name={"password"} placeholder={"password"} component={"input"} />
+                        <Field name={"password"} component={InputReduxMUI} label="Password" />
                     </Grid>
 
                     <Grid container item md={5}>
-                        <Field name={"remember me"} type="checkbox" component={"input"} />
+                        <Field name={"remember me"} type="checkbox" component={CheckboxReduxMUI} />
                     </Grid>
                     <Grid container item md={3}>
-                        <button /*variant="outlined"*/>Log In</button>
+                        <Field name={"submit"} type="submit" component={Button}>
+                            Log In
+                        </Field>
                     </Grid>
                     <Grid container item>Remember me</Grid>
 
@@ -54,14 +59,10 @@ let LoginReduxForm = reduxForm({
 
 let Login = (props) => {
     const classes = useStyles();
-    const onSubmit = (formData) => {
-        console.log(formData);
-    }
-
     return (
         <>
             <h1>Login</h1>
-            <LoginReduxForm onSubmit={onSubmit} />
+            <LoginReduxForm onSubmit={props.onSubmit} />
         </>
     );
 }
