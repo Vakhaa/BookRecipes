@@ -4,6 +4,7 @@ import { Grid, Button } from '@material-ui/core';
 import { Field, reduxForm } from 'redux-form';
 import InputReduxMUI from '../../utiles/ReduxMUIForms/InputReduxMUI';
 import CheckboxReduxMUI from '../../utiles/ReduxMUIForms/CheckboxReduxMUI';
+import { maxLengthCreator, minLengthCreator, required } from '../../utiles/vaildators/validators';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -19,6 +20,8 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+const minLength3 = minLengthCreator(3)
+const maxLength30 = maxLengthCreator(30)
 
 let LoginForm = (props) => {
     const classes = useStyles();
@@ -29,12 +32,14 @@ let LoginForm = (props) => {
                 <Grid direction="row" container>
                     <Grid container item >Login</Grid>
                     <Grid container item >
-                        <Field name={"login"} type="input" component={InputReduxMUI} label="Login" />
+                        <Field name={"login"} type="input" component={InputReduxMUI} label="Login"
+                            validate={[required, minLength3]} />
                     </Grid>
 
                     <Grid container item >Password</Grid>
                     <Grid container item >
-                        <Field name={"password"} component={InputReduxMUI} label="Password" />
+                        <Field name={"password"} component={InputReduxMUI} label="Password"
+                            validate={[required, maxLength30]} />
                     </Grid>
 
                     <Grid container item md={5}>

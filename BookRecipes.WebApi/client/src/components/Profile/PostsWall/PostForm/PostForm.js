@@ -2,9 +2,10 @@ import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-import { Typography, Button, Input, Grid, Divider } from '@material-ui/core';
+import {  Button,  Grid} from '@material-ui/core';
 import { Field, reduxForm } from 'redux-form';
 import InputReduxMUI from '../../../../utiles/ReduxMUIForms/InputReduxMUI';
+import { maxLengthCreator } from '../../../../utiles/vaildators/validators';
 
 const useStyles = makeStyles({    
     root: {
@@ -19,6 +20,7 @@ const useStyles = makeStyles({
     },
 });
 
+const maxLength100 = maxLengthCreator(100);
 
 const PostForm = (props) => {
     const classes = useStyles();
@@ -28,7 +30,8 @@ const PostForm = (props) => {
             <Grid container>
                 <Grid container item>
                     <Field name="postTitle" type="input" component={InputReduxMUI} label="It is title message"
-                        className={classes.inputPost} variant="outlined" />
+                        className={classes.inputPost} variant="outlined"
+                        validate={[maxLength100]} />
                 </Grid>
                 <Grid container item>
                     <Field name="postBody" type="input" component={InputReduxMUI} label="It is body message"
