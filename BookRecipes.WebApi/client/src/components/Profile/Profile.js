@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { Grid, Typography, Avatar, Chip, Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core';
+import { Grid, Typography, Avatar, Chip, Accordion, AccordionSummary, AccordionDetails, Input } from '@material-ui/core';
 
 import PostsWall from './PostsWall/PostsWall'
 import Friends from './Friends/Friends'
@@ -23,6 +23,27 @@ const useStyles = makeStyles({
 
 const Profile = (props) => {
     const classes = useStyles();
+
+    //TODO: push status on store
+    let [editModeStatus, setEditModeStatus] = useState(false);
+    let [status, setStatus] = useState(props.profile.status);
+
+    const onBlurStatusUpdate = () => {
+        setEditModeStatus(false);
+    }
+
+    const onClickEditStatus = () => {
+        setEditModeStatus(true);
+    }
+
+    const onStatusChange = (e) => {
+        let textStatus = e.currentTarget.value;
+        if (textStatus === "")
+        {
+            textStatus = "*statusa net*"
+        }
+        setStatus(textStatus);
+    }
 
     const onSubmit = (formData) => {
         props.addPost(formData)
@@ -48,7 +69,8 @@ const Profile = (props) => {
                             </Grid>
                             <Grid container item>
                                 <Typography variant="h6">Status:</Typography>
-                                <Typography variant="h6">{props.profile.status}</Typography>
+                                {!editModeStatus && <Typography variant="h6" onDoubleClick={onClickEditStatus}>{status}</Typography>}
+                                {editModeStatus && <Input autoFocus={true} onChange={onStatusChange} value={status} onBlur={onBlurStatusUpdate} />}
                             </Grid>
                             <Grid container item>
                                 soical network
