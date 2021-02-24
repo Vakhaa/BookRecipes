@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -27,6 +27,10 @@ const Profile = (props) => {
     //TODO: push status on store
     let [editModeStatus, setEditModeStatus] = useState(false);
     let [status, setStatus] = useState(props.profile.status);
+
+    useEffect(() => {
+        setStatus(props.profile.status);
+    }, [props.profile.status]);
 
     const onBlurStatusUpdate = () => {
         setEditModeStatus(false);
