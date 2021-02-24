@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom'
 import { compose } from 'redux'
 import Chat from '../components/Messages/Chat/Chat'
 import { addMessage, getFriendMessages} from '../Redux/actions/messagesAction'
+import { getMessages } from '../utiles/selectors/selectors'
 
 class ChatContainer extends Component {
 
@@ -20,7 +21,7 @@ class ChatContainer extends Component {
 
 const mapStateToProps = state => {
     return {
-        messages: state.messages.messages
+        messages: getMessages(state)
     }
 }
 

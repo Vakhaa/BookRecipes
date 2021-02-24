@@ -1,14 +1,14 @@
 import React, {Component} from 'react'  
 import { connect } from 'react-redux'
-import { getProfile} from '../Redux/actions/profileAction'
 import { getLittleInfromationAboutFriend, getUserFriends } from '../Redux/actions/friendsAction'
 
 import Friends from '../components/Friends/Friends'
 import { compose } from 'redux'
 import { withAuthUser } from '../hoc/withAuthUser'
+import { getProfile, getFriendsClipInfo, getFriendsId, getProfileIsFetching} from '../utiles/selectors/selectors'
 
 class FriendsContainer  extends Component {
-
+    //TODO : current friends
     profile = () => {
 
         this.props.getUserFriends(this.props.profile.id)
@@ -36,10 +36,10 @@ class FriendsContainer  extends Component {
 
 const mapStateToProps = state => {
     return {
-        profile: state.profiles.profile,
-        isFetching: state.profiles.fetching,
-        friendsId: state.friends.friends,
-        friends: state.informator.friends
+        profile: getProfile(state),
+        isFetching: getProfileIsFetching(state),
+        friendsId: getFriendsId(state),
+        friends: getFriendsClipInfo(state)
     }
 }
 

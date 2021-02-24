@@ -5,10 +5,11 @@ import Profile from '../components/Profile/Profile'
 import { compose } from 'redux'
 import { withAuthUser } from '../hoc/withAuthUser'
 import { withFriends } from '../hoc/withFriends'
+import { getFriendsClipInfo, getProfile, getProfileIsFetching, getPosts } from '../utiles/selectors/selectors'
 
 class ProfileContainer  extends Component {
 
-
+    // problems with user admini (maybe problems with auth and id 0?)
     profile = () => {
 
         this.props.getUserPosts(this.props.profile.id)
@@ -38,10 +39,10 @@ class ProfileContainer  extends Component {
 
 const mapStateToProps = state => {
     return {
-        profile: state.profiles.profile,
-        isFetching: state.profiles.fetching,
-        posts: state.posts.posts,
-        friends: state.informator.friends
+        profile: getProfile(state),
+        isFetching: getProfileIsFetching(state),
+        posts: getPosts(state),
+        friends: getFriendsClipInfo(state)
     }
 }
 

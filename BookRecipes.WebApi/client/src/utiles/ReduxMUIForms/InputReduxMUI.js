@@ -14,7 +14,7 @@ const InputReduxMUI = ({ input, custom, type, label, meta, ...props }) => {
     return (
         <>
             {hasError ?
-                <Tooltip  title={meta.error} placement="right-start" open>
+                <Tooltip title={meta.error} placement="right-start" open>
                     <Input className={classes.borderRed} placeholder={label} {...input} {...custom} type={type} {...props} />
                 </Tooltip>:
                 <Input placeholder={label} {...input} {...custom} type={type} {...props} />

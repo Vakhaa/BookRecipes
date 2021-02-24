@@ -18,32 +18,6 @@ const recipesMoq = {
 
 class RecipesContainer  extends Component {
 
-    componentDidMount() {
-        /*this.props.Recipes();*/
-        /*   this.timer = setInterval(() => this.getIngredients(), 5000);
-           this.timer1 = setInterval(() => this.setState({ ingredients: this.props.ingredients }), 1000);*/
-    }
-
-    /*componentWillUnmount() {
-        clearInterval(this.timer);
-        clearInterval(this.timer1);
-    }*/
-
-    /*const handleChange = (event) => {
-        this.setState({ value: event.target.value });
-        event.preventDefault();
-    }
-
-    const handleSubmit = (event) => {
-        console.log("Value in handleSubmit(<Ingredients>):")
-        console.log(this.state.value)
-        props.getIngredient(this.state.value)
-        event.preventDefault();
-
-    }*/
-    /*let timer = setInterval(() => props.getIngredients(), 10000);*/
-
-
     render() {
         return (
             <Recipes

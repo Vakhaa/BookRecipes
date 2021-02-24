@@ -1,8 +1,9 @@
 import React, {Component} from 'react'  
 import { connect } from 'react-redux'
-import { getIngredient } from '../Redux/actions/ingredientAction'
-import { getIngredients } from '../Redux/actions/ingredientsAction'
+import { getIngredient as getIngredientAction} from '../Redux/actions/ingredientAction'
+import { getIngredients as getIngredientsAction } from '../Redux/actions/ingredientsAction'
 import Ingredients from '../components/Ingredients/Ingredients'
+import { getIngredientsIsFetching, getIngredients } from '../utiles/selectors/selectors'
 
 class IngredientsContainer  extends Component {
 
@@ -44,15 +45,15 @@ class IngredientsContainer  extends Component {
 
 const mapStateToProps = state => {
     return {
-        ingredients: state.ingredients.ingredients,
-        fetching: state.ingredients.fetching
+        ingredients: getIngredients(state),
+        fetching: getIngredientsIsFetching(state)
     }
 }
 
 const mapDispatchToProps = dispatch => {
      return {
-        getIngredient: id => dispatch(getIngredient(id)),
-         getIngredients: () => dispatch(getIngredients())
+         getIngredient: id => dispatch(getIngredientAction(id)),
+         getIngredients: () => dispatch(getIngredientsAction())
 }}
 
 export default connect(mapStateToProps, mapDispatchToProps)(IngredientsContainer)

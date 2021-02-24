@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import Messages from '../components/Messages/Messages'
 import { withAuthUser } from '../hoc/withAuthUser'
+import { getFriendsClipInfo } from '../utiles/selectors/selectors'
 
 const friendsMock = [
     {
@@ -49,7 +50,7 @@ class MessagesContainer  extends Component {
 
 const mapStateToProps = state => {
     return {
-        friends: state.informator.friends,
+        friends: getFriendsClipInfo(state),
     }
 }
 

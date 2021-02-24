@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import Login from '../components/common/Login'
 import { checkLogin, logut } from '../Redux/actions/loginAction'
+import { getIsLogin, getLogin } from '../utiles/selectors/selectors'
 
 class LoginContainer  extends Component {
 
@@ -31,8 +32,8 @@ class LoginContainer  extends Component {
 
 const mapStateToProps = state => {
     return {
-        isLogin: state.login.isLogin,
-        login: state.login.login
+        isLogin: getIsLogin(state),
+        login: getLogin(state)
     }
 }
 
