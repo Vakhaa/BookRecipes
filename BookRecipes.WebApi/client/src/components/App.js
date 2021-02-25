@@ -1,18 +1,20 @@
-import RecipesContainer from '../containers/RecipesContainer';
-import RecipeContainer from '../containers/RecipeContainer';
-import IngredientsContainer from '../containers/IngredientsContainer'
-import SideBarContainer from '../containers/SideBarContainer';
-
+import React from 'react'
 import Header from './Header/Header.js'
 import Footer from './Footer/Footer.js'
+import SideBarContainer from '../containers/SideBarContainer';
 
 import { Grid, Paper } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 
-import {Route} from "react-router-dom";
+import { Route } from "react-router-dom";
+
 import ProfileContainer from '../containers/ProfileContainer';
 import MessagesContainer from '../containers/MessagesContainer';
-import FriendsContainer from '../containers/FriendsContainer';
+import RecipeContainer from '../containers/RecipeContainer';
+import RecipesContainer from '../containers/RecipesContainer';
+
+const FriendsContainer = React.lazy(() => import('../containers/FriendsContainer'))
+const IngredientsContainer = React.lazy(() => import('../containers/IngredientsContainer'))
 
 const useStyles = makeStyles((theme) => ({
     mainGrid: {
@@ -39,18 +41,21 @@ export default function App (props){
                         <Route path="/messages">
                             <MessagesContainer />
                         </Route>
-                        <Route path="/friends">
-                            <FriendsContainer />
-                        </Route>
                         <Route path="/recipes">
                             <RecipesContainer />
                         </Route>
                         <Route path="/recipe/:recipeId">
                             <RecipeContainer />
                         </Route>
-                        <Route path="/ingredients">
-                            <IngredientsContainer />
-                        </Route>
+                        
+                        <React.Suspense fallback={<div>Loading...</div>}>
+                            <Route path="/friends">
+                                <FriendsContainer />
+                            </Route>
+                            <Route path="/ingredients">
+                                <IngredientsContainer />
+                            </Route>
+                        </React.Suspense>
                     </Grid>
                 </Grid>
             </main>
