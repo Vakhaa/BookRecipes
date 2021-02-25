@@ -44,14 +44,19 @@ export function getProfile(id) {
     }
 }
 
-/*export function getProfile(id) {
-    return (dispatch) => {
+/*
+ * export function getProfile(id) {
+    return async (dispatch) => {
         dispatch(requestProfile(id))
 
-        profilesAPI.getProfile().then(data => {
-            dispatch(receiveProfile(data))
-        }).catch(error => {
+        let response = await profilesAPI.getProfile();
+        
+        try {
+            dispatch(receiveProfile(response.data))
+        } catch(error) {
             dispatch(errorProfile(error))
-        })
+        }
     }
-}*/
+}
+
+*/

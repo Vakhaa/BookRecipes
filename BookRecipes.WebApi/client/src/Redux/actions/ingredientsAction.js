@@ -27,14 +27,16 @@ export function errorIngredients(error) {
     }
 }
 
-export const getIngredients =() =>{
+export const getIngredients = async () =>{
     return (dispatch) => {
         dispatch(requestIngredients());
 
-        ingredientsAPI.getIngredients().then(data => {
-            dispatch(receiveIngredients(data))
-        }).catch(error => {
+        let response = await ingredientsAPI.getIngredients();
+
+        try {
+            dispatch(receiveIngredients(response.data))
+        } catch (error) {
             dispatch(errorIngredients(error))
-        })
+        }
     }
 }
