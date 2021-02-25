@@ -1,13 +1,7 @@
-import {
-    ADD_POST_TO_PROFILE,
-    GET_USER_POSTS_REQUEST,
-    GET_USER_POSTS_SUCCESS,
-    GET_USER_POSTS_ERROR
+import { addPost, receiveUserPosts, requestUserPosts } from "../actions/postsAction";
+import postsReducer from "./postsReducer";
 
-} from '../actions/actionTypes'
-
-
-const initialState = {
+const state = {
     id: 0,
     userId: null,
     posts: [
@@ -16,11 +10,70 @@ const initialState = {
             title: "Tonight I'm cooked some fine cake!",
             main: "Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica",
             photo: "https://source.unsplash.com/random"
+        },
+        {
+            id: 1,
+            title: "Some photo for you! Duddde",
+            main: "Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica",
+            photo: "https://source.unsplash.com/random"
         }
-    ]
+    ],
 }
 
-let postsMock = [
+it('new post should be added', () => {
+    //Arrange
+    const expectedPost = {
+        postTitle : "test",
+        postBody : "It's my first test"
+    }
+
+    let action = addPost(expectedPost)
+
+    //Act
+    let newState = postsReducer(state, action)
+
+    
+    //Assert
+    expect(newState.posts.length).toBe(3);
+    expect(newState.posts[2].title).toBe(expectedPost.postTitle);
+    expect(newState.posts[2].main).toBe(expectedPost.postBody);
+});
+
+it('userId should be added', () => {  //GET_USER_POSTS_REQUEST
+    //Arrange
+    const expectedId = 0;
+    let action = requestUserPosts(expectedId)
+
+    //Act
+    let newState = postsReducer(state, action)
+
+
+    //Assert
+    expect(newState.userId).toBe(expectedId);
+});
+
+it('user posts should be pull', () => {  // GET_USER_POSTS_SUCCESS
+    //Arrange
+    const expectedId = 0;
+    const initState = { ...state, userId: expectedId }
+
+    let action = receiveUserPosts()
+
+    //Act
+    let newState = postsReducer(initState, action)
+
+    
+    //Assert
+    expect(newState.userId).toBe(expectedId);
+
+    expect(newState.posts[0].id).toBe(postsUsers[0].posts[0].id);
+    expect(newState.posts[0].main).toBe(postsUsers[0].posts[0].main);
+    expect(newState.posts[0].title).toBe(postsUsers[0].posts[0].title);
+    expect(newState.posts[0].photo).toBe(postsUsers[0].posts[0].photo);
+});
+
+
+let postsUsers = [
     {
         id: 0,
         userId: 0,
@@ -94,46 +147,3 @@ let postsMock = [
         ],
     }
 ]
-
-
-export default function postsReducer(state = initialState, action) {
-    switch (action.type) {
-        case ADD_POST_TO_PROFILE:
-            const newPost = {
-                id: 3,
-                title: action.post.postTitle,
-                main: action.post.postBody,
-                photo: "https://source.unsplash.com/random"
-            }
-            postsMock = postsMock.map((user) => (
-                (state.userId === user.userId) ?
-                    user = {
-                        ...user,
-                        posts : [...state.posts, newPost]
-                    } : user
-                ))
-            return {
-                ...state,
-                posts: [...state.posts, newPost]
-            }
-        case GET_USER_POSTS_REQUEST:
-            return {
-                ...state,
-                userId: action.userId
-            }
-        case GET_USER_POSTS_SUCCESS:
-            return {
-                ...state,
-                posts: postsMock.find((posts) => (
-                    posts.userId == state.userId
-                )).posts
-            }
-        case GET_USER_POSTS_ERROR:
-            return {
-                ...state,
-                error: action.error
-            }
-        default:
-            return state
-    }
-}

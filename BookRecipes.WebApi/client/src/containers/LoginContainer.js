@@ -1,9 +1,10 @@
+import React, { Component } from 'react'  
+
 import { Button } from '@material-ui/core'
-import React, {Component} from 'react'  
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import Login from '../components/common/Login'
-import { checkLogin, logut } from '../Redux/actions/loginAction'
+import { checkLogin, logout } from '../Redux/actions/loginAction'
 import { getIsLogin, getLogin } from '../utiles/selectors/selectors'
 
 class LoginContainer  extends Component {
@@ -19,7 +20,7 @@ class LoginContainer  extends Component {
 
     logined = () => {
         return (
-            <Button onClick={this.props.logut} variant="outlined">{this.props.login}</Button>
+            <Button onClick={this.props.logout} variant="outlined">{this.props.login}</Button>
             ) 
     }
 
@@ -40,7 +41,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         checkLogin: (data) => (dispatch(checkLogin(data))),
-        logut: () => (dispatch(logut())),
+        logout: () => (dispatch(logout())),
 }}
 
 

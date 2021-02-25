@@ -1,6 +1,6 @@
 import {
     LOGIN_CHECK,
-    LOGUT
+    LOGOUT
 } from '../actions/actionTypes'
 
 const loginMock = [
@@ -34,7 +34,7 @@ const initialState = {
 
 export default function loginReducer(state = initialState, action) {
     switch (action.type) {
-        case LOGUT:
+        case LOGOUT:
             return {
                 ...state,
                 isLogin: false,
@@ -45,13 +45,13 @@ export default function loginReducer(state = initialState, action) {
             const person = loginMock.find((users) => (
                 (users.login === action.data.login) && (users.password == action.data.password) ? true : false
             ))
-            const checkLogin = person ? true : false;
+            const checkIsLogin = person ? true : false;
             const checkUserId = person ? person.userId : null;
-            const checklogin = person ? person.login : null;
+            const checkLogin = person ? person.login : null;
             return {
                 ...state,
-                isLogin: checkLogin,
-                login: checklogin,
+                isLogin: checkIsLogin,
+                login: checkLogin,
                 userId: checkUserId
             }
         default:

@@ -2,7 +2,7 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAILED,
     LOGIN_CHECK,
-    LOGUT
+    LOGOUT
 }
     from './actionTypes'
 
@@ -19,9 +19,9 @@ export function successLogin() {
     }
 }
 
-export function logut() {
+export function logout() {
     return {
-        type: LOGUT
+        type: LOGOUT
     }
 }
 

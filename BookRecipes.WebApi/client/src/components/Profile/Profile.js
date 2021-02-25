@@ -44,7 +44,7 @@ const Profile = (props) => {
         let textStatus = e.currentTarget.value;
         if (textStatus === "")
         {
-            textStatus = "*statusa net*"
+            textStatus = "*statusa net, eto rasvet, kluch poverni i po-li-te-li*"
         }
         setStatus(textStatus);
     }
