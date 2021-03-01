@@ -2,38 +2,36 @@ import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-import { Grid, Typography, Avatar, Badge } from '@material-ui/core';
+import { Typography, Avatar, Badge, Tooltip, Card, CardActionArea, CardContent} from '@material-ui/core';
 
 const useStyles = makeStyles({
-    list: {
-        width: 250,
-    },
-    fullList: {
-        width: 'auto',
-    },
-    rounded: {
-        width: 300,
-        height:300
+    root: {
+        maxWidth: 345,
     },
 });
 
-const Friends= (props) => {
+const Friends = ({friends}) => {
     const classes = useStyles();
 
+    const nameOfFriend = (name) => <Typography>{name}</Typography>
+
         return (
-            <>
-                <Grid container item>
-                    <Typography>Friends:</Typography>
-                    {
-                        props.friends.map((friend) => (
-                            <Badge key={friend.id}>
-                                { friend.name}
-                                <Avatar src={friend.photo} alt={friend.name} />
-                            </Badge>
-                        ))
-                    }
-                </Grid>
-            </>
+            <Card className={classes.root}>
+                <Typography gutterBottom variant="body1" color="textSecondary" component="h4"> Friends: {friends.length}</Typography>
+                <CardActionArea>
+                    <CardContent>
+                        {
+                            friends.map((friend) => (
+                                <Badge key={friend.id}>
+                                    <Tooltip title={nameOfFriend(friend.name)} placement="top-end">
+                                        <Avatar src={friend.photo} alt={friend.name} />
+                                    </Tooltip>
+                                </Badge>
+                            ))
+                        }
+                    </CardContent>
+                </CardActionArea>
+            </Card>
         )
 }
 

@@ -100,7 +100,7 @@ export default function postsReducer(state = initialState, action) {
     switch (action.type) {
         case ADD_POST_TO_PROFILE:
             const newPost = {
-                id: 3,
+                id: 4,
                 title: action.post.postTitle,
                 main: action.post.postBody,
                 photo: "https://source.unsplash.com/random"

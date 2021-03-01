@@ -17,10 +17,14 @@ const useStyles = makeStyles({
 const PostsWall = (props) => {
     const classes = useStyles();
 
+    const onSubmit = (formData) => {
+        props.addPost(formData)
+    }
+
     return (
         <>
             <Grid container item>
-                <PostForm onSubmit={props.onSubmit} />
+                <PostForm onSubmit={onSubmit} />
             </Grid>
             <Grid container item>
                 <Posts posts={props.posts} />

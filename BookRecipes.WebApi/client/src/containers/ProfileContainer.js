@@ -7,13 +7,42 @@ import { withAuthUser } from '../hoc/withAuthUser'
 import { withFriends } from '../hoc/withFriends'
 import { getFriendsClipInfo, getProfile, getProfileIsFetching, getPosts } from '../utiles/selectors/selectors'
 
-class ProfileContainer  extends Component {
+class ProfileContainer extends Component {
 
     // problems with user admini (maybe problems with auth and id 0?)
+
+    getUser() {
+        return this.props.match.params.userId ? this.props.match.params.userId : this.props.loginUserId
+    }
+
+    refreshUser() {
+        const userId = this.getUser()
+        if (userId) {
+            this.props.getProfile(userId);
+            this.refreshPosts()
+        }
+    }
+
+    refreshPosts() {
+        const userId = this.getUser()
+        if (userId) this.props.getUserPosts(userId);
+    }
+
+    componentDidMount() {
+        this.refreshUser();
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.loginUserId !== this.props.loginUserId) {
+            this.refreshUser();
+        } else if (prevProps.match.params.userId !== this.props.match.params.userId) {
+            this.refreshUser();
+        } else if (prevProps.posts !== this.props.posts) {
+            this.refreshPosts()
+        }
+    }
+
     profile = () => {
-
-        this.props.getUserPosts(this.props.profile.id)
-
         return <Profile
             profile={this.props.profile}
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-import { Grid, Typography, Avatar,  Badge, MenuItem } from '@material-ui/core';
+import { Grid, Typography, Avatar,  Badge, MenuItem, Chip } from '@material-ui/core';
 
 import { NavLink } from 'react-router-dom';
 
@@ -20,7 +20,7 @@ const Friends = (props) => {
             <>
                 <Grid direction="column" container>
                     {props.friends.map((friend) => (
-                        <NavLink ley={friend.id} to={"/profile/" + friend.id} className={classes.linkText}>
+                        <NavLink key={friend.id} to={"/profile/" + friend.id} className={classes.linkText}>
                             <MenuItem>
                                 <Badge>
                                     <Avatar alt={friend.name} src={friend.photo} />
@@ -30,6 +30,9 @@ const Friends = (props) => {
                                 </Badge>
                                 <Badge>
                                     <Typography> {friend.state}</Typography>
+                                </Badge>
+                                <Badge>
+                                    <Chip label="Online" color="secondary" />
                                 </Badge>
                             </MenuItem>
                         </NavLink>

@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="client\src\components\Messages\Chat\VideoChat\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

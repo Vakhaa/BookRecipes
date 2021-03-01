@@ -6,7 +6,7 @@ const profilesMock = [
         status: "So so",
         description: "To jest najliepsze co zrobily ludzi. Aromatny zapazch, a jaki kolor, smack wymbitny.",
         postsId: 0,
-        socailNetworkings: [
+        socialNetworkings: [
             {
                 id: 1,
                 name: "Git Hub"
@@ -28,7 +28,7 @@ const profilesMock = [
         status: "Are you freezing?",
         description: "To jest najliepsze co zrobily ludzi. Aromatny zapazch, a jaki kolor, smack wymbitny.",
         postsId: 1,
-        socailNetworkings: [
+        socialNetworkings: [
             {
                 id: 1,
                 name: "Git Hub"
@@ -50,7 +50,7 @@ const profilesMock = [
         status: "I'm just God",
         description: "To jest najliepsze co zrobily ludzi. Aromatny zapazch, a jaki kolor, smack wymbitny.",
         postsId: 1,
-        socailNetworkings: [
+        socialNetworkings: [
             {
                 id: 1,
                 name: "Git Hub"
@@ -72,7 +72,7 @@ const profilesMock = [
         status: "Get over here!",
         description: "To jest najliepsze co zrobily ludzi. Aromatny zapazch, a jaki kolor, smack wymbitny.",
         postsId: 1,
-        socailNetworkings: [
+        socialNetworkings: [
             {
                 id: 1,
                 name: "Git Hub"

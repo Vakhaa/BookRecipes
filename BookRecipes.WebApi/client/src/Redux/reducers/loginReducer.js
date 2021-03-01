@@ -43,7 +43,7 @@ export default function loginReducer(state = initialState, action) {
             }
         case LOGIN_CHECK:
             const person = loginMock.find((users) => (
-                (users.login === action.data.login) && (users.password == action.data.password) ? true : false
+                (users.login === action.data.login) && (users.password == action.data.fieldPassword) ? true : false
             ))
             const checkIsLogin = person ? true : false;
             const checkUserId = person ? person.userId : null;

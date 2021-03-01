@@ -13,8 +13,8 @@ window.store = store;
 
 render(
     <Provider store={store}>
-        <CssBaseline/>
-        <BrowserRouter>
+        <CssBaseline />
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
             <App />
         </BrowserRouter>
     </Provider>,
@@ -24,3 +24,6 @@ render(
 /*
 store.dispatch(selectFromBook('Recipes'))
 store.dispatch(fetchFromBook('Recipes')).then(() => console.log(store.getState()))*/
+
+/*serviceWorker.unregister();*/
+

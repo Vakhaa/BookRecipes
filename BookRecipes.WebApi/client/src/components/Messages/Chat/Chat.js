@@ -1,4 +1,4 @@
-﻿import React from 'react';
+﻿import React, { useEffect } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -17,8 +17,19 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+/*const wsChannel = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx');   //wss://bookOfRecipes.com/handlers/ChatHandler.ashx 
+*/
 const Chat = (props) => {
+
     const classes = useStyles();
+
+    /*
+    useEffect(() => {
+        wsChannel.addEventListener('message', (e) => {
+            console.log(JSON.parse(e))
+        })
+    }, []);*/
+
     const onSubmit = (formData) => {
         props.addMessage(formData.messageBody)
     }
