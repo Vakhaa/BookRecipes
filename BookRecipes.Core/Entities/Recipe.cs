@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using BookRecipes.Core.Entities.SocialNetwork;
 using BookRecipes.SharedKernel;
 
 namespace BookRecipes.Core.Entities
@@ -28,6 +29,7 @@ namespace BookRecipes.Core.Entities
         /// Ссылка на таблицу где описаны шаги приготовления.
         /// </summary>
         public IEnumerable<StepsInRecipe> StepsHowCooking { get; set; }
+        public IEnumerable<MyRecipes> MyRecipes { get; set; }
         #endregion
         public Recipe() { }
         public Recipe(string name, int categoryId, string description)
