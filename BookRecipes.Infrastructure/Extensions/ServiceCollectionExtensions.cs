@@ -16,6 +16,12 @@ namespace BookRecipes.Infrastructure.Extensions
             services.AddScoped<CategoryController>();
             services.AddScoped<IngredientController>();
             services.AddScoped<RecipeController>();
+
+            services.AddScoped<CurrentProfileController>();
+            services.AddScoped<MyRecipesController>();
+
+
+            services.AddScoped<TestController>();
             return services;
         }
     }
