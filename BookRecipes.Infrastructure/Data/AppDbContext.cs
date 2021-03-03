@@ -8,7 +8,7 @@ namespace BookRecipes.Infrastructure.Data
 {
     public class AppDbContext : DbContext
     {
-        public DbSet<Category> Categories { get; set; }
+        /*public DbSet<Category> Categories { get; set; }
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<IngredientsInRecipe> IngredientsInRecipes { get; set; }
@@ -21,7 +21,7 @@ namespace BookRecipes.Infrastructure.Data
         public DbSet<MyRecipes> MyRecipes{ get; set; }
         public DbSet<Friends> Friends{ get; set; }
         public DbSet<Messages> Messages{ get; set; }
-        public DbSet<Posts> Posts{ get; set; }
+        public DbSet<Posts> Posts{ get; set; }*/
 
         public AppDbContext(DbContextOptions<AppDbContext> options): base(options)
         {

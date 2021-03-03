@@ -19,7 +19,8 @@ namespace BookRecipes.Core.Controllers
         /// <returns>Список рецептов.</returns>
         public Task<IEnumerable<Recipe>> GetRecipesAsync()
         {
-            return _unitOfWork.Repository.GetWithIncludeListAsync<Recipe>(x=>x.Category,x=>x.StepsHowCooking,x=>x.IngredientsInRecipe, x=>x.Author);
+            return _unitOfWork.Repository.GetWithIncludeListAsync<Recipe>
+                (x=>x.Category,x=>x.StepsHowCooking,x=>x.IngredientsInRecipe, x => x.MyRecipes);
         }
         /// <summary>
         /// Добавить новый рецепт.
@@ -30,7 +31,8 @@ namespace BookRecipes.Core.Controllers
         public async Task CreateRecipeAsync(string nameRecipe, int subcategoriesId, string description)
         {
             var newRcipe = await _unitOfWork.Repository
-                    .GetWithIncludeEntityAsync<Recipe>(x => x.Name == nameRecipe, x => x.Category, x => x.StepsHowCooking, x => x.IngredientsInRecipe);
+                    .GetWithIncludeEntityAsync<Recipe>(x => x.Name == nameRecipe, x => x.Category,
+                    x => x.StepsHowCooking, x => x.IngredientsInRecipe, x => x.MyRecipes);
             if (newRcipe==null)
             {
                 Recipe r = new Recipe(nameRecipe, subcategoriesId, description);
