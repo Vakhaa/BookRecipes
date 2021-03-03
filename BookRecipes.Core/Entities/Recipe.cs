@@ -22,6 +22,11 @@ namespace BookRecipes.Core.Entities
         public int CategoryId { get; set; }
         public Category Category { get; set; }
         /// <summary>
+        /// Подкатегория.
+        /// </summary>
+        public int? AuthorId { get; set; }
+        public Profile Author { get; set; }
+        /// <summary>
         /// Ссылка на таблицу, что содержит в себе список ингредиентов для рецпта и их колличество 
         /// </summary>
         public IEnumerable<IngredientsInRecipe> IngredientsInRecipe { get; set; } 

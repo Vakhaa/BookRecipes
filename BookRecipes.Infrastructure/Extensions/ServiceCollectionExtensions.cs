@@ -18,7 +18,11 @@ namespace BookRecipes.Infrastructure.Extensions
             services.AddScoped<RecipeController>();
 
             services.AddScoped<CurrentProfileController>();
+            services.AddScoped<FriendController>();
+            services.AddScoped<PostController>();
+            services.AddScoped<MessageController>();
             services.AddScoped<MyRecipesController>();
+            services.AddScoped<LoginController>();
 
 
             services.AddScoped<TestController>();

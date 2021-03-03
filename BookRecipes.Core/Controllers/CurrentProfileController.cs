@@ -24,7 +24,7 @@ namespace BookRecipes.Core.Controllers
         public Task<Profile> GetProfileAsync(int id)
         {
             return _unitOfWork.Repository.GetWithIncludeEntityAsync<Profile>
-                (c=>c.Id==id, c => c.AuthData, c => c.Photos, c => c.SocialNetworks, c=> c.Friends, c=> c.Posts, c=>c.Messages, c=>c.MyRecipes);
+                (c=>c.Id==id, c => c.AuthData, c => c.Photos, c => c.SocialNetworks, c=> c.Friends, c=>c.MyRecipes);
         }
     }
 }

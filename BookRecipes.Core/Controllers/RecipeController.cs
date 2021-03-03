@@ -19,7 +19,7 @@ namespace BookRecipes.Core.Controllers
         /// <returns>Список рецептов.</returns>
         public Task<IEnumerable<Recipe>> GetRecipesAsync()
         {
-            return _unitOfWork.Repository.GetWithIncludeListAsync<Recipe>(x=>x.Category,x=>x.StepsHowCooking,x=>x.IngredientsInRecipe);
+            return _unitOfWork.Repository.GetWithIncludeListAsync<Recipe>(x=>x.Category,x=>x.StepsHowCooking,x=>x.IngredientsInRecipe, x=>x.Author);
         }
         /// <summary>
         /// Добавить новый рецепт.
