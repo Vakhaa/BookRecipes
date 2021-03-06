@@ -6,7 +6,7 @@ import {
 }
     from './actionTypes'
 
-import {profilesAPI} from '../../DAL/api'
+import { messagesAPI } from '../../DAL/messages-api'
 
 export function addMessage(text) {
     return {
@@ -15,16 +15,16 @@ export function addMessage(text) {
     }
 }
 
-export function requestFriendMessages(userId) {
+export function requestFriendMessages() {
     return {
-        type: GET_FRIEND_MESSAGES_REQUEST,
-        userId: userId
+        type: GET_FRIEND_MESSAGES_REQUEST
     }
 }
 
-export function receiveFriendMessages() {
+export function receiveFriendMessages(messages) {
     return {
         type: GET_FRIEND_MESSAGES_SUCCESS,
+        messages: messages
     }
 }
 
@@ -35,23 +35,17 @@ export function errorFriendMessages(error) {
     }
 }
 
-export function getFriendMessages(userId) {
-    return (dispatch) => {
-        dispatch(requestFriendMessages(userId))
-
-        dispatch(receiveFriendMessages())
-    }
-}
 //генератор экшена
 
-/*export function getProfile(id) {
-    return (dispatch) => {
-        dispatch(requestProfile(id))
+export function getFriendMessages(currentUserId, friendId) {
+    return async (dispatch) => {
+        dispatch(requestFriendMessages())
 
-        profilesAPI.getProfile().then(data => {
-            dispatch(receiveProfile(data))
-        }).catch(error => {
-            dispatch(errorProfile(error))
-        })
+        try {
+            var response = await messagesAPI.getMessages(currentUserId, friendId);
+            dispatch(receiveFriendMessages(response.data))
+        } catch (error) {
+            dispatch(errorFriendMessages(error))
+        }
     }
-}*/
+}

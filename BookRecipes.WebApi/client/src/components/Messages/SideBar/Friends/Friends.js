@@ -53,7 +53,7 @@ const Friends = (props) => {
                                 <Typography>{friend.name}</Typography>
                             </Badge>
                             <Badge>
-                                <Avatar alt={friend.name} src={friend.photo} />
+                                <Avatar alt={friend.name} src={friend.photos.smallPhoto} />
                             </Badge>
                         </MenuItem>
                     </NavLink>

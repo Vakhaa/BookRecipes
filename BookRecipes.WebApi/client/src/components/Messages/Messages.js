@@ -35,7 +35,7 @@ const Messages = (props) => {
                             <Notes/>
                         </Route>
                         <Route path="/messages/chat/:userId" exact>
-                            <ChatContainer addMessage={props.addMessage} />
+                            <ChatContainer loginUserId={props.loginUserId} addMessage={props.addMessage} />
                         </Route>
                     </Grid>
                     <Grid className={classes.friendsBar} container item md={4}>

@@ -1,4 +1,4 @@
-﻿import React, {Component} from 'react'  
+﻿import React, {useEffect} from 'react'  
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { compose } from 'redux'
@@ -6,17 +6,17 @@ import Chat from '../components/Messages/Chat/Chat'
 import { addMessage, getFriendMessages} from '../Redux/actions/messagesAction'
 import { getMessages } from '../utiles/selectors/selectors'
 
-class ChatContainer extends Component {
+const ChatContainer =(props)=>{
 
-    componentDidUpdate() {
-        this.props.getFriendMessages(this.props.match.params.userId);
-    }
+    useEffect(() => {
+        props.getFriendMessages(props.loginUserId, props.match.params.userId);
+    }, [props.loginUserId, props.match.params.userId]);
 
-    render() {
-        return (
-            <Chat {...this.props} />
-        )
-    }
+    const chat = () => <Chat {...props} />
+    const loading = () => <div>Loading</div>
+
+    return !props.messages ? loading() : chat();
+
 }
 
 const mapStateToProps = state => {
@@ -28,7 +28,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         addMessage: (text) => (dispatch(addMessage(text))),
-        getFriendMessages: (userId) => (dispatch(getFriendMessages(userId))),
+        getFriendMessages: (userId, friendId) => (dispatch(getFriendMessages(userId, friendId))),
     }
 }
 

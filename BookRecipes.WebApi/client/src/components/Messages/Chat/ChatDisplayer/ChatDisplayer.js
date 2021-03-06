@@ -25,7 +25,7 @@ const ChatDisplayer = (props) => {
                                     <Typography>{message.dataCreated.data} {message.dataCreated.time}</Typography>*/}
                             <Paper className={classes.bg}>
                                 <Typography>
-                                    {message.text}
+                                    {message.message}
                                 </Typography>
                             </Paper>
                         </Grid>

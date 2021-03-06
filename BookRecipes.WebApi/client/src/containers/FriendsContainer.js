@@ -1,4 +1,4 @@
-import React, {Component, useEffect} from 'react'  
+import React, {useEffect} from 'react'  
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { getLittleInfromationAboutFriend, getUserFriends} from '../Redux/actions/friendsAction'
@@ -6,7 +6,6 @@ import { getLittleInfromationAboutFriend, getUserFriends} from '../Redux/actions
 import Friends from '../components/Friends/Friends'
 import { withAuthUser } from '../hoc/withAuthUser'
 import { getFriendsClipInfo, getFriendsId} from '../utiles/selectors/selectors'
-import { withRouter } from 'react-router-dom'
 
 const FriendsContainer = (props) => {
 
@@ -15,10 +14,8 @@ const FriendsContainer = (props) => {
     }
 
     useEffect(() => {
-        debugger
-        const userId = getUser();
-        props.getUserFriends(userId);
-    }, []);
+        props.getUserFriends(getUser());
+    }, [getUser()]);
 
     const friends = () => {
         return <Friends friends={props.friends} /> 
@@ -48,7 +45,6 @@ const mapDispatchToProps = dispatch => {
 
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),
-    /*withRouter,*/
     withAuthUser,
 )(FriendsContainer)
  

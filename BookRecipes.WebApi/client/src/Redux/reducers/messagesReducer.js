@@ -183,7 +183,7 @@ export default function messagesReducer(state = initialState, action) {
     switch (action.type) {
         case ADD_MESSAGE_TO_FRIEND:
             const newMessage = {
-                id: 2,
+                id: 5,
                 text: action.text,
                 isMe: true,
                 isChange: false,
@@ -192,13 +192,6 @@ export default function messagesReducer(state = initialState, action) {
                     time: "20:32"
                 }
             }
-            messagesMock = messagesMock.map((user) => (
-                (state.userId == user.userId) ?
-                    user = {
-                        ...user,
-                        messages: [...user.messages, newMessage]
-                    } : user
-            ))
             return {
                 ...state,
                 messages: [...state.messages, newMessage]
@@ -206,14 +199,11 @@ export default function messagesReducer(state = initialState, action) {
         case GET_FRIEND_MESSAGES_REQUEST:
             return {
                 ...state,
-                userId: action.userId
             }
         case GET_FRIEND_MESSAGES_SUCCESS:
             return {
                 ...state,
-                messages: messagesMock.find((posts) => (
-                    posts.userId == state.userId
-                )).messages
+                messages: action.messages
             }
         case GET_FRIEND_MESSAGES_ERROR:
             return {

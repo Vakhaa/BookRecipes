@@ -28,7 +28,7 @@ export default function RouteComponent (props){
             </Route>
 
             <React.Suspense fallback={<div>Loading...</div>}>
-                <Route path="/friends/:profileId?">
+                <Route exact path="/friends/:profileId?">
                     <FriendsContainer />
                 </Route>
                 <Route path="/ingredients">

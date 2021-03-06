@@ -1,9 +1,10 @@
-﻿import React, {Component} from 'react'  
+﻿import React, {Component, useEffect} from 'react'  
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import Messages from '../components/Messages/Messages'
 import { withAuthUser } from '../hoc/withAuthUser'
-import { getFriendsClipInfo } from '../utiles/selectors/selectors'
+import { getUserFriends } from '../Redux/actions/friendsAction'
+import { getFriendsClipInfo, getFriendsId } from '../utiles/selectors/selectors'
 
 const friendsMock = [
     {
@@ -39,23 +40,29 @@ const friendsMock = [
 ]
 
 
-class MessagesContainer  extends Component {
+const MessagesContainer  = (props) => {
 
-    render() {
-        return (
-            <Messages {...this.props} />
-        )
-    }
+    useEffect(() => {
+        props.getUserFriends(props.loginUserId);
+    }, [props.loginUserId]);
+
+
+    const messages = () => <Messages {...props} />
+    const loading = () => <div>"Loading"</div>
+
+    return !props.friends ? loading() : messages();
 }
 
 const mapStateToProps = state => {
     return {
-        friends: getFriendsClipInfo(state),
+        friends: getFriendsId(state),
+        /*friends: getFriendsClipInfo(state),*/
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
+        getUserFriends: (userId) => (dispatch(getUserFriends(userId)))
     }
 }
 

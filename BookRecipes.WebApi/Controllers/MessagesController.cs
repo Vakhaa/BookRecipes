@@ -29,9 +29,31 @@ namespace BookRecipes.WebApi.Controllers
 
         [HttpGet("")]
         [Produces("application/json")]
-        public async Task<ActionResult<List<Messages>>> GetFriendMessageAsync(int currentUserId, int friendId)
+        public async Task<ActionResult<object>> GetFriendMessageAsync(int currentUserId, int friendId)
         {
-            return new ObjectResult(await _messageController.GetFriendMessageAsync(currentUserId, friendId));
+            var response = await _messageController.GetFriendMessageAsync(currentUserId, friendId);
+            string messages = "[";
+
+            if (response != null)
+            {
+                foreach (var item in response)
+                {
+                    var message = "{'id': " + item.Id + "," +
+                        "'authorId': " + item.AuthorId + "," +
+                        "'recipientId':" + item.RecipientId + "," +
+                        "'message':'" + item.Message + "'," +
+                        $"'isChanged':{item.IsChanged.ToString().ToLower()}," +
+                        "'date': '" + item.Date + "'," +
+                        "'time':'" + item.Time + "'," +
+                        $"'isMe':{(item.AuthorId == currentUserId).ToString().ToLower()}" +
+                        "},";
+                    messages+= message;
+                }
+            }
+            messages += "]";
+            return JsonConvert.DeserializeObject(messages);
+            //return new ObjectResult(messages);
         }
     }
 }
+

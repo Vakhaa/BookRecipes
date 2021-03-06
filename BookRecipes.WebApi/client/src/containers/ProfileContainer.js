@@ -38,8 +38,6 @@ class ProfileContainer extends Component {
     profile = () => {
         return <Profile
             profile={this.props.profile}
-            updatePostBody={this.props.updatePostBody} // ?
-            updatePostTitle={this.props.updatePostTitle} // ?
             addPost={this.props.addPost}
         /> 
     }
@@ -59,8 +57,6 @@ const mapStateToProps = state => {
     return {
         profile: getProfile(state),
         isFetching: getProfileIsFetching(state),
-        /*friends: getFriendsId(state)*/
-        /*friends: getFriendsClipInfo(state)*/
     }
 }
 
@@ -76,7 +72,6 @@ const mapDispatchToProps = dispatch => {
 
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),
-    /*withFriends,*/
     withAuthUser,
 )(ProfileContainer)
  
