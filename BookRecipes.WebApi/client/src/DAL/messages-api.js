@@ -10,7 +10,13 @@ const instance = axios.create({
 
 export const messagesAPI = {
     getMessages(currentUserId, friendId) {
-        debugger
         return instance.get(`Messages/?currentUserId=${currentUserId}&friendId=${friendId}`);
+    },
+    postMessage(authorId, recipientId, message) {
+        return instance.post(`Messages/CreateMessage`, {
+            authorId: authorId,
+            recipientId: recipientId,
+            message: message
+        });
     },
 }

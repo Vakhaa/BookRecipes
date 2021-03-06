@@ -35,7 +35,7 @@ namespace BookRecipes.WebApi.Controllers
         }
 
         [HttpPost("CreatePost")] /*int profileId, string title, string body, int? authorId = null*/
-        public async Task<ActionResult<Posts>> PostAddCategoryAsync(Posts post)
+        public async Task<ActionResult<Posts>> AddPostAsync(Posts post)
         {
             var response = await _postController.AddPostsAsync(post.ProfileId, post.Title, post.Body, post.AuthorId);
             if (response != null) 

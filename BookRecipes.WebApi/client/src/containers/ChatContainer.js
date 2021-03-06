@@ -12,7 +12,11 @@ const ChatContainer =(props)=>{
         props.getFriendMessages(props.loginUserId, props.match.params.userId);
     }, [props.loginUserId, props.match.params.userId]);
 
-    const chat = () => <Chat {...props} />
+    const onSubmit = (formData) => {
+        props.addMessage(props.loginUserId, props.match.params.userId, formData.messageBody)
+    }
+
+    const chat = () => <Chat messages={props.messages} onSubmit={onSubmit} />
     const loading = () => <div>Loading</div>
 
     return !props.messages ? loading() : chat();
@@ -27,7 +31,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        addMessage: (text) => (dispatch(addMessage(text))),
+        addMessage: (currentUserId, friendsId, message) => (dispatch(addMessage(currentUserId,friendsId,message))),
         getFriendMessages: (userId, friendId) => (dispatch(getFriendMessages(userId, friendId))),
     }
 }

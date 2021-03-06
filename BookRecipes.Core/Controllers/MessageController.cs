@@ -22,5 +22,13 @@ namespace BookRecipes.Core.Controllers
             return _unitOfWork.Repository.GetWithIncludeListAsync<Messages>
                 (c=> (c.AuthorId == currentUserid && c.RecipientId==friendId) || (c.RecipientId == currentUserid && c.AuthorId==friendId));
         }
+        /// <summary>
+        /// Create new message to friend.
+        /// </summary>
+        /// <returns>Return new message back.</returns>
+        public Task<Messages> AddMessageAsync(int authorId, int recipientId, string message)
+        {
+            return _unitOfWork.Repository.AddAsync(new Messages(authorId,recipientId, message));
+        }
     }
 }

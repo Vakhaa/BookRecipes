@@ -54,6 +54,14 @@ namespace BookRecipes.WebApi.Controllers
             return JsonConvert.DeserializeObject(messages);
             //return new ObjectResult(messages);
         }
+        [HttpPost("CreateMessage")] /*int authorId, int recipientId, string message*/
+        public async Task<ActionResult<Messages>> AddMessageToFriendAsync(Messages messages)
+        {
+            var response = await _messageController.AddMessageAsync(messages.AuthorId, messages.RecipientId, messages.Message);
+            if (response != null)
+                return Ok(response);
+            return BadRequest();
+        }
     }
 }
 

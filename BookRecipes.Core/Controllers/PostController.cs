@@ -16,12 +16,16 @@ namespace BookRecipes.Core.Controllers
         /// <summary>
         /// Posts of current user.
         /// </summary>
-        /// <returns>Posts.</returns>
+        /// <returns>IEnumerable Posts.</returns>
         public Task<IEnumerable<Posts>> GetUserPostsAsync(int currentUserid)
         {
             return _unitOfWork.Repository.GetWithIncludeListAsync<Posts>
                 (c=> c.ProfileId == currentUserid, c => c.Author , c=> c.Author.Photos);
         }
+        /// <summary>
+        /// Create new post.
+        /// </summary>
+        /// <returns>Return new post back.</returns>
         public Task<Posts> AddPostsAsync(int profileId, string title, string body, int? authorId = null)
         {
             return _unitOfWork.Repository.AddAsync(new Posts(profileId, title, body, authorId));

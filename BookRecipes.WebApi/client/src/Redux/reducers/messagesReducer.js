@@ -1,5 +1,7 @@
 ﻿import {
-    ADD_MESSAGE_TO_FRIEND,
+    ADD_MESSAGE_TO_FRIEND_REQUEST,
+    ADD_MESSAGE_TO_FRIEND_SUCCESS,
+    ADD_MESSAGE_TO_FRIEND_ERROR,
     GET_FRIEND_MESSAGES_REQUEST,
     GET_FRIEND_MESSAGES_SUCCESS,
     GET_FRIEND_MESSAGES_ERROR
@@ -181,21 +183,12 @@ let messagesMock = [
 
 export default function messagesReducer(state = initialState, action) {
     switch (action.type) {
-        case ADD_MESSAGE_TO_FRIEND:
-            const newMessage = {
-                id: 5,
-                text: action.text,
-                isMe: true,
-                isChange: false,
-                dataCreated: {
-                    data: "20.02.2021",
-                    time: "20:32"
-                }
-            }
-            return {
-                ...state,
-                messages: [...state.messages, newMessage]
-            }
+        case ADD_MESSAGE_TO_FRIEND_REQUEST:
+            return { ...state }
+        case ADD_MESSAGE_TO_FRIEND_SUCCESS:
+            return { ...state }
+        case ADD_MESSAGE_TO_FRIEND_ERROR:
+            return { ...state, error: action.error }
         case GET_FRIEND_MESSAGES_REQUEST:
             return {
                 ...state,

@@ -11,7 +11,8 @@ namespace BookRecipes.Infrastructure.Data.Config
         {
             if (builder == null) throw new ArgumentNullException(nameof(builder));
             builder.ToTable("Messages");
-            builder.HasKey(x => new { x.Id, x.AuthorId, x.RecipientId}); // x.RecipientId ?
+            //builder.HasKey(x => new { x.Id, x.AuthorId, x.RecipientId}); // x.RecipientId ?
+            builder.HasKey(x => x.Id);
             builder.HasOne(x => x.Author).WithMany(x => x.Messages).HasForeignKey(x => x.AuthorId).OnDelete(DeleteBehavior.NoAction);
            // builder.HasOne(x => x.Recipient).WithMany(x => x.Messages).HasForeignKey(x => x.RecipientId);
         }

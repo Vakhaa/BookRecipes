@@ -1,5 +1,7 @@
 import {
-    ADD_MESSAGE_TO_FRIEND,
+    ADD_MESSAGE_TO_FRIEND_REQUEST,
+    ADD_MESSAGE_TO_FRIEND_SUCCESS,
+    ADD_MESSAGE_TO_FRIEND_ERROR,
     GET_FRIEND_MESSAGES_REQUEST,
     GET_FRIEND_MESSAGES_SUCCESS,
     GET_FRIEND_MESSAGES_ERROR
@@ -7,13 +9,6 @@ import {
     from './actionTypes'
 
 import { messagesAPI } from '../../DAL/messages-api'
-
-export function addMessage(text) {
-    return {
-        type: ADD_MESSAGE_TO_FRIEND,
-        text: text
-    }
-}
 
 export function requestFriendMessages() {
     return {
@@ -35,7 +30,40 @@ export function errorFriendMessages(error) {
     }
 }
 
+export function requestAddMessage() {
+    return {
+        type: ADD_MESSAGE_TO_FRIEND_REQUEST
+    }
+}
+
+export function receiveAddMessage() {
+    return {
+        type: ADD_MESSAGE_TO_FRIEND_SUCCESS
+    }
+}
+
+export function failedAddMessage(error) {
+    return {
+        type: ADD_MESSAGE_TO_FRIEND_ERROR,
+        error: error
+    }
+}
+
+
 //генератор экшена
+
+export function addMessage(currentUserId, friendId, message) {
+    return async (dispatch) => {
+        dispatch(requestAddMessage())
+
+        try {
+            var response = await messagesAPI.postMessage(currentUserId, friendId, message);
+            dispatch(receiveAddMessage())
+        } catch (error) {
+            dispatch(failedAddMessage(error))
+        }
+    }
+}
 
 export function getFriendMessages(currentUserId, friendId) {
     return async (dispatch) => {
