@@ -33,5 +33,14 @@ namespace BookRecipes.WebApi.Controllers
         {
             return new ObjectResult(await _postController.GetUserPostsAsync(currentUserId));
         }
+
+        [HttpPost("CreatePost")] /*int profileId, string title, string body, int? authorId = null*/
+        public async Task<ActionResult<Posts>> PostAddCategoryAsync(Posts post)
+        {
+            var response = await _postController.AddPostsAsync(post.ProfileId, post.Title, post.Body, post.AuthorId);
+            if (response != null) 
+            return Ok(response);
+            return BadRequest();
+        }
     }
 }

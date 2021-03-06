@@ -1,18 +1,32 @@
-import React, {Component, useEffect, useState} from 'react'  
+import React, { useEffect, useState } from 'react'  
 import { connect } from 'react-redux'
 import { compose } from 'redux'
+import { addPost, getUserPosts} from '../Redux/actions/postsAction'
 import { getPosts } from '../utiles/selectors/selectors'
-import Posts from '../components/Profile/PostsWall/Posts/Posts'
+import PostsWall from '../components/Profile/PostsWall/PostsWall'
 
 const PostsContainer = React.memo((props) => {
 
-    const component = () => {
-        return <Posts posts={props.posts} />
+    let [posts, setPosts] = useState(props.posts);
+
+    useEffect(() => {
+        setPosts(props.posts);
+    }, [props.posts]);
+
+    const onSubmit = (formData) => {
+        /*currentUserId, title, body, authorId*/
+        props.addPost(
+            props.userId,
+            formData.postTitle,
+            formData.postBody,
+            props.loginUserId
+        )
+        props.getUserPosts(props.userId);
     }
 
-    const loading = () => {
-        return <div>"loading"</div>
-    }
+    const component = () => <PostsWall posts={posts} onSubmit={onSubmit} />
+
+    const loading = () => <div>"loading"</div>
 
     return (
         !props.userId ? loading() : component()
@@ -27,6 +41,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        getUserPosts: (userId) => (dispatch(getUserPosts(userId))),
+        addPost: (currentUserId, title, body, authorId) => (dispatch(addPost(currentUserId, title, body, authorId))),
     }
 }
 

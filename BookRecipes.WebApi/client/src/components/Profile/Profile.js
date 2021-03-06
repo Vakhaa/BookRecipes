@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -8,8 +8,8 @@ import PostsWall from './PostsWall/PostsWall'
 import Description from './Description/Description';
 import Gallery from './Gallery/Gallery';
 import MyRecipes from './MyRecipes/MyRecipes';
-import FriendsContainer from './Friends/Friends';
 import ProfileFriendsContainer from '../../containers/ProfileFriendsContainer';
+import PostsContainer from '../../containers/PostsContainer';
 
 const useStyles = makeStyles({
     list: {
@@ -58,7 +58,7 @@ const Profile = (props) => {
                             </Grid>
                         </Grid>
                         <Grid container item xs={12} lg={6}>
-                            <PostsWall userId={props.profile.id} addPost={props.addPost} />
+                            <PostsContainer loginUserId={props.loginUserId} userId={props.profile.id} />
                         </Grid>
                     </Grid>
                 </Grid>

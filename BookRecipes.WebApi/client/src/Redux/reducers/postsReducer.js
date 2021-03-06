@@ -1,5 +1,7 @@
 import {
-    ADD_POST_TO_PROFILE,
+    ADD_POST_TO_PROFILE_REQUEST,
+    ADD_POST_TO_PROFILE_SUCCESS,
+    ADD_POST_TO_PROFILE_ERROR,
     GET_USER_POSTS_REQUEST,
     GET_USER_POSTS_SUCCESS,
     GET_USER_POSTS_ERROR
@@ -98,24 +100,12 @@ let postsMock = [
 
 export default function postsReducer(state = initialState, action) {
     switch (action.type) {
-        case ADD_POST_TO_PROFILE:
-            const newPost = {
-                id: 4,
-                title: action.post.postTitle,
-                main: action.post.postBody,
-                photo: "https://source.unsplash.com/random"
-            }
-            postsMock = postsMock.map((user) => (
-                (state.userId === user.userId) ?
-                    user = {
-                        ...user,
-                        posts : [...state.posts, newPost]
-                    } : user
-                ))
-            return {
-                ...state,
-                posts: [...state.posts, newPost]
-            }
+        case ADD_POST_TO_PROFILE_REQUEST:
+            return { ...state }
+        case ADD_POST_TO_PROFILE_SUCCESS:
+            return { ...state }
+        case ADD_POST_TO_PROFILE_ERROR:
+            return { ...state, error: action.error }
         case GET_USER_POSTS_REQUEST:
             return {...state}
         case GET_USER_POSTS_SUCCESS:

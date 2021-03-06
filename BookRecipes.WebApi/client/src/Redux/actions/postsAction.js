@@ -1,5 +1,7 @@
 import {
-    ADD_POST_TO_PROFILE,
+    ADD_POST_TO_PROFILE_REQUEST,
+    ADD_POST_TO_PROFILE_SUCCESS,
+    ADD_POST_TO_PROFILE_ERROR,
     GET_USER_POSTS_REQUEST,
     GET_USER_POSTS_SUCCESS,
     GET_USER_POSTS_ERROR
@@ -8,10 +10,22 @@ import {
 
 import { postsAPI } from '../../DAL/posts-api'
 
-export function addPost(post) {
+export function requestAddPost() {
     return {
-        type: ADD_POST_TO_PROFILE,
-        post: post
+        type: ADD_POST_TO_PROFILE_REQUEST,
+    }
+}
+
+export function receiveAddPost() {
+    return {
+        type: ADD_POST_TO_PROFILE_SUCCESS,
+    }
+}
+
+export function failedAddPost(error) {
+    return {
+        type: ADD_POST_TO_PROFILE_ERROR,
+        error: error
     }
 }
 
@@ -47,6 +61,20 @@ export function getUserPosts(currentUserId) {
         } catch (error)
         {
             dispatch(errorUserPosts(error))
+        }
+    }
+}
+
+export function addPost(currentUserId, title, body, authorId) {
+    return async (dispatch) => {
+        dispatch(requestAddPost())
+
+        try {
+            let response = await postsAPI.postPost(currentUserId, title, body, authorId)
+            dispatch(receiveAddPost())
+        } catch (error)
+        {
+            dispatch(failedAddPost(error))
         }
     }
 }

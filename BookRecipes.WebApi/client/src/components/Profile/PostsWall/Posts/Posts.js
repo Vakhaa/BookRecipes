@@ -36,7 +36,7 @@ const Posts = (props) => {
                                     {post.title}
                                 </Typography>
                                 <Typography variant="body2" color="textSecondary" component="p">
-                                    {post.main}
+                                    {post.body}
                                 </Typography>
                             </CardContent>
                         </CardActionArea>

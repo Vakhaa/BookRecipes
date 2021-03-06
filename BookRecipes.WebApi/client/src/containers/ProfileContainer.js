@@ -1,6 +1,6 @@
 import React, {Component} from 'react'  
 import { connect } from 'react-redux'
-import { addPost, getUserPosts} from '../Redux/actions/postsAction'
+import { getUserPosts} from '../Redux/actions/postsAction'
 import Profile from '../components/Profile/Profile'
 import { compose } from 'redux'
 import { withAuthUser } from '../hoc/withAuthUser'
@@ -37,8 +37,8 @@ class ProfileContainer extends Component {
 
     profile = () => {
         return <Profile
+            loginUserId={this.props.loginUserId}
             profile={this.props.profile}
-            addPost={this.props.addPost}
         /> 
     }
 
@@ -62,7 +62,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        addPost: (post) => (dispatch(addPost(post))),
         getUserFriends: (userId) => (dispatch(getUserFriends(userId))),
         getProfile: (userId) => (dispatch(getProfileActionCreator(userId))),
         getUserPosts: (userId) => (dispatch(getUserPosts(userId))),
