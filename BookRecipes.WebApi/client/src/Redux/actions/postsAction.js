@@ -6,7 +6,7 @@ import {
 }
     from './actionTypes'
 
-import {profilesAPI} from '../../DAL/api'
+import { postsAPI } from '../../DAL/posts-api'
 
 export function addPost(post) {
     return {
@@ -15,44 +15,38 @@ export function addPost(post) {
     }
 }
 
-export function requestUserPosts(userId) {
+export function requestUserPosts() {
     return {
-        type: GET_USER_POSTS_REQUEST,
-        userId: userId
+        type: GET_USER_POSTS_REQUEST
     }
 }
 
-export function receiveUserPosts() {
+export function receiveUserPosts(posts) {
     return {
         type: GET_USER_POSTS_SUCCESS,
+        posts: posts
     }
 }
 
-export function errorUserPosts() {
+export function errorUserPosts(error) {
     return {
         type: GET_USER_POSTS_ERROR,
+        error: error
     }
 }
-
-export function getUserPosts(userId) {
-    return (dispatch) => {
-        dispatch(requestUserPosts(userId))
-
-        dispatch(receiveUserPosts())
-    }
-}
-
 
 //генератор экшена
 
-/*export function getProfile(id) {
-    return (dispatch) => {
-        dispatch(requestProfile(id))
+export function getUserPosts(currentUserId) {
+    return async (dispatch) => {
+        dispatch(requestUserPosts())
 
-        profilesAPI.getProfile().then(data => {
-            dispatch(receiveProfile(data))
-        }).catch(error => {
-            dispatch(errorProfile(error))
-        })
+        try {
+            let response = await postsAPI.getPosts(currentUserId)
+            dispatch(receiveUserPosts(response.data))
+        } catch (error)
+        {
+            dispatch(errorUserPosts(error))
+        }
     }
-}*/
+}

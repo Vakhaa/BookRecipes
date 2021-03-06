@@ -5,8 +5,8 @@ import { getLittleInfromationAboutFriend, getUserFriends, clearFriends} from '..
 const mapStateToProps = state => {
     return {
         profile: state.profiles.profile,
-        friendsId: state.friends.friends,
-        friends: state.informator.friends
+        friends: state.friends.friends,
+        /*friends: state.informator.friends*/
     }
 }
 
@@ -23,14 +23,20 @@ export const withFriends = (Component) => {
 
     class Friends extends React.Component {
 
-        componentDidUpdate(prevProps, prevState) {
-
+        componentDidMount() {
+            debugger
             this.props.getUserFriends(this.props.profile.id)        
+        }
 
+        componentDidUpdate(prevProps, prevState) {
+            if (prevProps.friend !== this.props.friend) {
+                this.props.getUserFriends(this.props.profile.id)        
+            }
+            /*
             if (prevProps.friendsId !== this.props.friendsId) {
                 this.props.clearFriends();
                 this.props.friendsId.forEach((friend) => this.props.getLittleInfoAboutFriends(friend.userId))
-            }
+            }*/
         }
 
         render() {

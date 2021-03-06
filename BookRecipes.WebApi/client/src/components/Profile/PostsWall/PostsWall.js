@@ -6,6 +6,7 @@ import { Grid } from '@material-ui/core';
 import Posts from './Posts/Posts';
 
 import PostForm from './PostForm/PostForm';
+import PostsContainer from '../../../containers/PostsContainer';
 
 const useStyles = makeStyles({
     createPost: {
@@ -27,7 +28,7 @@ const PostsWall = (props) => {
                 <PostForm onSubmit={onSubmit} />
             </Grid>
             <Grid container item>
-                <Posts posts={props.posts} />
+                <PostsContainer userId={props.userId} />
             </Grid>
         </>
         )

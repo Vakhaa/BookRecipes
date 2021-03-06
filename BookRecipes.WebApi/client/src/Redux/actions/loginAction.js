@@ -1,3 +1,4 @@
+import { authAPI } from '../../DAL/auth-api'
 import {
     LOGIN_SUCCESS,
     LOGIN_FAILED,
@@ -6,16 +7,18 @@ import {
 }
     from './actionTypes'
 
-export function checkLogin(data) {
+export function checkLogin() {
     return {
-        type: LOGIN_CHECK,
-        data: data
+        type: LOGIN_CHECK
     }
 }
 
-export function successLogin() {
+export function successLogin(data) {
     return {
-        type: LOGIN_SUCCESS
+        type: LOGIN_SUCCESS,
+        isLogin: data.isAuth,
+        login: data.login,
+        userId: data.userId
     }
 }
 
@@ -25,9 +28,10 @@ export function logout() {
     }
 }
 
-export function failedLogin() {
+export function failedLogin(error) {
     return {
-        type: LOGIN_FAILED
+        type: LOGIN_FAILED,
+        error: error
     }
 }
 
@@ -42,14 +46,23 @@ export function failedLogin() {
 
 //генератор экшена
 
-/*export function getProfile(id) {
-    return (dispatch) => {
-        dispatch(requestProfile(id))
-
-        profilesAPI.getProfile().then(data => {
-            dispatch(receiveProfile(data))
-        }).catch(error => {
-            dispatch(errorProfile(error))
-        })
+export function getAuth(login, password) {
+    return async (dispatch) => {
+        dispatch(checkLogin())
+        
+        try {
+            let response = await authAPI.getAuth(login, password);
+            
+            if (response.data == null) {
+                dispatch(failedLogin("505 problem with server"))
+                return;
+            } else if (!response.data.isAuth) {
+                dispatch(failedLogin(response.data.message))
+                return;
+            }
+            dispatch(successLogin(response.data))
+        } catch (error) {
+            dispatch(failedLogin(error))
+        }
     }
-}*/
+}

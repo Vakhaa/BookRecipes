@@ -19,23 +19,6 @@ const mapDispatchToProps = dispatch => {
 export const withAuthUser = (Component) => {
     class AuthUser extends React.Component {
 
-        refreshUser() {
-            const userId = this.props.match.params.userId ? this.props.match.params.userId : this.props.loginUserId
-            if(userId) this.props.getProfile(userId);
-        }
-
-        componentDidMount() {
-            this.refreshUser()
-        }
-
-        componentDidUpdate(prevProps, prevState) {
-            if (prevProps.loginUserId !== this.props.loginUserId) {
-                this.refreshUser()
-            }else if (prevProps.match.params.userId !== this.props.match.params.userId) {
-                this.refreshUser()
-            }
-        }
-
         render() {
 
             if (!this.props.isLogin) return <Redirect to='/recipes' />

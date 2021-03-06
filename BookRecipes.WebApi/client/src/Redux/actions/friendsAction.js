@@ -9,32 +9,25 @@ import {
 }
     from './actionTypes'
 
-import {profilesAPI} from '../../DAL/api'
+import { friendsAPI } from '../../DAL/friends-api'
 
-export function requestUserFriends(userId) {
+export function requestUserFriends(){
     return {
-        type: GET_FRIENDS_REQUEST,
-        userId: userId
+        type: GET_FRIENDS_REQUEST
     }
 }
 
-export function receiveUserFriends() {
+export function receiveUserFriends(friends) {
     return {
         type: GET_FRIENDS_SUCCESS,
+        friends: friends
     }
 }
 
-export function errorUserFriends() {
+export function errorUserFriends(error) {
     return {
         type: GET_FRIENDS_ERROR,
-    }
-}
-
-export function getUserFriends(userId) {
-    return (dispatch) => {
-        dispatch(requestUserFriends(userId))
-
-        dispatch(receiveUserFriends())
+        error: error
     }
 }
 
@@ -72,14 +65,15 @@ export function clearFriends() {
 }
 //генератор экшена
 
-/*export function getProfile(id) {
-    return (dispatch) => {
-        dispatch(requestProfile(id))
+export function getUserFriends(userId) {
+    return async (dispatch) => {
+        dispatch(requestUserFriends())
 
-        profilesAPI.getProfile().then(data => {
-            dispatch(receiveProfile(data))
-        }).catch(error => {
-            dispatch(errorProfile(error))
-        })
+        try {
+            let response = await friendsAPI.getFriends(userId);
+            dispatch(receiveUserFriends(response.data))
+        } catch (error) {
+            dispatch(errorUserFriends(error))
+        }
     }
-}*/
+}

@@ -23,15 +23,12 @@ export default function profilesReducer(state = initialState, action) {
         case GET_PROFILE_REQUEST:
             return {
                 ...state,
-                profile: {
-                    id: profiles.find((profile) => profile.id == action.id).id,
-                },
                 fetching: true
             }
         case GET_PROFILE_SUCCESS:
             return {
                 ...state,
-                profile: profiles.find((profile) => profile.id == state.profile.id),
+                profile: action.profile,
                 fetching: false
             }
         case GET_PROFILE_ERROR:

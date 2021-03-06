@@ -27,7 +27,8 @@ const Posts = (props) => {
                             <CardMedia
                                 component="img"
                                 height="340"
-                                image={post.photo}
+                                //image={post.photo}
+                                image={"https://source.unsplash.com/random"}
                                 title="Contemplative Reptile"
                             />
                             <CardContent>
@@ -52,18 +53,5 @@ const Posts = (props) => {
             </>
         )
 }
-
-/*Ingredient.propTypes = {
-    name: PropTypes.string.isRequired,
-    ingredientsInRecipe: PropTypes.arrayOf(
-        PropTypes.shape({
-            countIngredient: PropTypes.string.isRequired,
-            recipeId: PropTypes.number.isRequired,
-            ingredientId: PropTypes.number.isRequired
-        }).isRequired
-    ).isRequired
-    //id: PropTypes.number.isRequired,
-    //getIngredient: PropTypes.func.isRequired
-}*/
 
 export default Posts;

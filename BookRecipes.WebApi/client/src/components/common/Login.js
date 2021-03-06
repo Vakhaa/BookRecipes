@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Button, Typography } from '@material-ui/core';
+import { Grid, Button, Typography, Tooltip } from '@material-ui/core';
 import { Field, reduxForm } from 'redux-form';
 import InputReduxMUI from '../../utiles/ReduxMUIForms/InputReduxMUI';
 import CheckboxReduxMUI from '../../utiles/ReduxMUIForms/CheckboxReduxMUI';
@@ -25,7 +25,6 @@ const maxLength30 = maxLengthCreator(30)
 
 let LoginForm = (props) => {
     const classes = useStyles();
-
     return (
         <>
             <form onSubmit={props.handleSubmit}>
@@ -67,9 +66,16 @@ let LoginReduxForm = reduxForm({
 
 let Login = (props) => {
     const classes = useStyles();
+    const errorMessages = () => <Typography color="secondary">{props.errorMessage}</Typography>
+
     return (
         <>
-            <LoginReduxForm onSubmit={props.onSubmit} />
+            {props.errorMessage ?
+                <Tooltip title={props.errorMessage} placement="right-start" open>
+                    <div><LoginReduxForm onSubmit={props.onSubmit} /></div>
+                </Tooltip>:
+                <LoginReduxForm onSubmit={props.onSubmit} />
+            }
         </>
     );
 }

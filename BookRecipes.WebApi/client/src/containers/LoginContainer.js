@@ -4,18 +4,18 @@ import { Button } from '@material-ui/core'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import Login from '../components/common/Login'
-import { checkLogin, logout } from '../Redux/actions/loginAction'
-import { getIsLogin, getLogin } from '../utiles/selectors/selectors'
+import { getAuth, logout } from '../Redux/actions/loginAction'
+import { getErrorLoginMessage, getIsLogin, getLogin } from '../utiles/selectors/selectors'
 
 class LoginContainer  extends Component {
 
     onSubmit = (data) => {
-        this.props.checkLogin(data);
+        this.props.checkLogin(data.login, data.fieldPassword);
     }
 
     login = () => {
 
-        return <Login onSubmit={(data) => (this.onSubmit(data))} /> 
+        return <Login isLogin={this.props.isLogin} errorMessage={this.props.errorMessage} onSubmit={(data) => (this.onSubmit(data))} /> 
     }
 
     logined = () => {
@@ -34,13 +34,14 @@ class LoginContainer  extends Component {
 const mapStateToProps = state => {
     return {
         isLogin: getIsLogin(state),
+        errorMessage: getErrorLoginMessage(state),
         login: getLogin(state)
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        checkLogin: (data) => (dispatch(checkLogin(data))),
+        checkLogin: (login, password) => (dispatch(getAuth(login, password))),
         logout: () => (dispatch(logout())),
 }}
 

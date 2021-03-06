@@ -1,15 +1,14 @@
 import React, {Component} from 'react'  
 import { connect } from 'react-redux'
-import { addPost,  getUserPosts } from '../Redux/actions/postsAction'
+import { addPost, getUserPosts} from '../Redux/actions/postsAction'
 import Profile from '../components/Profile/Profile'
 import { compose } from 'redux'
 import { withAuthUser } from '../hoc/withAuthUser'
-import { withFriends } from '../hoc/withFriends'
-import { getFriendsClipInfo, getProfile, getProfileIsFetching, getPosts } from '../utiles/selectors/selectors'
+import { getFriendsClipInfo, getProfile, getProfileIsFetching} from '../utiles/selectors/selectors'
+import { getUserFriends } from '../Redux/actions/friendsAction'
+import { getProfile as getProfileActionCreator} from '../Redux/actions/profileAction'
 
 class ProfileContainer extends Component {
-
-    // problems with user admini (maybe problems with auth and id 0?)
 
     getUser() {
         return this.props.match.params.userId ? this.props.match.params.userId : this.props.loginUserId
@@ -19,38 +18,33 @@ class ProfileContainer extends Component {
         const userId = this.getUser()
         if (userId) {
             this.props.getProfile(userId);
-            this.refreshPosts()
+            this.props.getUserPosts(userId);
+            this.props.getUserFriends(userId);
         }
     }
 
-    refreshPosts() {
+/*    refreshFriends() {
         const userId = this.getUser()
-        if (userId) this.props.getUserPosts(userId);
+        if (userId) this.props.getUserFriends(userId);
     }
-
+*/
     componentDidMount() {
-        this.refreshUser();
+        this.refreshUser()
     }
 
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.loginUserId !== this.props.loginUserId) {
-            this.refreshUser();
+            this.refreshUser()
         } else if (prevProps.match.params.userId !== this.props.match.params.userId) {
-            this.refreshUser();
-        } else if (prevProps.posts !== this.props.posts) {
-            this.refreshPosts()
+            this.refreshUser()
         }
     }
 
     profile = () => {
         return <Profile
             profile={this.props.profile}
-
-            posts={this.props.posts}
-            friends={this.props.friends}
-
-            updatePostBody={this.props.updatePostBody}
-            updatePostTitle={this.props.updatePostTitle}
+            updatePostBody={this.props.updatePostBody} // ?
+            updatePostTitle={this.props.updatePostTitle} // ?
             addPost={this.props.addPost}
         /> 
     }
@@ -70,21 +64,24 @@ const mapStateToProps = state => {
     return {
         profile: getProfile(state),
         isFetching: getProfileIsFetching(state),
-        posts: getPosts(state),
-        friends: getFriendsClipInfo(state)
+        /*friends: getFriendsId(state)*/
+        /*friends: getFriendsClipInfo(state)*/
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         addPost: (post) => (dispatch(addPost(post))),
+        getUserFriends: (userId) => (dispatch(getUserFriends(userId))),
+        getProfile: (userId) => (dispatch(getProfileActionCreator(userId))),
         getUserPosts: (userId) => (dispatch(getUserPosts(userId))),
-}}
+    }
+}
 
 
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),
-    withFriends,
+    /*withFriends,*/
     withAuthUser,
 )(ProfileContainer)
  

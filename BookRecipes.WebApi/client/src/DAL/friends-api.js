@@ -8,8 +8,8 @@ const instance = axios.create({
     }*/
 })
 
-export const ingredientsAPI = {
-    getIngredients() {
-        return instance.get(`Ingredients/Ingredients`);
+export const friendsAPI = {
+    getFriends(currentUserId) {
+        return instance.get(`Friends/${currentUserId}`);
     },
 }

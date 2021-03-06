@@ -6,7 +6,6 @@ import {
 } from '../actions/actionTypes'
 
 const initialState = {
-    currentUserId: null,
     friends: []
 }
 
@@ -61,16 +60,11 @@ let friendsMock = [
 export default function friendsReducer(state = initialState, action) {
     switch (action.type) {
         case GET_FRIENDS_REQUEST:
-            return {
-                ...state,
-                currentUserId: action.userId
-            }
+            return {...state}
         case GET_FRIENDS_SUCCESS:
             return {
                 ...state,
-                friends: friendsMock.find((friend) => (
-                    friend.userId == state.currentUserId
-                )).friends
+                friends: action.friends
             }
         case GET_FRIENDS_ERROR:
             return {

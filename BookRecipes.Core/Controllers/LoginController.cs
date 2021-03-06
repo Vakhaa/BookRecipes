@@ -17,11 +17,10 @@ namespace BookRecipes.Core.Controllers
         /// Auth user.
         /// </summary>
         /// <returns>IsAuth.</returns>
-        public async Task<bool> GetAuthAsync(string login, string password)
+        public async Task<AuthData> GetAuthAsync(string login, string password)
         {
-            var result = await _unitOfWork.Repository.GetWithIncludeEntityAsync<AuthData>
+            return await _unitOfWork.Repository.GetWithIncludeEntityAsync<AuthData>
                 (c => c.Mail.ToLower() == login.ToLower() && c.Password == password);
-            return result !=null ? true: false;
         }
     }
 }

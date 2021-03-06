@@ -3,11 +3,11 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { getLittleInfromationAboutFriend} from '../Redux/actions/friendsAction'
 
-import Friends from '../components/Friends/Friends'
 import { withAuthUser } from '../hoc/withAuthUser'
 import { getFriendsClipInfo, getFriendsId} from '../utiles/selectors/selectors'
+import Friends from '../components/Profile/Friends/Friends'
 
-const FriendsContainer= (props) =>{
+const ProfileFriendsContainer = (props) =>{
 
     const friends = () => {
         return <Friends friends={props.friends} /> 
@@ -37,5 +37,5 @@ const mapDispatchToProps = dispatch => {
 export default compose(
     withAuthUser,
     connect(mapStateToProps, mapDispatchToProps),
-)(FriendsContainer)
+)(ProfileFriendsContainer)
  

@@ -117,16 +117,11 @@ export default function postsReducer(state = initialState, action) {
                 posts: [...state.posts, newPost]
             }
         case GET_USER_POSTS_REQUEST:
-            return {
-                ...state,
-                userId: action.userId
-            }
+            return {...state}
         case GET_USER_POSTS_SUCCESS:
             return {
                 ...state,
-                posts: postsMock.find((posts) => (
-                    posts.userId == state.userId
-                )).posts
+                posts: action.posts
             }
         case GET_USER_POSTS_ERROR:
             return {

@@ -5,10 +5,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Avatar } from '@material-ui/core';
 
 import PostsWall from './PostsWall/PostsWall'
-import Friends from './Friends/Friends'
 import Description from './Description/Description';
 import Gallery from './Gallery/Gallery';
 import MyRecipes from './MyRecipes/MyRecipes';
+import FriendsContainer from './Friends/Friends';
+import ProfileFriendsContainer from '../../containers/ProfileFriendsContainer';
 
 const useStyles = makeStyles({
     list: {
@@ -34,7 +35,7 @@ const Profile = (props) => {
                     <Grid container item>
                         <Grid container item md={4}>
                             <Avatar variant="rounded" className={classes.rounded}>
-                                <img alt="avatar" src={props.profile.photo} />
+                                <img alt="avatar" src={props.profile.photos.largePhoto} />
                                 N
                             </Avatar>
                         </Grid>
@@ -46,7 +47,7 @@ const Profile = (props) => {
                         <Grid direction="column" container item xs={12} lg={6}>
                             <Grid container>
                                 <Grid item xs={12} lg={12}>
-                                    <Friends friends={props.friends} />
+                                    <ProfileFriendsContainer userId={props.profile.id}/>
                                 </Grid>
                                 <Grid item xs={6} lg={12}>
                                     <Gallery />
@@ -57,7 +58,7 @@ const Profile = (props) => {
                             </Grid>
                         </Grid>
                         <Grid container item xs={12} lg={6}>
-                            <PostsWall addPost={props.addPost} posts={props.posts} />
+                            <PostsWall userId={props.profile.id} addPost={props.addPost} />
                         </Grid>
                     </Grid>
                 </Grid>

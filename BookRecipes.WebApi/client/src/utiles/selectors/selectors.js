@@ -39,10 +39,13 @@ export const getIsLogin = (state) => {
     return state.login.isLogin;
 }
 
+export const getErrorLoginMessage = (state) => {
+    return state.login.error;
+}
+
 export const getLogin = (state) => {
     return state.login.login;
 }
-
 
 export const getPosts = (state) => {
     return state.posts.posts;

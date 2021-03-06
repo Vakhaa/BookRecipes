@@ -8,8 +8,8 @@ const instance = axios.create({
     }*/
 })
 
-export const ingredientsAPI = {
-    getIngredients() {
-        return instance.get(`Ingredients/Ingredients`);
+export const authAPI = {
+    getAuth(login, password) {
+        return instance.get(`Auth/?login=${login}&password=${password}`);
     },
 }

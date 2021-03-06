@@ -31,12 +31,24 @@ namespace BookRecipes.WebApi.Controllers
         [Produces("application/json")]
         public async Task<ActionResult<object>> GetAuthAsync(string login, string password)
         {
-            var isAuth = await _loginController.GetAuthAsync(login, password);
-            var resultCode = isAuth ? 1 : 0;
-            var auth = "{" +
-                "'isAuth': '"+isAuth+"'," +
-                "'resultCode': '"+resultCode+"'"+
+            var response = await _loginController.GetAuthAsync(login, password);
+            string auth = "";
+
+            if(response!=null)
+            {
+                auth = "{" +
+                "'userId':'" + response.ProfileId + "'," +
+                "'isAuth': true ," +
+                "'login': '" + response.Mail + "'" +
                 "}";
+            }
+            else
+            {
+                auth = "{" +
+                    "'isAuth': false," +
+                    "'message': 'wrong password or login'," +
+                    "}";
+            }
             return JsonConvert.DeserializeObject(auth);
         }
     }

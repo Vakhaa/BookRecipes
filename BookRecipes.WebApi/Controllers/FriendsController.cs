@@ -31,7 +31,13 @@ namespace BookRecipes.WebApi.Controllers
         [Produces("application/json")]
         public async Task<ActionResult<List<Friends>>> GetCurrentUserFriendsAsync(int currentUserId)
         {
-            return new ObjectResult(await _friendController.GetFriendsAsync(currentUserId));
+            var response = await _friendController.GetFriendsAsync(currentUserId);
+            var Friends = new List<Profile>(); 
+            foreach (var item in response)
+            {
+                Friends.Add(item.Friend);
+            }
+            return new ObjectResult(Friends);
         }
         
         [HttpGet("Friend")]
