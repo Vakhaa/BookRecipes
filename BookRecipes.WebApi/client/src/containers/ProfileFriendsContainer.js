@@ -10,7 +10,7 @@ import Friends from '../components/Profile/Friends/Friends'
 const ProfileFriendsContainer = (props) =>{
 
     const friends = () => {
-        return <Friends friends={props.friends} /> 
+        return <Friends userId={props.userId} friends={props.friends} /> 
     }
 
     const loading = () => {
@@ -35,7 +35,7 @@ const mapDispatchToProps = dispatch => {
 }}
 
 export default compose(
-    withAuthUser,
     connect(mapStateToProps, mapDispatchToProps),
+    withAuthUser,
 )(ProfileFriendsContainer)
  

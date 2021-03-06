@@ -23,11 +23,6 @@ class ProfileContainer extends Component {
         }
     }
 
-/*    refreshFriends() {
-        const userId = this.getUser()
-        if (userId) this.props.getUserFriends(userId);
-    }
-*/
     componentDidMount() {
         this.refreshUser()
     }

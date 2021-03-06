@@ -15,24 +15,26 @@ const useStyles = makeStyles({
     }
 });
 
-const Friends = ({friends}) => {
+const Friends = ({friends, userId}) => {
     const classes = useStyles();
 
     const nameOfFriend = (name) => <Typography>{name}</Typography>
 
     return (
-        <NavLink to={"/friends/"} className={classes.linkText}>
+        <NavLink to={"/friends/" + userId} className={classes.linkText}>
             <Card className={classes.root}>
                 <Typography gutterBottom variant="body1" color="textSecondary" component="h4"> Friends: {friends.length}</Typography>
                 <CardActionArea>
                     <CardContent>
                         {
                             friends.map((friend) => (
-                                <Badge key={friend.id}>
-                                    <Tooltip title={nameOfFriend(friend.name)} placement="top-end">
-                                        <Avatar src={friend.photos.smallPhoto} alt={friend.name} />
-                                    </Tooltip>
-                                </Badge>
+                                <NavLink to={"/profile/" + friend.id} className={classes.linkText}>
+                                    <Badge key={friend.id}>
+                                        <Tooltip title={nameOfFriend(friend.name)} placement="top-end">
+                                            <Avatar src={friend.photos.smallPhoto} alt={friend.name} />
+                                        </Tooltip>
+                                    </Badge>
+                                </NavLink>
                             ))
                         }
                     </CardContent>

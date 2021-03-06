@@ -23,7 +23,7 @@ const Friends = (props) => {
                         <NavLink key={friend.id} to={"/profile/" + friend.id} className={classes.linkText}>
                             <MenuItem>
                                 <Badge>
-                                    <Avatar alt={friend.name} src={friend.photo} />
+                                    <Avatar alt={friend.name} src={friend.photos.smallPhoto} /*src={friend.photo} />*//>
                                 </Badge>
                                 <Badge>
                                     <Typography> {friend.name} </Typography>
@@ -41,18 +41,5 @@ const Friends = (props) => {
             </>
         )
 }
-
-/*Ingredient.propTypes = {
-    name: PropTypes.string.isRequired,
-    ingredientsInRecipe: PropTypes.arrayOf(
-        PropTypes.shape({
-            countIngredient: PropTypes.string.isRequired,
-            recipeId: PropTypes.number.isRequired,
-            ingredientId: PropTypes.number.isRequired
-        }).isRequired
-    ).isRequired
-    //id: PropTypes.number.isRequired,
-    //getIngredient: PropTypes.func.isRequired
-}*/
 
 export default Friends;
