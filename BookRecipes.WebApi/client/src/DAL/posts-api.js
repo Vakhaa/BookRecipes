@@ -12,8 +12,8 @@ export const postsAPI = {
     getPosts(currentUserId) {
         return instance.get(`Posts/${currentUserId}`);
     },
-    postPost(profileId, title, body, authorId) {
-        return instance.post(`Posts/CreatePost`, {
+    postPost(profileId, title, body, authorId, conectionId) {
+        return instance.post(`Posts/CreatePost/${conectionId}`, {
             profileId: profileId,
             title: title,
             body: body,

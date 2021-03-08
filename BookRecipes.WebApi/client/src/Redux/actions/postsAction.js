@@ -65,12 +65,12 @@ export function getUserPosts(currentUserId) {
     }
 }
 
-export function addPost(currentUserId, title, body, authorId) {
+export function addPost(currentUserId, title, body, authorId, conectionId) {
     return async (dispatch) => {
         dispatch(requestAddPost())
 
         try {
-            let response = await postsAPI.postPost(currentUserId, title, body, authorId)
+            let response = await postsAPI.postPost(currentUserId, title, body, authorId, conectionId)
             dispatch(receiveAddPost())
         } catch (error)
         {

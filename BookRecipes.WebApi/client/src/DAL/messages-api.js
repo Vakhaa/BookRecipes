@@ -12,8 +12,8 @@ export const messagesAPI = {
     getMessages(currentUserId, friendId) {
         return instance.get(`Messages/?currentUserId=${currentUserId}&friendId=${friendId}`);
     },
-    postMessage(authorId, recipientId, message) {
-        return instance.post(`Messages/CreateMessage`, {
+    postMessage(authorId, recipientId, message, conectionId) {
+        return instance.post(`Messages/CreateMessage/${conectionId}`, {
             authorId: authorId,
             recipientId: recipientId,
             message: message

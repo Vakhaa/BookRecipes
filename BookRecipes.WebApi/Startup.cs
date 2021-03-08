@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using React.AspNet;
+using BookRecipes.WebApi.WebHub;
 
 namespace BookRecipes.WebApi
 {
@@ -31,6 +32,8 @@ namespace BookRecipes.WebApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BookRecipes.WebApi", Version = "v1" });
             });
+
+            services.AddSignalR();
             services.AddMemoryCache();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddReact();
@@ -67,6 +70,8 @@ namespace BookRecipes.WebApi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<ChatHub>("/chat");
+                endpoints.MapHub<PostsHub>("/posts");
             });
 
             app.UseSpa(spa =>

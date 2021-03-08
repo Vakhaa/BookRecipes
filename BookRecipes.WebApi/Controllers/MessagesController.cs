@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mime;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using BookRecipes.Core.Controllers;
-using BookRecipes.Core.Entities;
 using BookRecipes.Core.Entities.SocialNetwork;
-using BookRecipes.SharedKernel;
+using BookRecipes.WebApi.WebHub;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
@@ -17,13 +13,17 @@ namespace BookRecipes.WebApi.Controllers
     [ApiController]
     public class MessagesController : ControllerBase
     {
+        IHubContext<ChatHub> _hubContext;
         private readonly ILogger<BookController> _logger;
         private readonly MessageController _messageController;
 
 
-        public MessagesController(MessageController messageController, ILogger<BookController> logger)
+        public MessagesController(MessageController messageController,
+            IHubContext<ChatHub> hubContext,
+            ILogger<BookController> logger)
         {
             _messageController= messageController;
+            _hubContext = hubContext;
             _logger = logger;
         }
 
@@ -54,10 +54,15 @@ namespace BookRecipes.WebApi.Controllers
             return JsonConvert.DeserializeObject(messages);
             //return new ObjectResult(messages);
         }
-        [HttpPost("CreateMessage")] /*int authorId, int recipientId, string message*/
-        public async Task<ActionResult<Messages>> AddMessageToFriendAsync(Messages messages)
+
+        [HttpPost("CreateMessage/{conectionId}")] /*int authorId, int recipientId, string message*/
+        public async Task<ActionResult<Messages>> AddMessageToFriendAsync(Messages messages, string conectionId)
         {
+            /*string conectionId = "";
+            if (Request.Cookies.ContainsKey("conectionId"))
+                conectionId = Request.Cookies["conectionId"];*/
             var response = await _messageController.AddMessageAsync(messages.AuthorId, messages.RecipientId, messages.Message);
+            _hubContext.Clients.Client(conectionId).SendAsync("sendNewMessage",response.RecipientId, response.AuthorId);
             if (response != null)
                 return Ok(response);
             return BadRequest();

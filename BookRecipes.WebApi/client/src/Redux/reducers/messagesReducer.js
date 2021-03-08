@@ -1,4 +1,5 @@
 ﻿import {
+    GET_NEW_MESSAGE,
     ADD_MESSAGE_TO_FRIEND_REQUEST,
     ADD_MESSAGE_TO_FRIEND_SUCCESS,
     ADD_MESSAGE_TO_FRIEND_ERROR,
@@ -190,19 +191,13 @@ export default function messagesReducer(state = initialState, action) {
         case ADD_MESSAGE_TO_FRIEND_ERROR:
             return { ...state, error: action.error }
         case GET_FRIEND_MESSAGES_REQUEST:
-            return {
-                ...state,
-            }
+            return {...state}
         case GET_FRIEND_MESSAGES_SUCCESS:
-            return {
-                ...state,
-                messages: action.messages
-            }
+            return {...state,messages: action.messages}
         case GET_FRIEND_MESSAGES_ERROR:
-            return {
-                ...state,
-                error: action.error
-            }
+            return { ...state, error: action.error }
+        case GET_NEW_MESSAGE:
+            return { ...state, messages: [...state.messages, action.message] }
         default:
             return state
     }

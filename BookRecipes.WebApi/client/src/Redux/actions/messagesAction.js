@@ -4,7 +4,7 @@ import {
     ADD_MESSAGE_TO_FRIEND_ERROR,
     GET_FRIEND_MESSAGES_REQUEST,
     GET_FRIEND_MESSAGES_SUCCESS,
-    GET_FRIEND_MESSAGES_ERROR
+    GET_FRIEND_MESSAGES_ERROR,
 }
     from './actionTypes'
 
@@ -52,13 +52,18 @@ export function failedAddMessage(error) {
 
 //генератор экшена
 
-export function addMessage(currentUserId, friendId, message) {
+export function addMessage(currentUserId, friendId, message, conectionId) {
     return async (dispatch) => {
         dispatch(requestAddMessage())
 
         try {
-            var response = await messagesAPI.postMessage(currentUserId, friendId, message);
+            var response = await messagesAPI.postMessage(currentUserId, friendId, message, conectionId);
+            
+            //chathubConnection.invoke("Send", response);
             dispatch(receiveAddMessage())
+            /*chathubConnection.on("Send", function (data) {
+                console.log(data);
+            });*/
         } catch (error) {
             dispatch(failedAddMessage(error))
         }

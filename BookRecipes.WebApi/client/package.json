@@ -49,6 +49,7 @@
     ]
   },
   "devDependencies": {
+    "@microsoft/signalr": "^5.0.3",
     "autoprefixer": "^10.2.1",
     "css-loader": "^5.0.1",
     "eslint-config-prettier": "^7.2.0",
