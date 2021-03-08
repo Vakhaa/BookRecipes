@@ -1,1 +1,2 @@
-# BookRecipes ![alt text](/readme_assets/BookLogo.gif)
+![alt text](/readme_assets/BookHeader.gif)
+# BookRecipes
