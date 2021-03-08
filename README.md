@@ -61,25 +61,26 @@ BookRecipes <img src="https://img.shields.io/badge/app-v1-brightgreen">
  </p>
   <h4>Open api (api/friends/friend/)</h4>
 <p align="center">
- <img="/readme_assets/OpenApi(Swagger)_Api_Example_v1.png">
+ <img src="/readme_assets/OpenApi(Swagger)_Api_Example_v1.png">
  </p>
   <h4>Api (api/friends/friend/)</h4>
 <p align="center">
- <img="/readme_assets/Api_Friend_v1.png">
+ <img src="/readme_assets/Api_Friend_v1.png">
  </p>
   <h4>Api (api/friends/friend/)</h4>
 <p align="center">
- <img="/readme_assets/Api_Friend_v1.png">
+ <img src="/readme_assets/Api_Friend_v1.png">
  </p>
   <h4>Open api shemas</h4>
 <p align="center">
- <img="/readme_assets/OpenApi(Swagger)_Schemas_v1.png">
+ <img src="/readme_assets/OpenApi(Swagger)_Schemas_v1.png">
  </p>
   <h4>Open api shema</h4>
 <p align="center">
- <img="/readme_assets/OpenApi(Swagger)_Schema_v1.png">
+ <img src="/readme_assets/OpenApi(Swagger)_Schema_v1.png">
  </p>
-##Future scope
+## Future scope
+
 - This is just the beginning.
 - More futures coming soon!
 
