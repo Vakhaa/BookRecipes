@@ -67,10 +67,6 @@ BookRecipes <img src="https://img.shields.io/badge/app-v1-brightgreen">
 <p align="center">
  <img src="/readme_assets/Api_Friend_v1.png">
  </p>
-  <h4>Api (api/friends/friend/)</h4>
-<p align="center">
- <img src="/readme_assets/Api_Friend_v1.png">
- </p>
   <h4>Open api shemas</h4>
 <p align="center">
  <img src="/readme_assets/OpenApi(Swagger)_Schemas_v1.png">
