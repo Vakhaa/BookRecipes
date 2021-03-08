@@ -1,5 +1,5 @@
 <p align="center">
- ![alt text](/readme_assets/BookHeader.gif)
+ <img src="/readme_assets/BookHeader.gif">
  </p>
 <h1>
 BookRecipes <img src="https://img.shields.io/badge/app-v1-brightgreen">
@@ -53,8 +53,32 @@ BookRecipes <img src="https://img.shields.io/badge/app-v1-brightgreen">
  there must be picture, but no
  ![alt text](/readme_assets/.png)
  </p>
- <h3>Back ...</h3>
  
+ <h3>Back in black ... oh sorry. Back-end</h3>
+   <h4>Open api (Swagger)</h4>
+<p align="center">
+ <img src="/readme_assets/OpenApi(Swagger)_Api_v1.png">
+ </p>
+  <h4>Open api (api/friends/friend/)</h4>
+<p align="center">
+ <img="/readme_assets/OpenApi(Swagger)_Api_Example_v1.png)">
+ </p>
+  <h4>Api (api/friends/friend/)</h4>
+<p align="center">
+ <img="/readme_assets/Api_Friend_v1.png)">
+ </p>
+  <h4>Api (api/friends/friend/)</h4>
+<p align="center">
+ <img="/readme_assets/Api_Friend_v1.png)">
+ </p>
+  <h4>Open api shemas</h4>
+<p align="center">
+ <img="/readme_assets/OpenApi(Swagger)_Schemas_v1.png)">
+ </p>
+  <h4>Open api shema</h4>
+<p align="center">
+ <img="/readme_assets/OpenApi(Swagger)_Schema_v1.png)">
+ </p>
 ##Future scope
 - This is just the beginning.
 - More futures coming soon!
