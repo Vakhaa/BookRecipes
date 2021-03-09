@@ -3,9 +3,11 @@
  </p>
 <h1>
 BookRecipes <img src="https://img.shields.io/badge/app-v1-brightgreen">
-</h1>
+</h1> 
 
-<h3>Stack technologi:</h3>
+ Current branch - <a href="https://github.com/Vakhaa/BookRecipes/tree/hesAlive_v_1"> hesAlive_v_1 </a>
+
+<h2>Stack technologi:</h2>
 
 * Back:
   * Asp.net core 3.1
@@ -22,8 +24,9 @@ BookRecipes <img src="https://img.shields.io/badge/app-v1-brightgreen">
   * Redux-Thunk
   * @microsoft/signilr  
 
+
 <h2>Gallery</h2>
-<h3>Front</h3>
+<h3>Front:</h3>
  <h4>Login page (Just redirect to news (now is empty) if users don't auth)</h4>
 <p align="center">
  <img src="/readme_assets/main_login.png">
@@ -54,7 +57,8 @@ BookRecipes <img src="https://img.shields.io/badge/app-v1-brightgreen">
  ![alt text](/readme_assets/.png)
  </p>
  
- <h3>Back in black ... oh sorry. Back-end</h3>
+ 
+ <h3>Back in black ... oh sorry. Back-end:</h3>
    <h4>Open api (Swagger)</h4>
 <p align="center">
  <img src="/readme_assets/OpenApi(Swagger)_Api_v1.png">
@@ -75,6 +79,8 @@ BookRecipes <img src="https://img.shields.io/badge/app-v1-brightgreen">
 <p align="center">
  <img src="/readme_assets/OpenApi(Swagger)_Schema_v1.png">
  </p>
+ 
+ 
 ## Future scope
 
 - This is just the beginning.
