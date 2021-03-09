@@ -80,6 +80,11 @@ BookRecipes <img src="https://img.shields.io/badge/app-v1-brightgreen">
  <img src="/readme_assets/OpenApi(Swagger)_Schema_v1.png">
  </p>
  
+ <h3>Diagrama:</h3>
+<p align="center">
+ <img src="/readme_assets/Diagrama.png">
+ </p>
+ 
  
 ## Future scope
 
