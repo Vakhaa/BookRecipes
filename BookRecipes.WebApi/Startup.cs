@@ -1,15 +1,27 @@
-﻿using JavaScriptEngineSwitcher.ChakraCore;
-using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
-using JavaScriptEngineSwitcher.Extensions.MsDependencyInjection;
+﻿using System;
+using System.Text;
+
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+
+using JavaScriptEngineSwitcher.ChakraCore;
+using JavaScriptEngineSwitcher.Extensions.MsDependencyInjection;
+
 using React.AspNet;
+
+using BookRecipes.Infrastructure.Data;
+using BookRecipes.Infrastructure.Identity;
+using BookRecipes.Infrastructure.Token;
 using BookRecipes.WebApi.WebHub;
+
 
 namespace BookRecipes.WebApi
 {
@@ -26,8 +38,52 @@ namespace BookRecipes.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers().AddNewtonsoftJson(options =>
-               options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-                );
+               {
+                   options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+               });
+
+            //Identity                                  // P.s Nurzhno dobavit` roli
+            services.AddIdentityCore<AppUser>(options => {
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireLowercase = false;
+
+            })
+            .AddEntityFrameworkStores<AppDbContext>().AddSignInManager<SignInManager<AppUser>>().AddDefaultTokenProviders();
+
+
+            // configure strongly typed settings objects
+            var jwtSection = Configuration.GetSection("JwtBearerTokenSettings");
+            services.Configure<JwtBearerTokenSettings>(jwtSection);
+            var jwtBearerTokenSettings = jwtSection.Get<JwtBearerTokenSettings>();
+            var key = Encoding.ASCII.GetBytes(jwtBearerTokenSettings.SecretKey);
+
+            services.ConfigureApplicationCookie(config => {
+                config.Cookie.Name = "Grandpa.Cookie";
+            });
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidIssuer = jwtBearerTokenSettings.Issuer,
+
+                    ValidateAudience = true,
+                    ValidAudience = jwtBearerTokenSettings.Audience,
+
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero,
+                };
+            }).AddIdentityCookies();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BookRecipes.WebApi", Version = "v1" });
@@ -36,7 +92,9 @@ namespace BookRecipes.WebApi
             services.AddSignalR();
             services.AddMemoryCache();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            
             services.AddReact();
+            
             services.AddJsEngineSwitcher(options => options.DefaultEngineName = ChakraCoreJsEngine.EngineName).AddChakraCore();
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -65,6 +123,7 @@ namespace BookRecipes.WebApi
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

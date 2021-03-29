@@ -74,7 +74,7 @@ namespace BookRecipes.Core.Controllers
         /// <return>Рецепт.</return>
         public Task<Recipe> FindRecipeAsync(int recipesId)
         {
-            return _unitOfWork.Repository.GetWithIncludeEntityAsync<Recipe>(r => r.Id == recipesId,r=>r.Category,r=>r.StepsHowCooking,r=>r.IngredientsInRecipe);
+            return _unitOfWork.Repository.GetWithIncludeEntityAsync<Recipe>(r => r.Id == recipesId,r=>r.Category,r=>r.StepsHowCooking,r=>r.IngredientsInRecipe, r=>r.MyRecipes);
         }
     }
 }

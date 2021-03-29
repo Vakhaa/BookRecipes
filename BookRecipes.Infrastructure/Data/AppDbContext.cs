@@ -1,28 +1,13 @@
 ﻿using System;
-using BookRecipes.Core.Entities;
-using BookRecipes.Core.Entities.SocialNetwork;
 using BookRecipes.Infrastructure.Data.Config;
+using BookRecipes.Infrastructure.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookRecipes.Infrastructure.Data
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<AppUser>
     {
-        /*public DbSet<Category> Categories { get; set; }
-        public DbSet<Recipe> Recipes { get; set; }
-        public DbSet<Ingredient> Ingredients { get; set; }
-        public DbSet<IngredientsInRecipe> IngredientsInRecipes { get; set; }
-        public DbSet<StepsInRecipe> StepsInRecipes { get; set; }
-        
-        public DbSet<Profile> Profiles { get; set; }
-        public DbSet<AuthData> AuthDatas { get; set; }
-        public DbSet<SocialNetworksData> SocialNetworksDatas{ get; set; }
-        public DbSet<ProfilePhotos> ProfilePhotos{ get; set; }
-        public DbSet<MyRecipes> MyRecipes{ get; set; }
-        public DbSet<Friends> Friends{ get; set; }
-        public DbSet<Messages> Messages{ get; set; }
-        public DbSet<Posts> Posts{ get; set; }*/
-
         public AppDbContext(DbContextOptions<AppDbContext> options): base(options)
         {
         }

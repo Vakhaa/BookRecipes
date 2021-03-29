@@ -190,14 +190,17 @@ namespace BookRecipes.Tests.Controllers
         {
             // Simulate "GetWithIncludeListAsync" method from "IRepository" to return test list of entities
             _repositoryMock.Setup(o =>
-            o.GetWithIncludeListAsync<Recipe>(It.IsAny<Expression<Func<Recipe, object>>>(), It.IsAny<Expression<Func<Recipe, object>>>(), It.IsAny<Expression<Func<Recipe, object>>>()))
+            o.GetWithIncludeListAsync<Recipe>(It.IsAny<Expression<Func<Recipe, object>>>(), It.IsAny<Expression<Func<Recipe, object>>>(), 
+            It.IsAny<Expression<Func<Recipe, object>>>(), It.IsAny<Expression<Func<Recipe, object>>>()))
                 .ReturnsAsync(_expectedListRecipe);
         }
         private void MakeMockGetWithIncludeEntityForRepository()
         {
             // Simulate "GetWithIncludeEntityAsync" method from "IRepository" to return test list of entities
             _repositoryMock.Setup(o =>
-            o.GetWithIncludeEntityAsync<Recipe>(It.IsAny<Func<Recipe, bool>>(), It.IsAny<Expression<Func<Recipe, object>>>(), It.IsAny<Expression<Func<Recipe, object>>>(), It.IsAny<Expression<Func<Recipe, object>>>()))
+            o.GetWithIncludeEntityAsync<Recipe>(It.IsAny<Func<Recipe, bool>>(), It.IsAny<Expression<Func<Recipe, object>>>(), 
+            It.IsAny<Expression<Func<Recipe, object>>>(), It.IsAny<Expression<Func<Recipe, object>>>(), 
+            It.IsAny<Expression<Func<Recipe, object>>>()))
                 .ReturnsAsync(_expectedRecipe);
         }
         private void MakeMockGetWithIncludeEntityForRepository_ReturnNull()
@@ -205,7 +208,8 @@ namespace BookRecipes.Tests.Controllers
             // Simulate "GetWithIncludeEntityAsync" method from "IRepository" to return test list of entities
             _repositoryMock.Setup(o =>
             o.GetWithIncludeEntityAsync<Recipe>
-            (It.IsAny<Func<Recipe, bool>>(), It.IsAny<Expression<Func<Recipe, object>>>(), It.IsAny<Expression<Func<Recipe, object>>>(), It.IsAny<Expression<Func<Recipe, object>>>()))
+            (It.IsAny<Func<Recipe, bool>>(), It.IsAny<Expression<Func<Recipe, object>>>(), It.IsAny<Expression<Func<Recipe, object>>>(), 
+            It.IsAny<Expression<Func<Recipe, object>>>(), It.IsAny<Expression<Func<Recipe, object>>>()))
                 .ReturnsAsync((Recipe)null);
         }
     }

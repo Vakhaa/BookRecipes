@@ -33,7 +33,7 @@ namespace BookRecipes.WebApi.Controllers
         [Produces("application/json")]
         public async Task<ActionResult<List<Profile>>> GetProfileAsync(int id)
         {
-            return new ObjectResult(await _profileController.GetProfileAsync(id));
+            return new ObjectResult(await _profileController.GetProfileByIdAsync(id));
         }
         
         [HttpGet("{id}/MyRecipes")]

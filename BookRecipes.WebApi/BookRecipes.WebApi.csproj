@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>dc32bf36-6ad5-426b-a653-e2c3f932ff84</UserSecretsId>
+    <AppNetCoreHostingModel>Linux</AppNetCoreHostingModel>
   </PropertyGroup>
 
   <ItemGroup>
