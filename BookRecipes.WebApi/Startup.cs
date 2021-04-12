@@ -21,7 +21,7 @@ using BookRecipes.Infrastructure.Data;
 using BookRecipes.Infrastructure.Identity;
 using BookRecipes.Infrastructure.Token;
 using BookRecipes.WebApi.WebHub;
-
+using BookRecipes.WebApi.Extensions.Middleware;
 
 namespace BookRecipes.WebApi
 {
@@ -64,26 +64,30 @@ namespace BookRecipes.WebApi
                 config.Cookie.Name = "Grandpa.Cookie";
             });
 
+            var tokenValidationParameters = new TokenValidationParameters()
+            {
+                ValidateIssuer = true,
+                ValidIssuer = jwtBearerTokenSettings.Issuer,
+
+                ValidateAudience = true,
+                ValidAudience = jwtBearerTokenSettings.Audience,
+
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(key),
+
+                /*ValidateLifetime = true,*/
+                ValidateLifetime = false,
+                ClockSkew = TimeSpan.Zero,
+            };
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.RequireHttpsMetadata = false;
                 options.SaveToken = true;
-                options.TokenValidationParameters = new TokenValidationParameters()
-                {
-                    ValidateIssuer = true,
-                    ValidIssuer = jwtBearerTokenSettings.Issuer,
-
-                    ValidateAudience = true,
-                    ValidAudience = jwtBearerTokenSettings.Audience,
-
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-
-                    ValidateLifetime = true,
-                    ClockSkew = TimeSpan.Zero,
-                };
+                options.TokenValidationParameters = tokenValidationParameters;
             }).AddIdentityCookies();
-
+            services.AddSingleton(tokenValidationParameters);
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BookRecipes.WebApi", Version = "v1" });
@@ -125,6 +129,8 @@ namespace BookRecipes.WebApi
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseMiddleware<TokenValidationMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

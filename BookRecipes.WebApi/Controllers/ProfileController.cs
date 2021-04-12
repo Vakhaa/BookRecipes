@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mime;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using BookRecipes.Core.Controllers;
-using BookRecipes.Core.Entities;
 using BookRecipes.Core.Entities.SocialNetwork;
-using BookRecipes.SharedKernel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 
 namespace BookRecipes.WebApi.Controllers
 {

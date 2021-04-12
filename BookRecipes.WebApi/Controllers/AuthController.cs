@@ -3,7 +3,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -14,6 +13,7 @@ using BookRecipes.Infrastructure.Identity;
 using BookRecipes.Infrastructure.Identity.Controller;
 using BookRecipes.Infrastructure.Token;
 using BookRecipes.Core.Controllers;
+using BookRecipes.WebApi.Extensions.Attributes;
 
 namespace BookRecipes.WebApi.Controllers
 {
@@ -45,15 +45,18 @@ namespace BookRecipes.WebApi.Controllers
             {
                 var user = await _loginController.AuthAsync(query, CancellationToken.None);
                 var profile = await _profileController.GetProfileByNameAsync(user.UserName); // change on login 
-                if(user!=null)
+
+                var tokens = await _jwtGenerator.CreateTokenAndRefreshTokenAsync(user);
+
+                if (user!=null)
                 {
                     var response = new
                     {
                         isAuth = true,
                         login = user.UserName,
                         userId = profile.Id,
-                        accessToken = _jwtGenerator.CreateToken(user),
-                        /*refreshToken = _jwtGenerator.CreateRefreshToken()*/
+                        accessToken = tokens.AccessToken,
+                        refreshToken = tokens.RefreshToken,
                     };
                     return Ok(response);
                 }
@@ -77,11 +80,6 @@ namespace BookRecipes.WebApi.Controllers
         [Produces("application/json")]
         public async Task<IActionResult> LogoutAsync()
         {
-            //From Cookie we can take few data
-            /*var identityCookie = HttpContext.Request.Cookies["Grandpa.Cookie"];
-            var token = HttpContext.Request.Headers["Authorization"];
-            var userId = getUserId(token);*/
-
             try
             {
                 await _loginController.LogoutAsync();
@@ -92,10 +90,10 @@ namespace BookRecipes.WebApi.Controllers
                 return BadRequest(error);
             }
         }
-        
+
         [HttpPost("Register")]
         [Produces("application/json")]
-        public async Task<ActionResult<bool>> RegisterAsync(AuthData query)
+        public async Task<IActionResult> RegisterAsync(AuthData query)
         {
             try
             {
@@ -111,14 +109,48 @@ namespace BookRecipes.WebApi.Controllers
             }
         }
 
-        [Authorize]
+        [HttpPut("Refresh")]
+        [Produces("application/json")]
+        public async Task<IActionResult> RefreshAsync([FromForm] string refreshToken)
+        {
+            var isExpiredToken = (bool)HttpContext.Items["isExpiredToken"];
+
+            if (isExpiredToken) return BadRequest("Token is alive");
+            try
+            {
+                var jti = (string)HttpContext.Items["jti"];
+
+                var user = await _loginController.RefreshTokenAsync(jti, refreshToken);
+
+                var tokens = await _jwtGenerator.CreateTokenAndRefreshTokenAsync(user);
+
+                return Ok(new
+                {
+                    accessToken = tokens.AccessToken,
+                    refreshToken = tokens.RefreshToken
+                });
+            }
+            catch (Exception e)
+            {
+                return Unauthorized(e.Message);
+            }
+        }
+        
         [HttpGet("TestAuth")]
         [Produces("application/json")]
+        [TokenAuthorizationFilter]
         public async Task<ActionResult<string>> TestsAuthAsync()
         {
-            return Ok("Test okay");
+            var isAuthorizated = (bool)HttpContext.Items["isAuthorizated"];
+            if(isAuthorizated)
+            {
+                return Ok("Test okay");
+            }else{
+                return Unauthorized();
+            }
         }
 
+        //
         private string decodeToken(string token)
         {
             var bearer = token.IndexOf(" ");

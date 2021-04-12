@@ -30,6 +30,7 @@ namespace BookRecipes.Infrastructure.Data
             modelBuilder.ApplyConfiguration(new MyRecipesConfig());
             modelBuilder.ApplyConfiguration(new PostsConfig());
             modelBuilder.ApplyConfiguration(new MessagesConfig());
+            modelBuilder.ApplyConfiguration(new RefreshTokenConfig());
         }
 
     }

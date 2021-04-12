@@ -1,9 +1,10 @@
-﻿using BookRecipes.Infrastructure.Identity;
+﻿using System.Threading.Tasks;
+using BookRecipes.Infrastructure.Identity;
 
 namespace BookRecipes.Infrastructure.Token
 {
     public interface IJwtGenerator
     {
-        string CreateToken(AppUser user);
+        Task<TokensRequest> CreateTokenAndRefreshTokenAsync(AppUser user);
     }
 }
