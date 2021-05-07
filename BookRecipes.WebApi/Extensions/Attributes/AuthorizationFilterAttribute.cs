@@ -3,34 +3,26 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.IdentityModel.Tokens;
 
-namespace BookRecipes.WebApi.Extensions.Middleware
+namespace BookRecipes.WebApi.Extensions.Attributes
 {
-    public class TokenValidationMiddleware  // Stay for example
+    [AttributeUsage(AttributeTargets.All, Inherited = true, AllowMultiple = false)]
+    public class AuthorizationFilterAttribute : Attribute, IAsyncActionFilter
     {
-        private readonly RequestDelegate _next;
-
-        private readonly TokenValidationParameters _tokenValidationParams;
-
-        public TokenValidationMiddleware(RequestDelegate next, 
-            TokenValidationParameters tokenValidationParams)
-        {
-            _next = next;
-            _tokenValidationParams = tokenValidationParams;
-        }
-
-        public async Task InvokeAsync(HttpContext context)
+        public Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             try
             {
-                var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+                var token = context.HttpContext.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 
-                var validatedToken = ValidatedToken(token);
+                var tokenValidationParameters = context.HttpContext.RequestServices.GetService(typeof(TokenValidationParameters));
                 
+                var validatedToken = ValidatedToken(token, (TokenValidationParameters)tokenValidationParameters);
+
                 var jti = validatedToken.Claims.SingleOrDefault(x => x.Type == JwtRegisteredClaimNames.Jti).Value;
-                context.Items.Add("jti", jti);
+                context.HttpContext.Items.Add("jti", jti);
 
                 var expiryDateUnix =
                 long.Parse(validatedToken.Claims.SingleOrDefault(x => x.Type == JwtRegisteredClaimNames.Exp).Value);
@@ -39,30 +31,30 @@ namespace BookRecipes.WebApi.Extensions.Middleware
 
                 if (expiryDateTimeUtc < DateTime.UtcNow)
                 {
-                    context.Response.StatusCode = 401;
-                    context.Items.Add("isExpiredToken", false);
+                    context.HttpContext.Response.StatusCode = 401;
+                    context.HttpContext.Items.Add("isExpiredToken", false);
                 }
                 else
                 {
-                    context.Response.StatusCode = 200;
-                    context.Items.Add("isExpiredToken", true);
+                    context.HttpContext.Response.StatusCode = 200;
+                    context.HttpContext.Items.Add("isExpiredToken", true);
                 }
 
             }
             catch (SecurityTokenValidationException error)
             {
-                context.Response.StatusCode = 401;
+                context.HttpContext.Response.StatusCode = 401;
             }
             catch (Exception error)
             {
-                context.Response.StatusCode = 400;
+                context.HttpContext.Response.StatusCode = 400;
             }
-            await _next(context);
+            return next.Invoke();
         }
 
-        private ClaimsPrincipal ValidatedToken(string token)
+        private ClaimsPrincipal ValidatedToken(string token, TokenValidationParameters tokenValidationParams)
         {
-            var validatedToken = GetPrincipalFromToken(token);
+            var validatedToken = GetPrincipalFromToken(token, tokenValidationParams);
 
             if (validatedToken == null)
             {
@@ -72,12 +64,12 @@ namespace BookRecipes.WebApi.Extensions.Middleware
             return validatedToken;
         }
 
-        private ClaimsPrincipal GetPrincipalFromToken(string token)
+        private ClaimsPrincipal GetPrincipalFromToken(string token, TokenValidationParameters tokenValidationParams)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             try
             {
-                var principal = tokenHandler.ValidateToken(token, _tokenValidationParams, out var validatedToken);
+                var principal = tokenHandler.ValidateToken(token, tokenValidationParams, out var validatedToken);
 
                 if (!IsJwtWithValidSecurityAlgorithm(validatedToken))
                 {
@@ -98,6 +90,5 @@ namespace BookRecipes.WebApi.Extensions.Middleware
                    jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256,
                        StringComparison.InvariantCultureIgnoreCase);
         }
-
     }
 }

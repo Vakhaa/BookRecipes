@@ -9,54 +9,6 @@ const initialState = {
     friends: []
 }
 
-let friendsMock = [
-    {
-        userId:0,
-        friends: [
-            {
-                userId:1
-            },
-            {
-                userId:2
-            },
-            ,
-            {
-                userId:3
-            }
-        ]
-    },
-    {
-        userId: 1,
-        friends: [
-            {
-                userId: 0
-            },
-            {
-                userId: 2
-            }
-        ]
-    },
-    {
-        userId :2,
-        friends: [
-            {
-                userId: 0
-            },
-            {
-                userId: 1
-            }
-        ]
-    },
-    {
-        userId: 3,
-        friends: [
-            {
-                userId: 0
-            }
-        ]
-    }
-]
-
 export default function friendsReducer(state = initialState, action) {
     switch (action.type) {
         case GET_FRIENDS_REQUEST:

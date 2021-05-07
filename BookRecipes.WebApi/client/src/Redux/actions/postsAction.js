@@ -9,6 +9,7 @@ import {
     from './actionTypes'
 
 import { postsAPI } from '../../DAL/posts-api'
+import { getRefreshToken } from './loginAction'
 
 export function requestAddPost() {
     return {
@@ -56,10 +57,16 @@ export function getUserPosts(currentUserId) {
         dispatch(requestUserPosts())
 
         try {
-            let response = await postsAPI.getPosts(currentUserId)
-            dispatch(receiveUserPosts(response.data))
+            let response = await postsAPI.getPosts(currentUserId);
+
+            dispatch(receiveUserPosts(response.data));
         } catch (error)
         {
+
+            if (error.response.status === 401) {
+                dispatch(getRefreshToken());
+            }
+
             dispatch(errorUserPosts(error))
         }
     }
@@ -71,9 +78,16 @@ export function addPost(currentUserId, title, body, authorId, conectionId) {
 
         try {
             let response = await postsAPI.postPost(currentUserId, title, body, authorId, conectionId)
+
             dispatch(receiveAddPost())
+
         } catch (error)
         {
+            if (error.response.status === 401) {
+
+                dispatch(getRefreshToken());
+            }
+
             dispatch(failedAddPost(error))
         }
     }

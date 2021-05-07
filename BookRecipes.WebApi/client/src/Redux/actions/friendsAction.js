@@ -10,6 +10,7 @@ import {
     from './actionTypes'
 
 import { friendsAPI } from '../../DAL/friends-api'
+import { getRefreshToken } from './loginAction'
 
 export function requestUserFriends(){
     return {
@@ -50,19 +51,12 @@ export function errorFriendLittleInfromation() {
     }
 }
 
-export function getLittleInfromationAboutFriend(userId) {
-    return (dispatch) => {
-        dispatch(requestFriendLittleInformation(userId))
-
-        dispatch(receiveFriendLittleInfromation())
-    }
-}
-
 export function clearFriends() {
     return {
         type: CLEAR_FRIEND_LITTLE_INFROMATIONS
     }
 }
+
 //генератор экшена
 
 export function getUserFriends(userId) {
@@ -71,9 +65,22 @@ export function getUserFriends(userId) {
 
         try {
             let response = await friendsAPI.getFriends(userId);
-            dispatch(receiveUserFriends(response.data))
+
+            dispatch(receiveUserFriends(response.data));
         } catch (error) {
+
+            if (error.response.status === 401) {
+                dispatch(getRefreshToken()); 
+            }
             dispatch(errorUserFriends(error))
         }
+    }
+}
+
+export function getLittleInfromationAboutFriend(userId) { // change it
+    return (dispatch) => {
+        dispatch(requestFriendLittleInformation(userId))
+
+        dispatch(receiveFriendLittleInfromation())
     }
 }

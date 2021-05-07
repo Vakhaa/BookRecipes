@@ -15,7 +15,6 @@ export default function loginReducer(state = initialState, action) {
     switch (action.type) {
         case LOGOUT:
             return {
-                ...state,
                 isLogin: false,
                 login: null,
                 userId: null
@@ -24,7 +23,6 @@ export default function loginReducer(state = initialState, action) {
             return { ...state }
         case LOGIN_SUCCESS:
             return {
-                ...state,
                 isLogin: action.isLogin,
                 login: action.login,
                 userId: action.userId,

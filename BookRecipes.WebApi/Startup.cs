@@ -21,7 +21,6 @@ using BookRecipes.Infrastructure.Data;
 using BookRecipes.Infrastructure.Identity;
 using BookRecipes.Infrastructure.Token;
 using BookRecipes.WebApi.WebHub;
-using BookRecipes.WebApi.Extensions.Middleware;
 
 namespace BookRecipes.WebApi
 {
@@ -75,7 +74,7 @@ namespace BookRecipes.WebApi
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(key),
 
-                /*ValidateLifetime = true,*/
+                /*ValidateLifetime = true,*/ // i have own validatingLifetime into the AuthorizationFilterAttribute
                 ValidateLifetime = false,
                 ClockSkew = TimeSpan.Zero,
             };
@@ -130,7 +129,7 @@ namespace BookRecipes.WebApi
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseMiddleware<TokenValidationMiddleware>();
+           // app.UseMiddleware<TokenValidationMiddleware>(); //Stay fro example middleware
 
             app.UseEndpoints(endpoints =>
             {

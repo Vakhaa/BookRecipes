@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mime;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using BookRecipes.Core.Controllers;
-using BookRecipes.Core.Entities;
 using BookRecipes.Core.Entities.SocialNetwork;
-using BookRecipes.SharedKernel;
+using BookRecipes.WebApi.Extensions.Attributes;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 
 namespace BookRecipes.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [MyAllowAnonymousFilter]
     public class FriendsController : ControllerBase
     {
         private readonly ILogger<BookController> _logger;
@@ -41,7 +37,7 @@ namespace BookRecipes.WebApi.Controllers
         }
         
         [HttpGet("Friend")]
-        [Produces("application/json")]
+        [Produces("application/json")] // Chto eto tut delajet :)
         public async Task<ActionResult<Friends>> GetMyRecipeByIdAsync(int currentUserId,int recipeId)
         {
             return new ObjectResult(await _friendController.GetFriendByIdAsync(currentUserId, recipeId));

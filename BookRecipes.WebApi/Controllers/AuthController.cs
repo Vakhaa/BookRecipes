@@ -19,6 +19,7 @@ namespace BookRecipes.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AuthorizationFilter]
     public class AuthController : ControllerBase
     {
         private readonly IJwtGenerator _jwtGenerator;
@@ -39,8 +40,19 @@ namespace BookRecipes.WebApi.Controllers
 
         [HttpPost("")]
         [Produces("application/json")]
+        [MyAllowAnonymousFilter]
         public async Task<ActionResult<AppUser>> AuthAsync(AuthData query)
         {
+            if (HttpContext.Response.StatusCode!=200)
+            {
+                var response = new
+                {
+                    isAuth = false,
+                    message = "wrong password or login"
+                };
+                return Unauthorized(response);
+            }
+            
             try
             {
                 var user = await _loginController.AuthAsync(query, CancellationToken.None);
@@ -48,6 +60,7 @@ namespace BookRecipes.WebApi.Controllers
 
                 var tokens = await _jwtGenerator.CreateTokenAndRefreshTokenAsync(user);
 
+               // HttpContext.Response.Headers.Add("Authorization", "Bearer "+ tokens.AccessToken);
                 if (user!=null)
                 {
                     var response = new
@@ -70,14 +83,20 @@ namespace BookRecipes.WebApi.Controllers
                     return Unauthorized(response);
                 }
             }
-            catch(Exception error)
+            catch(Exception )
             {
-                return BadRequest(error); 
+                var response = new
+                {
+                    isAuth = false,
+                    message = "wrong password or login"
+                };
+                return Unauthorized(response);
             }
         }
 
         [HttpDelete("Logout")]
         [Produces("application/json")]
+        [MyAllowAnonymousFilter]
         public async Task<IActionResult> LogoutAsync()
         {
             try
@@ -85,7 +104,7 @@ namespace BookRecipes.WebApi.Controllers
                 await _loginController.LogoutAsync();
                 return Ok(new { accessToken = "", message = "Logged Out" });
             }
-            catch(Exception error)
+            catch (Exception error)
             {
                 return BadRequest(error);
             }
@@ -93,6 +112,7 @@ namespace BookRecipes.WebApi.Controllers
 
         [HttpPost("Register")]
         [Produces("application/json")]
+        [MyAllowAnonymousFilter]
         public async Task<IActionResult> RegisterAsync(AuthData query)
         {
             try
@@ -111,24 +131,32 @@ namespace BookRecipes.WebApi.Controllers
 
         [HttpPut("Refresh")]
         [Produces("application/json")]
-        public async Task<IActionResult> RefreshAsync([FromForm] string refreshToken)
+        public async Task<IActionResult> RefreshAsync([FromHeader] string refreshToken)
         {
-            var isExpiredToken = (bool)HttpContext.Items["isExpiredToken"];
-
-            if (isExpiredToken) return BadRequest("Token is alive");
             try
             {
+                var isExpiredToken = (bool)HttpContext.Items["isExpiredToken"];
+
+                if (isExpiredToken) return BadRequest("Token is alive");
+
                 var jti = (string)HttpContext.Items["jti"];
 
                 var user = await _loginController.RefreshTokenAsync(jti, refreshToken);
 
                 var tokens = await _jwtGenerator.CreateTokenAndRefreshTokenAsync(user);
 
-                return Ok(new
+                var profile = await _profileController.GetProfileByNameAsync(user.UserName); // change on login 
+
+                var response = new
                 {
+                    isAuth = true,
+                    login = user.UserName,
+                    userId = profile.Id,
                     accessToken = tokens.AccessToken,
-                    refreshToken = tokens.RefreshToken
-                });
+                    refreshToken = tokens.RefreshToken,
+                };
+
+                return Ok(response);
             }
             catch (Exception e)
             {
@@ -150,7 +178,7 @@ namespace BookRecipes.WebApi.Controllers
             }
         }
 
-        //
+        // Let be here, for ever case
         private string decodeToken(string token)
         {
             var bearer = token.IndexOf(" ");

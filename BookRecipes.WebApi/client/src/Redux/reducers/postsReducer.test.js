@@ -1,4 +1,4 @@
-import { addPost, receiveUserPosts, requestUserPosts } from "../actions/postsAction";
+import { addPost, receiveAddPost, receiveUserPosts, requestAddPost, requestUserPosts } from "../actions/postsAction";
 import postsReducer from "./postsReducer";
 
 const state = {
@@ -20,44 +20,13 @@ const state = {
     ],
 }
 
-it('new post should be added', () => {
-    //Arrange
-    const expectedPost = {
-        postTitle : "test",
-        postBody : "It's my first test"
-    }
-
-    let action = addPost(expectedPost)
-
-    //Act
-    let newState = postsReducer(state, action)
-
-    
-    //Assert
-    expect(newState.posts.length).toBe(3);
-    expect(newState.posts[2].title).toBe(expectedPost.postTitle);
-    expect(newState.posts[2].main).toBe(expectedPost.postBody);
-});
-
-it('userId should be added', () => {  //GET_USER_POSTS_REQUEST
-    //Arrange
-    const expectedId = 0;
-    let action = requestUserPosts(expectedId)
-
-    //Act
-    let newState = postsReducer(state, action)
-
-
-    //Assert
-    expect(newState.userId).toBe(expectedId);
-});
-
 it('user posts should be pull', () => {  // GET_USER_POSTS_SUCCESS
     //Arrange
     const expectedId = 0;
     const initState = { ...state, userId: expectedId }
+    
 
-    let action = receiveUserPosts()
+    let action = receiveUserPosts(postsUsers[0].posts)
 
     //Act
     let newState = postsReducer(initState, action)
@@ -69,7 +38,6 @@ it('user posts should be pull', () => {  // GET_USER_POSTS_SUCCESS
     expect(newState.posts[0].id).toBe(postsUsers[0].posts[0].id);
     expect(newState.posts[0].main).toBe(postsUsers[0].posts[0].main);
     expect(newState.posts[0].title).toBe(postsUsers[0].posts[0].title);
-    expect(newState.posts[0].photo).toBe(postsUsers[0].posts[0].photo);
 });
 
 

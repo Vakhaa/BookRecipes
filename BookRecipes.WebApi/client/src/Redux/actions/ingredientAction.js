@@ -4,6 +4,8 @@ import {
     GET_INGREDIENT_ERROR
 }
     from './actionTypes'
+import { getRefreshToken } from './loginAction'
+import { ingredientsAPI } from '../../DAL/api.js'
 
 export function requestIngredient(id) {
     return {
@@ -29,16 +31,20 @@ export function errorIngredient(error) {
 //генератор экшена
 
 export function getIngredient(id) {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(requestIngredient(id))
 
-        fetch(`api/Ingredients/Ingredient/${id}`)
-            .then((response) => {
-                return response.json()
-            }).then(json => {
-                dispatch(receiveIngredient(json))
-            }).catch((e) => {
-                dispatch(errorIngredient(e))
-            });
+        try {
+            let response = await ingredientsAPI.getIngredient(id);
+
+            dispatch(receiveIngredient(response.data));
+        } catch (error) {
+
+            if (error.response.status === 401) {
+                dispatch(getRefreshToken());
+            }
+
+            dispatch(errorIngredient(error))
+        }
     }
 }

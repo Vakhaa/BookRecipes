@@ -6,14 +6,7 @@ import {
     from './actionTypes'
 
 import { profilesAPI } from '../../DAL/profile-api'
-
-/*export function requestProfile(id) {
-    return {
-        type: GET_PROFILE_REQUEST,
-        id: id
-    }
-}
-*/
+import { getRefreshToken } from './loginAction'
 
 export function requestProfile() {
     return {
@@ -28,13 +21,6 @@ export function receiveProfile(item) {
     }
 }
 
-/*export function receiveProfile() {
-    return {
-        type: GET_PROFILE_SUCCESS
-    }
-}*/
-
-
 export function errorProfile(error) {
     return {
         type: GET_PROFILE_ERROR,
@@ -44,13 +30,6 @@ export function errorProfile(error) {
 
 
 //генератор экшена
-/*export function getProfile(id) {
-    return (dispatch) => {
-        dispatch(requestProfile(id))
-        dispatch(receiveProfile())
-    }
-}*/
-
 
  export function getProfile(id) {
     return async (dispatch) => {
@@ -58,8 +37,14 @@ export function errorProfile(error) {
 
         try {
             let response = await profilesAPI.getProfile(id);
+
             dispatch(receiveProfile(response.data))
-        } catch(error) {
+        } catch (error) {
+
+            if (error.response.status  === 401) {
+                dispatch(getRefreshToken());
+            }
+
             dispatch(errorProfile(error))
         }
     }

@@ -7,8 +7,6 @@ using BookRecipes.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace BookRecipes.WebApi.Controllers
 {
     [Route("api/[controller]")]
@@ -26,19 +24,6 @@ namespace BookRecipes.WebApi.Controllers
             _recipeController = recipeController;
             _ingredientController = ingredientController;
             _logger = logger;
-        }
-        // GET: api/<SettingsController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/<SettingsController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
         }
 
         // POST api/<SettingsController>/AddCategory
@@ -80,18 +65,6 @@ namespace BookRecipes.WebApi.Controllers
             await _recipeController.AddedIngredientsInRecipeAsync(ingredientsId, countIngredients);
             await _recipeController.AddedStepsInRecipeAsync(stepsHowCooking);
             return Ok(_recipeController.CurrentRecipe);
-        }
-
-        // PUT api/<SettingsController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<SettingsController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }

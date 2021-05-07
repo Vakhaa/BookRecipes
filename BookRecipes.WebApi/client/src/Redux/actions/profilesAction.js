@@ -6,6 +6,7 @@ import {
     from './actionTypes'
 
 import { profilesAPI } from '../../DAL/api'
+import { getRefreshToken } from './loginAction'
 
 export function requestProfiles() {
     return {
@@ -33,10 +34,16 @@ export function getProfiles() {
     return (dispatch) => {
         dispatch(requestProfiles())
 
-        profilesAPI.getProfiles().then(data => {
-            dispatch(receiveProfiles(data))
-        }).catch(error => {
+        try {
+            let response = await profilesAPI.getProfiles();
+
+            dispatch(receiveProfiles(response.data))
+        } catch (error) {
+
+            if (error.response.status === 401) {
+                dispatch(getRefreshToken());
+            }
             dispatch(errorProfiles(error))
-        })
+        }
     }
 }

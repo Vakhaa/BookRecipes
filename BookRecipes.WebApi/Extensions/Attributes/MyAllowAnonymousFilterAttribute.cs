@@ -5,19 +5,14 @@ using Microsoft.AspNetCore.Mvc.Filters;
 namespace BookRecipes.WebApi.Extensions.Attributes
 {
     [AttributeUsage(AttributeTargets.All, Inherited = true, AllowMultiple = false)]
-    public class TokenAuthorizationFilterAttribute : Attribute, IAsyncActionFilter
+    public class MyAllowAnonymousFilterAttribute : Attribute, IAsyncActionFilter
     {
         public Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             switch(context.HttpContext.Response.StatusCode)
             {
-                case 400:
                 case 401:
-                case 403:
-                    context.HttpContext.Items.Add("isAuthorizated", false);
-                    break;
-                default:
-                    context.HttpContext.Items.Add("isAuthorizated", true);
+                    context.HttpContext.Response.StatusCode = 200;
                     break;
             }
             return next.Invoke();

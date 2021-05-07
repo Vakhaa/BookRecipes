@@ -9,6 +9,7 @@ import {
     from './actionTypes'
 
 import { messagesAPI } from '../../DAL/messages-api'
+import { getRefreshToken } from './loginAction'
 
 export function requestFriendMessages() {
     return {
@@ -58,13 +59,18 @@ export function addMessage(currentUserId, friendId, message, conectionId) {
 
         try {
             var response = await messagesAPI.postMessage(currentUserId, friendId, message, conectionId);
-            
+
             //chathubConnection.invoke("Send", response);
             dispatch(receiveAddMessage())
             /*chathubConnection.on("Send", function (data) {
                 console.log(data);
             });*/
         } catch (error) {
+
+            if (error.response.status === 401) {
+                dispatch(getRefreshToken()); 
+            }
+
             dispatch(failedAddMessage(error))
         }
     }
@@ -76,8 +82,14 @@ export function getFriendMessages(currentUserId, friendId) {
 
         try {
             var response = await messagesAPI.getMessages(currentUserId, friendId);
+
             dispatch(receiveFriendMessages(response.data))
         } catch (error) {
+
+            if (error.response.status  === 401) {
+                dispatch(getRefreshToken()); 
+            }
+
             dispatch(errorFriendMessages(error))
         }
     }

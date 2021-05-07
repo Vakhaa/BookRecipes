@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using BookRecipes.Core.Controllers;
 using BookRecipes.Core.Entities.SocialNetwork;
+using BookRecipes.WebApi.Extensions.Attributes;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -9,6 +10,7 @@ namespace BookRecipes.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AuthorizationFilter]
     public class ProfileController : ControllerBase
     {
         private readonly ILogger<BookController> _logger;
@@ -25,23 +27,34 @@ namespace BookRecipes.WebApi.Controllers
 
         [HttpGet("{id}")]
         [Produces("application/json")]
+        [TokenAuthorizationFilter]
         public async Task<ActionResult<List<Profile>>> GetProfileAsync(int id)
         {
-            return new ObjectResult(await _profileController.GetProfileByIdAsync(id));
+            var isAuthorizated = (bool)HttpContext.Items["isAuthorizated"];
+            if (!isAuthorizated)
+            {
+                return Unauthorized("You are don't authorized!");
+            }
+            else
+            {
+                return Ok(await _profileController.GetProfileByIdAsync(id));
+            }
         }
         
         [HttpGet("{id}/MyRecipes")]
         [Produces("application/json")]
+        [MyAllowAnonymousFilter] // nu i eto tut nae nado
         public async Task<ActionResult<List<MyRecipes>>> GetMyRecipesAsync(int id)
         {
-            return new ObjectResult(await _myRecipesController.GetMyRecipesAsync(id));
+            return Ok(await _myRecipesController.GetMyRecipesAsync(id));
         }
         
         [HttpGet("MyRecipe")]
         [Produces("application/json")]
+        [MyAllowAnonymousFilter]
         public async Task<ActionResult<MyRecipes>> GetMyRecipeByIdAsync(int recipeId)
         {
-            return new ObjectResult(await _myRecipesController.GetMyRecipeByIdAsync(recipeId));
+            return Ok(await _myRecipesController.GetMyRecipeByIdAsync(recipeId));
         }
     }
 }

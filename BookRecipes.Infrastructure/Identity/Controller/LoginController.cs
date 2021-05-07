@@ -1,10 +1,6 @@
 ﻿using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
-
 using BookRecipes.Core.Entities.SocialNetwork;
 using BookRecipes.Infrastructure.Token;
 using BookRecipes.SharedKernel.Interfaces;

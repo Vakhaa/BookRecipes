@@ -7,6 +7,7 @@ using BookRecipes.Core.Controllers;
 using BookRecipes.Core.Entities;
 using BookRecipes.Core.Entities.SocialNetwork;
 using BookRecipes.SharedKernel;
+using BookRecipes.WebApi.Extensions.Attributes;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -15,6 +16,7 @@ namespace BookRecipes.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AuthorizationFilter]
     public class PostsController : ControllerBase
     {
         private readonly ILogger<BookController> _logger;
@@ -29,18 +31,36 @@ namespace BookRecipes.WebApi.Controllers
 
         [HttpGet("{currentUserId}")]
         [Produces("application/json")]
+        [MyAllowAnonymousFilter]
         public async Task<ActionResult<List<Posts>>> GetUserPostsAsync(int currentUserId)
         {
-            return new ObjectResult(await _postController.GetUserPostsAsync(currentUserId));
+            try
+            {
+                return Ok(await _postController.GetUserPostsAsync(currentUserId));
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error.Message);
+            }
         }
 
         [HttpPost("CreatePost")] /*int profileId, string title, string body, int? authorId = null*/
+        [TokenAuthorizationFilter]
         public async Task<ActionResult<Posts>> AddPostAsync(Posts post)
         {
-            var response = await _postController.AddPostsAsync(post.ProfileId, post.Title, post.Body, post.AuthorId);
-            if (response != null) 
-            return Ok(response);
-            return BadRequest();
+            var isAuthorizated = (bool)HttpContext.Items["isAuthorizated"];
+            if (!isAuthorizated)
+            {
+                return Unauthorized("You are don't authorized!");
+            }
+            else
+            {
+                var response = await _postController.AddPostsAsync(post.ProfileId, post.Title, post.Body, post.AuthorId);
+                
+                if (response != null)
+                    return Ok(response);
+                return BadRequest();
+            }
         }
     }
 }

@@ -4,13 +4,16 @@ const instance = axios.create({
     withCredentials: true,
     baseURL: "/api",
     /*headers: {
-        "API-KEY" : "hash-kod"
+        "Authorization": "Bearer " + localStorage.getItem('accessToken')
     }*/
 })
 
 export const postsAPI = {
     getPosts(currentUserId) {
-        return instance.get(`Posts/${currentUserId}`);
+        return instance.get(`Posts/${currentUserId}`, {
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem('accessToken')
+            }});
     },
     postPost(profileId, title, body, authorId, conectionId) {
         return instance.post(`Posts/CreatePost/${conectionId}`, {
@@ -18,6 +21,9 @@ export const postsAPI = {
             title: title,
             body: body,
             authorId: authorId
-        });
+        }, {
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem('accessToken')
+            }});
     }
 }

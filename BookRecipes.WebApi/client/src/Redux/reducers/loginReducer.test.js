@@ -1,4 +1,4 @@
-import { checkLogin, logout } from "../actions/loginAction";
+import { successLogin, failedLogin, logout } from "../actions/loginAction";
 import loginReducer from "./loginReducer";
 
 const loginMock = [
@@ -33,30 +33,25 @@ const state = {
 it('login should be success', () => {
     //Arrange
     const expectedLogin = {
+        userId: 1,
         login: "sub",
-        password: 1234
+        isLogin: true,
     }
 
-    let action = checkLogin(expectedLogin)
+    let action = successLogin(expectedLogin)
 
     //Act
     let newState = loginReducer(state, action)
-
     
     //Assert
     expect(newState.userId).toBe(1);
     expect(newState.login).toBe(expectedLogin.login);
-    expect(newState.isLogin).toBe(true);
 });
 
 it('login should be failed', () => {
     //Arrange
-    const expectedLogin = {
-        login: "subzero",
-        password: 1234
-    }
-
-    let action = checkLogin(expectedLogin)
+    
+    let action = failedLogin("error");
 
     //Act
     let newState = loginReducer(state, action)
